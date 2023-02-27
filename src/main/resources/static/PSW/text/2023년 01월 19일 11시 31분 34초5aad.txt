@@ -1,0 +1,2 @@
+<p><img src="PSW/upload/ddug.png
+" style="width: 345px;">Hello Summernote</p>

@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="gloria">
+    <meta name="date" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="/favicon/favicon.ico" type="image/x-icon">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="css/main/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="css/main/icomoon.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="css/main/bootstrap.css">
+    <!-- Flexslider  -->
+    <link rel="stylesheet" href="css/main/flexslider.css">
+    <!-- Flaticons  -->
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="css/main/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/main/owl.theme.default.min.css">
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="css/main/style.css">
+
+    <link rel="stylesheet" href="css/graph/form/_form.css">
+    <link rel="stylesheet" href="css/graph/tailwind/_base.css">
+    <link rel="stylesheet" href="css/graph/tailwind/_components.css">
+    <link rel="stylesheet" href="css/graph/tailwind/_utilities.css">
+
+    <link rel="stylesheet" href="css/graph/main.css">
+
+    <link rel="stylesheet" href="css/graph/main.css?v=1628755089081">
+
+    <link rel="stylesheet" href="css/header.css">
+
+    <link rel="stylesheet" href="css/font.css">
+
+
+    <!-- script
+    ================================================== -->
+    <script src="js/modernizr.js"></script>
+
+    <!-- Modernizr JS -->
+    <script src="js/modernizr-2.6.2.min.js"></script>
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-130795909-1"></script>
+    <script async="" src="https://connect.facebook.net/en_US/fbevents.js"></script>
+    <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
+    <script type="text/javascript" async=""
+            src="https://www.googletagmanager.com/gtag/js?id=G-QWQ2BWJCQQ&amp;l=dataLayer&amp;cx=c"></script>
+
+    <title></title>
+</head>
+<style th:replace="mouse.html :: style"></style>
+<style>
+    select {
+        font-size: 32px;
+    }
+    h1{
+        font-size: 18px;
+    }
+    .s-header {
+        display: flex;
+    }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+</style>
+<script src="https://kit.fontawesome.com/8591377d67.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://kit.fontawesome.com/8591377d67.css" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+    h1, h2, h3, h4, h5, h6, span, p, a, label, input, textarea, button, select, option {
+        font-family: 'Gowun Dodum', sans-serif !important;
+        font-size: large !important;
+        letter-spacing: 0rem; !important;
+    }
+</style>
+
+<link rel="stylesheet" href="css/modal.css">
+
+<body style="line-height: 3.5rem;">
+<div id="colorlib-page">
+    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+
+    <header th:replace="sider.html :: header" style="font-family: 'Gowun Dodum', sans-serif; !important;"></header>
+
+
+    <div id="colorlib-main" style="width: 95% !important;">
+        <section class="section main-section">
+            <div class="grid gap-6 grid-cols-1 md:grid-cols-3 mb-6">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="flex items-center justify-between">
+                            <div class="widget-label">
+                                <h3>
+                                    Clients
+                                </h3>
+                                <h1 id="allClient">
+                                    512
+                                </h1>
+                            </div>
+                            <span class="icon widget-icon text-green-500"><i
+                                    class="mdi mdi-account-multiple mdi-48px"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="flex items-center justify-between">
+                            <div class="widget-label">
+                                <h3>
+                                    매출
+                                </h3>
+                                <h1 id="sales">
+                                    $7,770
+                                </h1>
+                            </div>
+                            <span class="icon widget-icon text-blue-500"><i
+                                    class="mdi mdi-cart-outline mdi-48px"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-content">
+                        <div class="flex items-center justify-between">
+                            <div class="widget-label">
+                                <h3>
+                                    보유금
+                                </h3>
+                                <h1 id="realSales">
+                                    $7,770
+                                </h1>
+                            </div>
+                            <span class="icon widget-icon text-blue-500"><i
+                                    class="mdi mdi-cart-outline mdi-48px"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content" style="width: 1000px;">
+                    <select onchange="changeChartCategory(this.value)">
+                        <option value="1">회원통계</option>
+                        <option value="2">매출통계</option>
+                        <option value="3">게시판통계</option>
+                        <option value="4">트렌드</option>
+                    </select>
+                    <select id="chartSelectName" onchange="changeChartName(this.value)">
+                        <option value="회원전체">회원 비율</option>
+                        <option value="회원증가추이">월별신규회원</option>
+                        <option value="성별">성별</option>
+                    </select>
+                    <select onchange="changeChartYear(this.value)">
+                        <option value="2023">2023년</option>
+                        <option value="2022">2022년</option>
+                    </select>
+
+                </div>
+            </div>
+
+            <div class="card mb-6">
+                <div class="card-content">
+                    <div class="chart-area" style="width: 1000px;">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<script type="text/javascript" src="js/main.min.js?v=1628755089081"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+
+<!-- jQuery -->
+<script src="js/jquery.min.js"></script>
+<!-- jQuery Easing -->
+<script src="js/jquery.easing.1.3.js"></script>
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Waypoints -->
+<script src="js/jquery.waypoints.min.js"></script>
+<!-- Flexslider -->
+<script src="js/jquery.flexslider-min.js"></script>
+<!-- Sticky Kit -->
+<script src="js/sticky-kit.min.js"></script>
+<!-- Owl carousel -->
+<script src="js/owl.carousel.min.js"></script>
+<!-- Counters -->
+<script src="js/jquery.countTo.js"></script>
+
+<script src="js/graph/chart.sample.js"></script>
+<script src="js/graph/main.js"></script>
+<script type="text/javascript" src="js/main.min.js?v=1628755089081"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+<script type="text/javascript" src="js/chart.sample.min.js"></script>
+<link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+
+
+<!-- MAIN JS -->
+<script src="js/main.js"></script>
+
+<script src="js/modal.js"></script>
+
+<script type="text/javascript">
+    // 변수 설정
+    let chartName = "";
+    let year = "2023";
+
+    // 차트 카테고리
+    function changeChartCategory(input) {
+        if (input == 1) {
+            $("#chartSelectName").html(" <option value=\"회원전체\">회원 비율</option>\n" +
+                "<option value=\"회원증가추이\">월별신규회원</option>"+
+                "<option value=\"성별\">성별</option>");
+            chartName = "회원전체";
+            STA001();
+        } else if (input == 2) {
+            $("#chartSelectName").html("<option value=\"매출\">매출</option>");
+            chartName = "매출";
+            STA003();
+        } else if (input == 3) {
+            $("#chartSelectName").html("<option value=\"게시판통계\">카테고리별 게시글</option>" +
+                "<option value=\"게시판좋아요\">카테고리별 좋아요</option>" +
+                "<option value=\"게시판조회수\">카테고리별 조회수</option>");
+            chartName = "게시판통계";
+            STA005();
+        } else if (input == 4) {
+            $("#chartSelectName").html("<option value=\"전반적인트렌드\">개요</option>");
+            chartName = "전반적인트렌드";
+            STA008();
+        }
+    }
+
+    // 차트 이름 체인지
+    function changeChartName(input) {
+        chartName = input;
+        changeChart();
+    }
+
+    // 차트 년도 변경
+    function changeChartYear(input) {
+        year = input;
+        changeChart();
+    }
+
+    // 차트 변경
+    function changeChart() {
+        if (chartName === '회원전체') {
+            STA001();
+        } else if (chartName === '회원증가추이') {
+            STA002();
+        } else if (chartName === '매출') {
+            STA003();
+        } else if (chartName === '게시판통계') {
+            STA005();
+        } else if (chartName === '게시판좋아요') {
+            STA006();
+        } else if (chartName === '게시판조회수') {
+            STA007();
+        } else if (chartName === '전반적인트렌드') {
+            STA008();
+        } else if(chartName ==='성별'){
+            STA009();
+        }
+    }
+
+
+    // 차트 x 축
+    let labels = [
+        '총',
+        '유효',
+        '휴면',
+        '직원'
+    ];
+
+    // 차트
+    let chartData = {
+        labels: labels,
+        datasets: [{
+            label: '전체',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: [0, 10, 5, 2, 20, 30, 45],
+        }]
+    };
+
+    // 모듈
+    let config = {
+        type: 'bar',
+        data: chartData,
+        options: {}
+    };
+
+
+    // 차트 여러개 띄울경우에 사용하기 위해 배열로 선언
+    let context = [];
+
+    // 캔버스 초기화 -> 그래프 재설정시 기존 그래프 삭제
+    function resetCanvas(input) {
+        let output = "";
+
+        for (let i = 0; i < input; i++) {
+            if (i == 0) {
+                output +="<h1 id = 'title"+(i+1)+"'></h1>" +
+                    "<canvas id=\"myChart\"></canvas>";
+            } else {
+                output += "<h1 id = 'title"+(i+1)+"'></h1>"+
+                    "<canvas id=\"myChart" + (i + 1) + "\"></canvas>";
+            }
+        }
+
+        $(".chart-area").html(output);
+
+        // 먼저 초기화
+        context = [];
+
+        for (let i = 0; i < input; i++) {
+            if (i == 0) {
+                context.push(document
+                    .getElementById('myChart')
+                    .getContext('2d'));
+            } else {
+                context.push(document
+                    .getElementById('myChart' + (i + 1))
+                    .getContext('2d'));
+            }
+        }
+
+    }
+
+    new Chart(context, config);
+
+    // 초기 조회
+    STA001();   // 회원 조회
+    STA004();   // 위에 필수 정보 조회
+
+    // 회원 전체 통계
+    function STA001() {
+        $.ajax({
+            type: "POST",
+            url: "STA001",
+            async: false,
+            dataType: "json",
+            success: function (result) {
+                resetCanvas(1);
+                $("#title1").html("회원 전체 통계");
+                labels = [
+                    '총',
+                    '유효',
+                    '휴면',
+                    '직원'
+                ];
+                chartData = {
+                    labels: labels,
+                    datasets: [{
+                        label: '전체',
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: [result[0].staNum, result[1].staNum, result[2].staNum, result[3].staNum]
+                    }]
+                };
+
+                config = {
+                    type: 'bar',
+                    data: chartData,
+                    options: {}
+                };
+                new Chart(context[0], config);
+                $("#allClient").html(result[0].staNum);
+
+            },
+            error: function () {
+                alert("회원 전체 통계 통신오류");
+            }
+        });
+    }
+
+    // 회원 증가 추이
+    function STA002() {
+        $.ajax({
+            type: "POST",
+            url: "STA002",
+            data: {
+                "year": year
+            },
+            async: false,
+            dataType: "json",
+            success: function (result) {
+                resetCanvas(1);
+                $("#title1").html("회원 증가 추이");
+                //console.log(result);
+
+                labels = [];
+                for (let i in result) {
+                    labels.push(result[i].staName);
+                }
+                //console.log(labels);
+
+                // 월별 증가
+                let numdata = [];
+
+                // 월별 전체
+                let numdata2 = [];
+
+                for (let i in result) {
+                    numdata.push(result[i].staNum);
+                    numdata2.push(result[i].staNum2);
+                }
+
+                chartData = {
+                    labels: labels,
+                    datasets: [{
+                        label: '회원증가추이',
+                        backgroundColor: '#000080',
+                        borderColor: '#000080',
+                        data: numdata,
+                    }, {
+                        label: '전체회원',
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: 'rgb(150, 150, 132)',
+                        data: numdata2,
+                        fill: false
+                    }
+                    ]
+                };
+
+
+                //console.log(chartData);
+                config = {
+                    type: 'line',
+                    data: chartData,
+                    options: {}
+                };
+                new Chart(context[0], config);
+            },
+            error: function () {
+                alert("회원 전체 통계 통신오류");
+            }
+        });
+    }
+
+
+    // 매출통계
+    function STA003() {
+        $.ajax({
+            type: "POST",
+            url: "STA003",
+            data: {
+                "year": year
+            },
+            async: false,
+            dataType: "json",
+            success: function (result) {
+                resetCanvas(1);
+                $("#title1").html("매출 통계");
+                //console.log(result);
+
+                labels = [];
+                for (let i in result) {
+                    labels.push(result[i].staName);
+                }
+                //console.log(labels);
+
+                // 누적 매출
+                let numdata = [];
+
+                // 월별 매출
+                let numdata2 = [];
+
+                //  누적  포인트 매출
+                let numdata3 = [];
+
+                // 월별 포인트 매출
+                let numdata4 = [];
+
+                // 누적 맴버쉽매출
+                let numdata5 = [];
+
+                // 월별 맴버쉽매출
+                let numdata6 = [];
+
+                // 누적 환급
+                let numdata7 = [];
+
+                // 월별 환급
+                let numdata8 = [];
+
+                // 보유금
+                let numdata9 = [];
+
+
+                for (let i in result) {
+                    numdata.push(result[i].staNum);
+                    numdata2.push(result[i].staNum2);
+                    numdata3.push(result[i].staNum3);
+                    numdata4.push(result[i].staNum4);
+                    numdata5.push(result[i].staNum5);
+                    numdata6.push(result[i].staNum6);
+                    numdata7.push(result[i].staNum7);
+                    numdata8.push(result[i].staNum8);
+                    numdata9.push(result[i].staNum9);
+                }
+
+                chartData = {
+                    labels: labels,
+                    datasets: [{
+                        label: '누적 매출',
+                        backgroundColor: 'rgb(255, 0, 0)',
+                        borderColor: 'rgb(255, 0, 0)',
+                        data: numdata,
+                        fill: false
+                    }, {
+                        label: '월별 매출',
+                        backgroundColor: 'rgb(255, 165, 0)',
+                        borderColor: 'rgb(255, 165, 0)',
+                        data: numdata2,
+                        fill: false
+                    }, {
+                        label: '누적  포인트 매출',
+                        backgroundColor: 'rgb(255, 255, 0)',
+                        borderColor: 'rgb(255, 255, 0)',
+                        data: numdata3,
+                        fill: false
+                    }, {
+                        label: '월별 포인트 매출',
+                        backgroundColor: 'rgb(157,216,75)',
+                        borderColor: 'rgb(157,216,75)',
+                        data: numdata4,
+                        fill: false
+                    }, {
+                        label: '누적 맴버쉽매출',
+                        backgroundColor: 'rgb(0,255,0)',
+                        borderColor: 'rgb(0,255,0)',
+                        data: numdata5,
+                        fill: false
+                    }, {
+                        label: '월별 맴버쉽매출',
+                        backgroundColor: 'rgb(0,255,255)',
+                        borderColor: 'rgb(0,255,255)',
+                        data: numdata6,
+                        fill: false
+                    }, {
+                        label: '누적 환급',
+                        backgroundColor: 'rgb(0,0,255)',
+                        borderColor: 'rgb(0,0,255)',
+                        data: numdata7,
+                        fill: false
+                    }, {
+                        label: '월별 환급',
+                        backgroundColor: '#000080',
+                        borderColor: '#000080',
+                        data: numdata8,
+                        fill: false
+                    }, {
+                        label: '보유금',
+                        backgroundColor: 'rgb(128,0,128)',
+                        borderColor: 'rgb(128,0,128)',
+                        data: numdata9,
+                        fill: false
+                    }
+                    ]
+                };
+
+
+                //console.log(chartData);
+                config = {
+                    type: 'line',
+                    data: chartData,
+                    options: {}
+                };
+                new Chart(context[0], config);
+            },
+            error: function () {
+                alert("회원 전체 통계 통신오류");
+            }
+        });
+    }
+
+    // 기본 정보 가져오기
+    function STA004() {
+        $.ajax({
+            type: "POST",
+            url: "STA004",
+            async: false,
+            dataType: "json",
+            success: function (result) {
+                console.log(result);
+                $("#sales").html(result.staNum);
+                $("#realSales").html(result.staNum2);
+
+            },
+            error: function () {
+                alert("기본 정보 통신 실패");
+            }
+
+        });
+    }
+
+    // 게시판통계
+    function STA005() {
+        $.ajax({
+            type: "POST",
+            url: "STA005",
+            data: {
+                "year": year
+            },
+            async: false,
+            dataType: "json",
+            success: function (result) {
+                resetCanvas(1);
+                $("#title1").html("게시판 통계");
+                //console.log(result);
+
+                labels = [];
+                for (let i in result) {
+                    labels.push(result[i].staName);
+                }
+                //console.log(labels);
+
+                // 게시판별 게시글갯수
+                let numdata = [];
+                let cololrdata = [];
+                let count = 0;
+                for (let i in result) {
+                    numdata.push(result[i].staNum);
+                    // 컬러 리스트 갯수만큼 반복해서 집어 넣기
+                    if (count == 0) {
+                        cololrdata.push('rgb(255, 99, 132)');
+                    } else if (count == 1) {
+                        cololrdata.push('rgb(255, 159, 64)');
+                    } else if (count == 2) {
+                        cololrdata.push('rgb(255, 205, 86)');
+                    } else if (count == 3) {
+                        cololrdata.push('rgb(75, 192, 192)');
+                    } else if (count == 4) {
+                        cololrdata.push('rgb(54, 162, 235)');
+                    } else if (count == 5) {
+                        cololrdata.push('rgb(153, 102, 255)');
+                    }
+
+                    // 5가지색깔로 넣기
+                    if (count == 5) {
+                        count = 0;
+                    } else {
+                        count += 1;
+                    }
+
+                }
+
+                chartData = {
+                    labels: labels,
+                    datasets: [{
+                        label: '카테고리별 게시글 통계',
+                        backgroundColor: cololrdata,
+                        borderColor: '#ff0080',
+                        data: numdata,
+                    }]
+                };
+
+
+                //console.log(chartData);
+                config = {
+                    type: 'pie',
+                    data: chartData,
+                    options: {}
+                };
+                new Chart(context[0], config);
+            },
+            error: function () {
+                alert("게시글 갯수 통신오류");
+            }
+        });
+    }
+
+    // 좋아요 통계
+    function STA006() {
+        $.ajax({
+            type: "POST",
+            url: "STA006",
+            data: {
+                "year": year
+            },
+            async: false,
+            dataType: "json",
+            success: function (result) {
+                $("#title1").html("좋아요 통계");
+                resetCanvas(1);
+                //console.log(result);
+
+                labels = [];
+                for (let i in result) {
+                    labels.push(result[i].staName);
+                }
+                //console.log(labels);
+
+                // 게시판별 좋아요갯수
+                let numdata = [];
+                let cololrdata = [];
+                let count = 0;
+                for (let i in result) {
+                    numdata.push(result[i].staNum);
+                    // 컬러 리스트 갯수만큼 반복해서 집어 넣기
+                    if (count == 0) {
+                        cololrdata.push('rgb(255, 99, 132)');
+                    } else if (count == 1) {
+                        cololrdata.push('rgb(255, 159, 64)');
+                    } else if (count == 2) {
+                        cololrdata.push('rgb(255, 205, 86)');
+                    } else if (count == 3) {
+                        cololrdata.push('rgb(75, 192, 192)');
+                    } else if (count == 4) {
+                        cololrdata.push('rgb(54, 162, 235)');
+                    } else if (count == 5) {
+                        cololrdata.push('rgb(153, 102, 255)');
+                    }
+
+                    // 5가지색깔로 넣기
+                    if (count == 5) {
+                        count = 0;
+                    } else {
+                        count += 1;
+                    }
+
+                }
+
+                chartData = {
+                    labels: labels,
+                    datasets: [{
+                        label: '카테고리별 좋아요 통계',
+                        backgroundColor: cololrdata,
+                        borderColor: '#ff0080',
+                        data: numdata,
+                    }]
+                };
+
+
+                //console.log(chartData);
+                config = {
+                    type: 'pie',
+                    data: chartData,
+                    options: {}
+                };
+                new Chart(context[0], config);
+            },
+            error: function () {
+                alert("좋아요 갯수 통신오류");
+            }
+        });
+    }
+
+    // 조회수 통계
+    function STA007() {
+        $.ajax({
+            type: "POST",
+            url: "STA007",
+            data: {
+                "year": year
+            },
+            async: false,
+            dataType: "json",
+            success: function (result) {
+                resetCanvas(1);
+                $("#title1").html("조회수 통계");
+                //console.log(result);
+
+                labels = [];
+                for (let i in result) {
+                    labels.push(result[i].staName);
+                }
+                //console.log(labels);
+
+                // 게시판별 조회수
+                let numdata = [];
+                let cololrdata = [];
+                let count = 0;
+                for (let i in result) {
+                    numdata.push(result[i].staNum);
+                    // 컬러 리스트 갯수만큼 반복해서 집어 넣기
+                    if (count == 0) {
+                        cololrdata.push('rgb(255, 99, 132)');
+                    } else if (count == 1) {
+                        cololrdata.push('rgb(255, 159, 64)');
+                    } else if (count == 2) {
+                        cololrdata.push('rgb(255, 205, 86)');
+                    } else if (count == 3) {
+                        cololrdata.push('rgb(75, 192, 192)');
+                    } else if (count == 4) {
+                        cololrdata.push('rgb(54, 162, 235)');
+                    } else if (count == 5) {
+                        cololrdata.push('rgb(153, 102, 255)');
+                    }
+
+                    // 5가지색깔로 넣기
+                    if (count == 5) {
+                        count = 0;
+                    } else {
+                        count += 1;
+                    }
+
+                }
+
+                chartData = {
+                    labels: labels,
+                    datasets: [{
+                        label: '카테고리별 조회수 통계',
+                        backgroundColor: cololrdata,
+                        borderColor: '#ff0080',
+                        data: numdata,
+                    }]
+                };
+
+
+                //console.log(chartData);
+                config = {
+                    type: 'pie',
+                    data: chartData,
+                    options: {}
+                };
+                new Chart(context[0], config);
+            },
+            error: function () {
+                alert("조회수 통신오류");
+            }
+        });
+    }
+
+    // 트렌드 통계
+    function STA008() {
+        $.ajax({
+            type: "POST",
+            url: "STA008",
+            data: {
+                "year": year
+            },
+            async: false,
+            dataType: "json",
+            success: function (result) {
+                resetCanvas(5);
+                console.log(result);
+                STA008INNER1(result[0]);
+                STA008INNER2(result[0]);
+                STA008INNER3(result[1]);
+                STA008INNER4(result[2]);
+                STA008INNER5(result[3]);
+            },
+            error: function () {
+                alert("조회수 통신오류");
+            }
+        });
+    }
+
+    // 경매,문학 월별 포인트 소모
+    function STA008INNER1(result) {
+        $("#title1").html("월별 포인트 사용 금액");
+        labels = [];
+        let cololrdata = [];
+        let numdata=[];
+        let numdata2=[];
+
+        for (let i in result) {
+            labels.push(result[i].staName);
+            numdata.push(result[i].staNum);
+            numdata2.push(result[i].staNum2);
+        }
+        //console.log(labels);
+        cololrdata.push('rgb(255, 99, 132)');
+        cololrdata.push('rgb(255, 159, 64)');
+
+        chartData = {
+            labels: labels,
+            datasets: [{
+                label: '문학 판매액',
+                backgroundColor: cololrdata[0],
+                borderColor: cololrdata[0],
+                data: numdata,
+                fill: false
+            }, {
+                label: '경매 판매액',
+                backgroundColor: cololrdata[1],
+                borderColor: cololrdata[1],
+                data: numdata2,
+                fill: false
+            }]
+        };
+
+
+        //console.log(chartData);
+        config = {
+            type: 'line',
+            data: chartData,
+            options: {}
+        };
+        new Chart(context[0], config);
+    }
+
+    // 문학, 경매 포인트 사용 비율
+    function STA008INNER2(result) {
+        $("#title2").html("문학, 경매 포인트 사용 비율");
+        labels = [];
+        let cololrdata = [];
+        let numdata=[];
+        let numdata2=[];
+
+        for (let i in result) {
+            labels.push(result[i].staName);
+            if(result[i].staNum === 0 && result[i].staNum2 ===0 ){
+                numdata.push(1/2*100);
+                numdata2.push(1/2*100);
+            }else{
+                numdata.push(result[i].staNum/(result[i].staNum+result[i].staNum2)*100);
+                numdata2.push(result[i].staNum2/(result[i].staNum+result[i].staNum2)*100);
+            }
+
+        }
+        //console.log(labels);
+        cololrdata.push('rgb(255, 99, 132)');
+        cololrdata.push('rgb(255, 159, 64)');
+
+        chartData = {
+            labels: labels,
+            datasets: [{
+                label: '문학 판매 비율',
+                backgroundColor: cololrdata[0],
+                borderColor: cololrdata[0],
+                data: numdata,
+                fill: false
+            }, {
+                label: '경매 판매 비율',
+                backgroundColor: cololrdata[1],
+                borderColor: cololrdata[1],
+                data: numdata2,
+                fill: false
+            }]
+        };
+
+
+        //console.log(chartData);
+        config = {
+            type: 'bar',
+            data: chartData,
+            options: {}
+        };
+        new Chart(context[1], config);
+    }
+
+
+    // 카테고리별 최근 조회수
+    function STA008INNER3(result){
+        $("#title3").html("최근 카테고리별 조회수 트렌드");
+        labels = [];
+        for (let i in result) {
+            labels.push(result[i].staName);
+        }
+        //console.log(labels);
+
+        // 카테고리별 최근 조회수 -> 게시물 히스토리에서 가져온 값(한 계정당 최근 100개)
+        let numdata = [];
+        let cololrdata = [];
+        let count = 0;
+        for (let i in result) {
+            numdata.push(result[i].staNum);
+            // 컬러 리스트 갯수만큼 반복해서 집어 넣기
+            if (count == 0) {
+                cololrdata.push('rgb(255, 99, 132)');
+            } else if (count == 1) {
+                cololrdata.push('rgb(255, 159, 64)');
+            } else if (count == 2) {
+                cololrdata.push('rgb(255, 205, 86)');
+            } else if (count == 3) {
+                cololrdata.push('rgb(75, 192, 192)');
+            } else if (count == 4) {
+                cololrdata.push('rgb(54, 162, 235)');
+            } else if (count == 5) {
+                cololrdata.push('rgb(153, 102, 255)');
+            }
+
+            // 5가지색깔로 넣기
+            if (count == 5) {
+                count = 0;
+            } else {
+                count += 1;
+            }
+
+        }
+
+        chartData = {
+            labels: labels,
+            datasets: [{
+                label: '카테고리별 최근 조회수 통계',
+                backgroundColor: cololrdata,
+                borderColor: '#ff0080',
+                data: numdata,
+            }]
+        };
+        //console.log(chartData);
+        config = {
+            type: 'pie',
+            data: chartData,
+            options: {}
+        };
+        new Chart(context[2], config);
+    }
+
+
+    // 워크스페이스별 최근 조회수
+    function STA008INNER4(result){
+        $("#title4").html("최근 워크스페이스별 상위 10개 조회수 트렌드");
+        labels = [];
+        for (let i in result) {
+            labels.push(result[i].staName);
+        }
+        //console.log(labels);
+
+        // 워크스페이별 최근 조회수 -> 게시물 히스토리에서 가져온 값(한 계정당 최근 100개)
+        let numdata = [];
+        let cololrdata = [];
+        let count = 0;
+        for (let i in result) {
+            numdata.push(result[i].staNum);
+            // 컬러 리스트 갯수만큼 반복해서 집어 넣기
+            if (count == 0) {
+                cololrdata.push('rgb(255, 99, 132)');
+            } else if (count == 1) {
+                cololrdata.push('rgb(255, 159, 64)');
+            } else if (count == 2) {
+                cololrdata.push('rgb(255, 205, 86)');
+            } else if (count == 3) {
+                cololrdata.push('rgb(75, 192, 192)');
+            } else if (count == 4) {
+                cololrdata.push('rgb(54, 162, 235)');
+            } else if (count == 5) {
+                cololrdata.push('rgb(153, 102, 255)');
+            }
+
+            // 5가지색깔로 넣기
+            if (count == 5) {
+                count = 0;
+            } else {
+                count += 1;
+            }
+
+        }
+
+        chartData = {
+            labels: labels,
+            datasets: [{
+                label: '워크스페이스별 최근 상위 10개 조회수 통계',
+                backgroundColor: cololrdata,
+                borderColor: '#ff0080',
+                data: numdata,
+            }]
+        };
+        //console.log(chartData);
+        config = {
+            type: 'pie',
+            data: chartData,
+            options: {}
+        };
+        new Chart(context[3], config);
+    }
+
+    // 게시글 별 최근 조회수
+    function STA008INNER5(result){
+        $("#title5").html("최근 게시글별 상위 10개 조회수 트렌드");
+        labels = [];
+        for (let i in result) {
+            labels.push(result[i].staName);
+        }
+        //console.log(labels);
+
+        // 게시글별 최근 조회수 -> 게시물 히스토리에서 가져온 값(한 계정당 최근 100개)
+        let numdata = [];
+        let cololrdata = [];
+        let count = 0;
+        for (let i in result) {
+            numdata.push(result[i].staNum);
+            // 컬러 리스트 갯수만큼 반복해서 집어 넣기
+            if (count == 0) {
+                cololrdata.push('rgb(255, 99, 132)');
+            } else if (count == 1) {
+                cololrdata.push('rgb(255, 159, 64)');
+            } else if (count == 2) {
+                cololrdata.push('rgb(255, 205, 86)');
+            } else if (count == 3) {
+                cololrdata.push('rgb(75, 192, 192)');
+            } else if (count == 4) {
+                cololrdata.push('rgb(54, 162, 235)');
+            } else if (count == 5) {
+                cololrdata.push('rgb(153, 102, 255)');
+            }
+
+            // 5가지색깔로 넣기
+            if (count == 5) {
+                count = 0;
+            } else {
+                count += 1;
+            }
+
+        }
+
+        chartData = {
+            labels: labels,
+            datasets: [{
+                label: '게시글별 최근 상위 10개 조회수 통계',
+                backgroundColor: cololrdata,
+                borderColor: '#ff0080',
+                data: numdata,
+            }]
+        };
+        //console.log(chartData);
+        config = {
+            type: 'pie',
+            data: chartData,
+            options: {}
+        };
+        new Chart(context[4], config);
+    }
+
+    //  남녀비율
+    function STA009() {
+        $.ajax({
+            type: "POST",
+            url: "STA009",
+            data: {
+                "year": year
+            },
+            async: false,
+            dataType: "json",
+            success: function (result) {
+                resetCanvas(1);
+                console.log(result);
+                STA009Inner1(result);
+            },
+            error: function () {
+                alert("조회수 통신오류");
+            }
+        });
+    }
+    function STA009Inner1(result){
+        $("#title1").html("회원 성별통계");
+        labels = [
+            '남자',
+            '여자',
+            '미입력'
+        ];
+        chartData = {
+            labels: labels,
+            datasets: [{
+                label: '전체',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [result[0].staNum, result[0].staNum2, result[0].staNum3]
+            }]
+        };
+
+        config = {
+            type: 'bar',
+            data: chartData,
+            options: {}
+        };
+        new Chart(context[0], config);
+    }
+
+</script>
+</body>
+</html>

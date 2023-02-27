@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="기섭">
+    <meta name="date" content="">
+    <meta name="description" content="">
+
+    <title></title>
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="shortcut icon"/>
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/8591377d67.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://kit.fontawesome.com/8591377d67.css" crossorigin="anonymous">
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="css/main/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="css/main/icomoon.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="css/main/bootstrap.css">
+    <!-- Flexslider  -->
+    <link rel="stylesheet" href="css/main/flexslider.css">
+    <!-- Flaticons  -->
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="css/main/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/main/owl.theme.default.min.css">
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="css/main/style.css">
+
+
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- script
+    ================================================== -->
+    <script src="js/modernizr.js"></script>
+
+    <!-- Modernizr JS -->
+    <script src="js/modernizr-2.6.2.min.js"></script>
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+<!--    <link rel="stylesheet" href="css/view/base.css">-->
+<!--    <link rel="stylesheet" href="css/view/vendor.css">-->
+    <link rel="stylesheet" href="css/view/main.css">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/music/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/music/font-awesome.min.css"/>
+    <link rel="stylesheet" href="css/music/owl.carousel.min.css"/>
+    <link rel="stylesheet" href="css/music/slicknav.min.css"/>
+
+    <!-- Main Stylesheets -->
+    <link rel="stylesheet" href="css/music/style.css"/>
+    <link rel="stylesheet" href="css/header.css">
+
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<style th:replace="mouse.html :: style"></style>
+<style>
+
+
+
+
+    textarea {
+        color: rgba(0, 0, 0, .33);
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 21px;
+        height: 132px;
+        min-height: 6.6rem;
+        width: 666px;
+    !important;
+    }
+
+    svg {
+        cursor: pointer;
+        overflow: visible;
+        width: 60px;
+    }
+
+    svg #heart {
+        transform-origin: center;
+        animation: animateHeartOut 0.3s linear forwards;
+    }
+
+    svg #main-circ {
+        transform-origin: 29.5px 29.5px;
+    }
+
+    #checkbox {
+        display: none;
+    }
+
+    #checkbox:checked + label svg #heart {
+        transform: scale(0.2);
+        fill: #E2264D;
+        animation: animateHeart 0.3s linear forwards 0.25s;
+    }
+
+    #checkbox:checked + label svg #main-circ {
+        transition: all 2s;
+        animation: animateCircle 0.3s linear forwards;
+        opacity: 1;
+    }
+
+    #checkbox:checked + label svg #grp1 {
+        opacity: 1;
+        transition: 0.1s all 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp1 #oval1 {
+        transform: scale(0) translate(0, -30px);
+        transform-origin: 0 0 0;
+        transition: 0.5s transform 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp1 #oval2 {
+        transform: scale(0) translate(10px, -50px);
+        transform-origin: 0 0 0;
+        transition: 1.5s transform 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp2 {
+        opacity: 1;
+        transition: 0.1s all 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp2 #oval1 {
+        transform: scale(0) translate(30px, -15px);
+        transform-origin: 0 0 0;
+        transition: 0.5s transform 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp2 #oval2 {
+        transform: scale(0) translate(60px, -15px);
+        transform-origin: 0 0 0;
+        transition: 1.5s transform 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp3 {
+        opacity: 1;
+        transition: 0.1s all 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp3 #oval1 {
+        transform: scale(0) translate(30px, 0px);
+        transform-origin: 0 0 0;
+        transition: 0.5s transform 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp3 #oval2 {
+        transform: scale(0) translate(60px, 10px);
+        transform-origin: 0 0 0;
+        transition: 1.5s transform 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp4 {
+        opacity: 1;
+        transition: 0.1s all 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp4 #oval1 {
+        transform: scale(0) translate(30px, 15px);
+        transform-origin: 0 0 0;
+        transition: 0.5s transform 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp4 #oval2 {
+        transform: scale(0) translate(40px, 50px);
+        transform-origin: 0 0 0;
+        transition: 1.5s transform 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp5 {
+        opacity: 1;
+        transition: 0.1s all 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp5 #oval1 {
+        transform: scale(0) translate(-10px, 20px);
+        transform-origin: 0 0 0;
+        transition: 0.5s transform 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp5 #oval2 {
+        transform: scale(0) translate(-60px, 30px);
+        transform-origin: 0 0 0;
+        transition: 1.5s transform 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp6 {
+        opacity: 1;
+        transition: 0.1s all 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp6 #oval1 {
+        transform: scale(0) translate(-30px, 0px);
+        transform-origin: 0 0 0;
+        transition: 0.5s transform 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp6 #oval2 {
+        transform: scale(0) translate(-60px, -5px);
+        transform-origin: 0 0 0;
+        transition: 1.5s transform 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp7 {
+        opacity: 1;
+        transition: 0.1s all 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp7 #oval1 {
+        transform: scale(0) translate(-30px, -15px);
+        transform-origin: 0 0 0;
+        transition: 0.5s transform 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp7 #oval2 {
+        transform: scale(0) translate(-55px, -30px);
+        transform-origin: 0 0 0;
+        transition: 1.5s transform 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp2 {
+        opacity: 1;
+        transition: 0.1s opacity 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp3 {
+        opacity: 1;
+        transition: 0.1s opacity 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp4 {
+        opacity: 1;
+        transition: 0.1s opacity 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp5 {
+        opacity: 1;
+        transition: 0.1s opacity 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp6 {
+        opacity: 1;
+        transition: 0.1s opacity 0.3s;
+    }
+
+    #checkbox:checked + label svg #grp7 {
+        opacity: 1;
+        transition: 0.1s opacity 0.3s;
+    }
+
+    @keyframes animateCircle {
+        40% {
+            transform: scale(10);
+            opacity: 1;
+            fill: #DD4688;
+        }
+        55% {
+            transform: scale(11);
+            opacity: 1;
+            fill: #D46ABF;
+        }
+        65% {
+            transform: scale(12);
+            opacity: 1;
+            fill: #CC8EF5;
+        }
+        75% {
+            transform: scale(13);
+            opacity: 1;
+            fill: transparent;
+            stroke: #CC8EF5;
+            stroke-width: 0.5;
+        }
+        85% {
+            transform: scale(17);
+            opacity: 1;
+            fill: transparent;
+            stroke: #CC8EF5;
+            stroke-width: 0.2;
+        }
+        95% {
+            transform: scale(18);
+            opacity: 1;
+            fill: transparent;
+            stroke: #CC8EF5;
+            stroke-width: 0.1;
+        }
+        100% {
+            transform: scale(19);
+            opacity: 1;
+            fill: transparent;
+            stroke: #CC8EF5;
+            stroke-width: 0;
+        }
+    }
+
+    @keyframes animateHeart {
+        0% {
+            transform: scale(0.2);
+        }
+        40% {
+            transform: scale(1.2);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    @keyframes animateHeartOut {
+        0% {
+            transform: scale(1.4);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    button:hover {
+        background-color: black;
+    !important; /* Green */
+        color: white;
+    !important;
+    }
+
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+    h1, h2, h3, h4, h5, h6, span, p, a, label, input, textarea, button {
+        font-family: 'Gowun Dodum', sans-serif !important;
+        font-size: large !important;
+        letter-spacing: 0rem; !important;
+    }
+</style>
+
+<link rel="stylesheet" href="css/modal.css">
+
+<body  style="-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none" >
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+<div>
+    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+
+    <header th:replace="sider.html :: header"></header>
+
+    <div>
+
+<!-- Player section -->
+<section class="player-section set-bg" data-setbg="img/player-bg.jpg">
+    <div class="player-box" style="
+    margin-left: 300px;">
+        <div class="tarck-thumb-warp">
+            <div class="tarck-thumb">
+                <!--이미지 넣기-->
+                <img th:src="@{/PSW/bestimg/{img1}(img1=${bview.boaBestImg})}"
+                    >
+            </div>
+        </div>
+        <div class="wave-player-warp">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="wave-player-info">
+                        <h2>[[${bview.boaTitle}]]</h2>
+                        <p>[[${bview.boaHit}]]</p>
+
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="songs-links">
+                        <a href=""><img src="img/icons/p-1.png" alt=""></a>
+                        <!--파일 다운로드-->
+                        <a th:href="@{download(boaFileName = ${bview.boaFileName})}"><img src="img/icons/p-2.png" alt=""></a>
+                        <a href=""><img src="img/icons/p-3.png" alt=""></a>
+                    </div>
+                </div>
+            </div>
+            <div id="wavePlayer" class="clierfix">
+                <div id="audiowave" data-waveurl="music-files/8.mp3"></div>
+                <div id="currentTime"></div>
+                <div id="clipTime"></div>
+                <!-- Player Controls -->
+                <!-- song -->
+                <div class="song-item">
+                    <div class="row">
+                        <div class="col-xl-7 col-lg-12 col-md-7">
+                            <div class="single_player_container">
+                                <div class="single_player">
+                                    <div class="jp-jplayer jplayer" data-ancestor=".jp_container_1" th:data-url="@{PSW/mp3/{boaFileName}(boaFileName=${bview.boaFileName})}"></div>
+                                    <div class="jp-audio jp_container_1" role="application" aria-label="media player">
+                                        <div class="jp-gui jp-interface">
+
+                                            <!-- Player Controls -->
+                                            <div class="player_controls_box">
+                                                <button class="jp-prev player_button" tabindex="0"></button>
+                                                <button class="jp-play player_button" tabindex="0"></button>
+                                                <button class="jp-next player_button" tabindex="0"></button>
+                                                <button class="jp-stop player_button" tabindex="0"></button>
+                                            </div>
+                                            <!-- Progress Bar -->
+                                            <div class="player_bars">
+                                                <div class="jp-progress">
+                                                    <div class="jp-seek-bar">
+                                                        <div>
+                                                            <div class="jp-play-bar"><div class="jp-current-time" role="timer" aria-label="time">0:00</div></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="jp-duration ml-auto" role="timer" aria-label="duration">00:00</div>
+                                            </div>
+                                        </div>
+                                        <div class="jp-no-solution">
+                                            <span>Update Required</span>
+                                            To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Player section end -->
+
+<!-- Songs details section -->
+        <div id="preloader">
+            <div id="loader" class="dots-fade">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <div id="colorlib-page">
+            <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+
+
+
+            <div id="colorlib-main">
+
+                <!-- site content
+                ================================================== -->
+                <div class="s-content content">
+                    <main class="row content__page">
+
+                        <article class="column large-full entry format-standard"></article>
+                        <form action="DRA005" method="post">
+                            <div class="media-wrap entry__media">
+                                <div class="entry__post-thumb">
+
+                                </div>
+                            </div>
+
+
+                            <div style="margin-top: 32px; height: 40px;width: 700px; display:flex; align-items:center;">
+
+
+                                <img th:src="@{fish/img/memProfileImg/{img1}(img1=${bview.memProfileName})}" width="38px"
+                                     height="38px" style="border-radius: 100%; vertical-align: middle;    box-sizing: border-box;
+    border-style: none;
+    height: inherit;
+    vertical-align: top;">
+                                <div width="608px" height="40px" style="margin-left: 10px;">
+                                    <div width="608px" height="20px" style="    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px; font-family: 'Noto Sans KR', sans-serif;" th:text="${bview.memName}">작성자
+                                    </div>
+                                    <div width="608px" height="20px" flex="1" style="margin-top: 2px;
+              font-size: 14px;
+               line-height: 18px;}"> [[${bview.boaDate}]] &middot;조회 [[${bview.boaHit}]] &middot;댓글
+                                        [[${bview.comentNum}]]
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="content__page-header entry__header">
+                                <blockquote>
+                                    <h1 class="display-1 entry__title" th:text="${bview.boaTitle}">
+
+                                    </h1>
+
+
+                                </blockquote>
+                            </div> <!-- end entry__header -->
+
+
+                            <div class="entry__content">
+                                <div id="boaContent"></div>
+
+
+                                <input type="hidden" id="orboaContent" th:value="${bview.boaContent}">
+                                <block th:if="${session.login ne null}">
+                                    <input type="hidden" id="memCode" th:value="${session.login.getMemCode()}">
+                                </block>
+
+                                <input type="hidden" id="boaCode" th:value="${bview.boaCode}">
+
+
+                                <br/>
+                                <div>
+                                    <input type="checkbox" id="checkbox"/>
+                                    <label for="checkbox" id="likebtn" style="float: left;">
+                                        <svg id="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg" style="
+                                    margin-left: 0px;">
+                                            <g id="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
+                                                <a onclick="DRA005();">
+                                                    <path d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z"
+                                                          id="heart" fill="#AAB8C2"/>
+                                                </a>
+
+                                                <circle id="main-circ" fill="#E2264D" opacity="0" cx="29.5" cy="29.5" r="1.5"/>
+
+                                                <g id="grp7" opacity="0" transform="translate(7 6)">
+                                                    <circle id="oval1" fill="#9CD8C3" cx="2" cy="6" r="2"/>
+                                                    <circle id="oval2" fill="#8CE8C3" cx="5" cy="2" r="2"/>
+                                                </g>
+
+                                                <g id="grp6" opacity="0" transform="translate(0 28)">
+                                                    <circle id="oval1" fill="#CC8EF5" cx="2" cy="7" r="2"/>
+                                                    <circle id="oval2" fill="#91D2FA" cx="3" cy="2" r="2"/>
+                                                </g>
+
+                                                <g id="grp3" opacity="0" transform="translate(52 28)">
+                                                    <circle id="oval2" fill="#9CD8C3" cx="2" cy="7" r="2"/>
+                                                    <circle id="oval1" fill="#8CE8C3" cx="4" cy="2" r="2"/>
+                                                </g>
+
+                                                <g id="grp2" opacity="0" transform="translate(44 6)">
+                                                    <circle id="oval2" fill="#CC8EF5" cx="5" cy="6" r="2"/>
+                                                    <circle id="oval1" fill="#CC8EF5" cx="2" cy="2" r="2"/>
+                                                </g>
+
+                                                <g id="grp5" opacity="0" transform="translate(14 50)">
+                                                    <circle id="oval1" fill="#91D2FA" cx="6" cy="5" r="2"/>
+                                                    <circle id="oval2" fill="#91D2FA" cx="2" cy="2" r="2"/>
+                                                </g>
+
+                                                <g id="grp4" opacity="0" transform="translate(35 50)">
+                                                    <circle id="oval1" fill="#F48EA7" cx="6" cy="5" r="2"/>
+                                                    <circle id="oval2" fill="#F48EA7" cx="2" cy="2" r="2"/>
+                                                </g>
+
+                                                <g id="grp1" opacity="0" transform="translate(24)">
+                                                    <circle id="oval1" fill="#9FC7FA" cx="2.5" cy="3" r="2"/>
+                                                    <circle id="oval2" fill="#9FC7FA" cx="7.5" cy="2" r="2"/>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </label>
+
+                                </div>
+                                <div>
+                                    <p style="margin-left: 5px;margin-top: 17px;">좋아요 <span id="like">
+                        </span>
+                                    </p>
+                                    <span class="entry__tags" style="font-size: initial;">
+
+                                        <th:block th:if="${bview.boaTag ne null}">
+                                             <span style="margin-left: 15px;">태그</span>
+                                             <span class="entry__tag-list reTag">[[${bview.boaTag}]]</span>
+                                        </th:block>
+
+                        </span>
+
+                                </div>
+
+
+
+                                <block th:if="${bview.boaFileName} ne 'null'" style="font-size: initial;">
+                                        다운로드 : <a
+                                        th:href="@{download(boaFileName = ${bview.boaFileName})}">[[${bview.boaFileName}]]</a>
+                                </block>
+                            </div>
+                        </form>
+
+                        <block th:if="${session.login ne null && session.login.memCode eq bview.boaMemcode}">
+                            <p class="entry__tags" style="     margin-top: 0px;margin-bottom: 0px;margin-left: 550px;">
+                           <span class="entry__tag-list ">
+                        <a href="#" onclick="bModify()">수정하기</a>
+                           </span> <span class="entry__tag-list ">
+                        <a href="#" onclick="bDelete()">삭제하기</a>
+
+                            </span>
+                                <br>
+                            </p>
+
+
+                        </block>
+
+
+                        <div class="comments-wrap">
+
+                            <div id="comments" class="column large-12">
+
+                                <h3 class="h2">[[${bview.comentNum}]] Comments</h3>
+
+                                <!-- START commentlist -->
+                                <ol class="commentlist" id="comment__content">
+
+                                    <!-- end comment level 1 -->
+
+
+                                </ol>
+                                <!-- END commentlist -->
+
+                            </div> <!-- end comments -->
+
+
+                            <div>
+                                <div id="cmtArea"></div>
+                                <div>
+                                    <input type="hidden" th:value="${bview.boaCode}" id="cbNum"/>
+                                    <block th:if="${session.login ne null}">
+                                        <input type="hidden" th:value="${session.login.getMemCode()}" id="cmtWriter"/>
+                                        <input type="hidden" id="gmemCode" th:value="${session.login.getMemCode()}">
+                                    </block>
+                                    <div style=" width: 700px;  height: 145px;    border-radius: 10px;   border: 1px solid rgba(0,0,0,.1);background-color: #fff; padding: 16px;margin-bottom: 40px;">
+                                        <div>
+                                    <textarea type="text" id="cmtContent" onfocus="checkLogin()"
+                                              style="margin-bottom: 0px; float: left; width: 564px; height: 108px;">
+                                    </textarea>
+                                        </div>
+                                        <div style="text-align: right;margin-top: 40px;float: right;">
+                                            <a id="button-send" onclick="cmtWrite()" style="color: #33998a;  font-size: initial">
+                                                댓글 입력
+                                            </a>
+                                        </div>
+                                    </diV>
+
+                                </div>
+
+                                <div class="column large-12 comment-respond">
+
+
+                                </div> <!-- end comment-respond -->
+
+                            </div> <!-- end comments-wrap -->
+                        </div> <!-- end comments-wrap -->
+
+
+                    </main>
+
+                </div> <!-- end s-content -->
+
+                <!-- Java Script
+                ================================================== -->
+                <script src="js/jquery-3.2.1.min.js"></script>
+                <script src="js/plugins.js"></script>
+                <script src="js/main.js"></script>
+            </div>
+        </div>
+<!-- Songs details section -->
+
+
+
+</div>
+</div>
+
+<!--====== Javascripts & Jquery ======-->
+<script src="js/music/jquery-3.2.1.min.js"></script>
+<script src="js/music/bootstrap.min.js"></script>
+<script src="js/music/jquery.slicknav.min.js"></script>
+<script src="js/music/owl.carousel.min.js"></script>
+<script src="js/music/mixitup.min.js"></script>
+<script src="js/music/main.js"></script>
+
+<!-- Audio Player and Initialization -->
+<script src="js/music/jquery.jplayer.min.js"></script>
+<script src="js/music/jplayerInit.js"></script>
+
+<!-- jQuery -->
+<script src="js/jquery.min.js"></script>
+<!-- jQuery Easing -->
+<script src="js/jquery.easing.1.3.js"></script>
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Waypoints -->
+<script src="js/jquery.waypoints.min.js"></script>
+<!-- Flexslider -->
+<script src="js/jquery.flexslider-min.js"></script>
+<!-- Sticky Kit -->
+<script src="js/sticky-kit.min.js"></script>
+<!-- Owl carousel -->
+<script src="js/owl.carousel.min.js"></script>
+<!-- Counters -->
+<script src="js/jquery.countTo.js"></script>
+
+
+<!-- MAIN JS -->
+<script src="js/main.js"></script>
+
+
+<script src="js/modal.js"></script>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<script>
+
+    let retag = $('.reTag');
+
+    for (let i = 0; i < retag.length; i++) {
+        let tagArr = $(retag[i]).text().split(",")
+        let input = "";
+
+        for (j in tagArr) {
+            //console.log(tagArr[j]);
+            input += "<a href='UnifiedSearch?q=" + tagArr[j].replace('#', '%23') + "'>" + tagArr[j] + "</a>" + "<br/>";
+        }
+        $(retag[i]).html(input);
+    }
+
+
+    let orboaContent = $('#orboaContent').val();
+    document.getElementById("boaContent").innerHTML = orboaContent;
+
+    let boaMemcode = $('#memCode').val();
+    let boaCode = $('#boaCode').val();
+    console.log("boaMemCode" + boaMemcode);
+    console.log("boaCode" + boaCode);
+
+    let click = 0;
+    $.ajax({
+        type : "POST",
+        url : "likenum",
+        data_type : "text",
+        data: {
+            "boaCode": boaCode
+
+        },
+        success : function (result){
+            let like = document.getElementById("like");
+            let likebtn = document.getElementById("heart");
+
+            // 좋아요 갯수 표시
+            like.innerHTML = result;
+
+            // 좋아요 눌렀나 안눌렀나? css 변화 1이면 누른거
+            if (result.MLDo == 1) {
+                likebtn.style.fill = '#E2264D';
+
+            } else {
+                likebtn.style.fill = 'rgb(140,130,135)';
+            }
+        },
+        error : function (){
+            alert("좋아요 갯수 가져오기 실패!");
+        }
+    });
+    if(boaMemcode=null){
+        $.ajax({
+            type: "POST",
+            url: "DRA005",
+            data: {
+                "boaMemcode": boaMemcode,
+                "boaCode": boaCode,
+                "click": click
+            },
+            dataType: "json",
+            success: function (result) {
+                changeLike(result);
+            },
+            error: function () {
+                alert("맨처음 DRA005함수 통신실패!");
+            }
+        });
+    }
+
+    function DRA005() {
+        let boaMemcode = $('#memCode').val();
+        console.log('memCode??'+boaMemcode);
+        if(boaMemcode==null){
+            alert("회원가입 후 사용가능합니다.");
+            return false;
+
+        }
+        click = 1;
+
+        $.ajax({
+            type: "POST",
+            url: "DRA005",
+            data: {
+                "boaMemcode": boaMemcode,
+                "boaCode": boaCode,
+                "click": click
+            },
+            dataType: "json",
+            success: function (result) {
+                changeLike(result);
+            },
+            error: function () {
+                alert("DRA005함수 통신실패!");
+            }
+        });
+    }
+
+    function changeLike(result) {
+        let like = document.getElementById("like");
+        let likebtn = document.getElementById("heart");
+
+        // 좋아요 갯수 표시
+        like.innerHTML = result.MLCount;
+
+        // 좋아요 눌렀나 안눌렀나? css 변화 1이면 누른거
+        if (result.MLDo == 1) {
+            likebtn.style.fill = '#E2264D';
+
+        } else {
+            likebtn.style.fill = 'rgb(140,130,135)';
+        }
+    }
+
+    DRA006();
+
+    function DRA006() {
+        $.ajax({
+            type: "POST",
+            url: "DRA006",
+            data: {
+                "boaCode": boaCode
+            },
+            dataType: "json",
+            success: function (list) {
+
+                commentList(list);
+            },
+            error: function () {
+                alert("댓글 불러오기 통신 실패!");
+            }
+        });
+    }
+
+
+    // 댓글리스트 불러오기
+    function commentList(list) {
+        let memCode = $('#memCode').val();
+        let gmemCode = $("#gmemCode").val();
+        let output = "";
+
+        let check = false;
+
+        for (let i in list) {
+            console.log("list[i].coModi?? " + list[i].coModi)
+            if (list[i].coModi == 1) {
+
+
+                output += " <li class=\"depth-1 comment\">\n" +
+                    "\n" +
+                    "                <div class=\"comment__avatar\">\n" +
+                    "  <img class=\"avatar\" th:src=\"@{fish/img/memProfileImg/{img1}(img1=${bview.memProfileName})}\" alt=\"\" width=\"50\" height=\"50\"> "+
+                    "                </div>\n" +
+                    "\n" +
+                    "                <div class=\"comment__content\">\n" +
+                    "\n" +
+                    "                  <div class=\"comment__info\">\n" +
+                    "                    <div class=\"comment__author\">" + list[i].memName + "</div>\n" +
+                    "\n" +
+                    "                    <div class=\"comment__meta\">\n" +
+                    "                      <div class=\"comment__time\">" + list[i].comDate + "</div>\n" +
+                    "                      <div class=\"comment__reply\">   \n";
+
+                if (gmemCode == list[i].comMemcode || memCode == 1) {
+                    output += "<a onclick=\"DRA006_2(" + list[i].comCode + ", " + list[i].ComBoaCode + ", 'cmtModiContent" + i + "'" + ")\">수정 / </a>";
+                    output += "<a onclick=\"DRA006_3(" + list[i].comCode + ", " + list[i].ComBoaCode + ")\">삭제</a>";
+                } else {
+                    output += "";
+                }
+                output +=
+                    "                    <p>수정됨</p>  </div>\n" +
+                    "                    </div>\n" +
+                    "                  </div>\n" +
+                    "\n" +
+                    "                  <div class=\"comment__text\" style='font-size: initial;'>\n" +
+                    "<span id='cmtModiContent" + i + "'>" + list[i].coMent + "</span>" +
+                    "                  </div>\n" +
+                    "\n" +
+                    "                </div></li>";
+
+            } else {
+
+                output += " <li class=\"depth-"+i+" comment\">\n" +
+                    "\n" +
+                    "                <div class=\"comment__avatar\">\n" +
+                    "  <img class=\"avatar\" src=\"/fish/img/memProfileImg/"+ list[i].memProfileName+" \" alt=\"\" width=\"50\" height=\"50\"> "+
+                    "                </div>\n" +
+                    "\n" +
+                    "                <div class=\"comment__content\">\n" +
+                    "\n" +
+                    "                  <div class=\"comment__info\">\n" +
+                    "                    <div class=\"comment__author\">" + list[i].memName + "</div>\n" +
+                    "\n" +
+                    "                    <div class=\"comment__meta\">\n" +
+                    "                      <div class=\"comment__time\">" + list[i].comDate + "</div>\n" +
+                    "                      <div class=\"comment__reply\">\n";
+
+                if (gmemCode == list[i].comMemcode || memCode == 1) {
+                    output += "<a onclick=\"DRA006_2(" + list[i].comCode + ", " + list[i].ComBoaCode + ", 'cmtModiContent" + i + "'" + ")\">수정 / </a>";
+                    output += "<a onclick=\"DRA006_3(" + list[i].comCode + ", " + list[i].ComBoaCode + ")\">삭제</a>";
+                } else {
+                    output += "";
+                }
+                output +=
+                    "                      </div>\n" +
+                    "                    </div>\n" +
+                    "                  </div>\n" +
+                    "\n" +
+                    "                  <div class=\"comment__text\" style='font-size: initial;'>\n" +
+                    "<span id='cmtModiContent" + i + "'>" + list[i].coMent + "</span>" +
+                    "                  </div>\n" +
+                    "\n" +
+                    "                </div></li>";
+            }
+
+
+        }
+
+        document.getElementById("comment__content").innerHTML = output;
+
+    }
+
+    function DRA006_3(comCode, ComBoaCode) {
+        $.ajax({
+            type: "POST",
+            url: "DRA006_3",
+            data: {
+                "comCode": comCode,
+                "ComBoaCode": ComBoaCode
+            },
+            dataType: "json",
+            success: function (list) {
+                commentList(list);
+            },
+            error: function () {
+                alert("댓글 삭제 통신 실패!");
+            }
+        });
+    }
+
+    // 댓글작성하기ajax
+    function cmtWrite() {
+        let cmtWriter = document.getElementById("cmtWriter").value;
+        let cmtContent = $("#cmtContent").val();
+        let cbNum = $("#cbNum").val();
+        if(cmtContent== ''){
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: "DRA006_1",
+            data: {
+                "ComBoaCode": cbNum,
+                "comMemcode": cmtWriter,
+                "coMent": cmtContent
+            },
+            dataType: "json",
+            success: function (list) {
+                commentList(list);
+                $("#cmtContent").val("");
+            },
+            error: function () {
+                alert('댓글 작성 통신 실패!');
+            }
+        });
+    }
+
+    // 수정버튼 눌렀을떄
+    function DRA006_2(comCode, ComBoaCode, tagid) {
+        console.log("comCode : " + comCode + " , ComBoaCode : " + ComBoaCode);
+        console.log("tagid : " + tagid);
+
+        $("#" + tagid).html("<input type='text' id='cContent'/><input type='button' value='확인' onclick='cmtModify(" + comCode + ", " + ComBoaCode + ")'/>");
+    }
+
+    // 수정댓글 내용 작성 후 확인 버튼 눌렀을떄
+    function cmtModify(comCode, ComBoaCode) {
+        console.log("comCode : " + comCode + " , ComBoaCode : " + ComBoaCode);
+
+        let cmtContent = $("#cContent").val();
+
+        $.ajax({
+            type: "POST",
+            url: "DRA006_2",
+            data: {
+                "comCode": comCode,
+                "ComBoaCode": ComBoaCode,
+                "coMent": cmtContent
+            },
+            dataType: "json",
+            success: function (list) {
+                commentList(list);
+            },
+            error: function () {
+                alert("댓글 수정 통신 실패!");
+            }
+        });
+
+    }
+
+    // 댓글 입력시 로그인여부
+    function checkLogin() {
+        let gmemCode = $("#gmemCode").val();
+        if (gmemCode == null) {
+            $("#cmtContent").blur();
+            alert('로그인 후 사용하세요.');
+            location.href = "index";
+        }
+    }
+
+    // 게시글 수정페이지 이동
+    function bModify() {
+        location.href = "DRA009?boaCode=" + boaCode;
+    }
+
+    function bDelete() {
+        location.href = "DRA0010?boaCode=" + boaCode;
+    }
+</script>
+<script th:if="${session.login ne null}">
+
+    console.log("세션로그인?" + boaMemcode);
+    let SessionMemCode = [[${session.login.memCode}]]
+    $.ajax({
+        type: "POST",
+        url: "DRA011",
+        data: {
+            "bhMemCode": SessionMemCode,
+            "bhBoaCode": boaCode,
+
+        },
+        dataType: "text",
+        success: function (text) {
+            if (text == "OK") {
+                console.log("히스토리 삽입성공!");
+            } else {
+                console.log("히스토리 삽입실패!");
+            }
+
+        },
+        error: function () {
+            alert("맨처음 DRA011 통신실패!");
+        }
+    });
+
+
+</script>
+
+</html>

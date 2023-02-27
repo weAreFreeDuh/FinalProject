@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="FISH">
+    <meta name="date" content="2022-12-27">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon">
+
+    <script src="https://kit.fontawesome.com/8591377d67.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://kit.fontawesome.com/8591377d67.css" crossorigin="anonymous">
+
+    <title>회원목록</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="css/main/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="css/main/icomoon.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="css/main/bootstrap.css">
+    <!-- Flexslider  -->
+    <link rel="stylesheet" href="css/main/flexslider.css">
+    <!-- Flaticons  -->
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="css/main/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/main/owl.theme.default.min.css">
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="css/main/style.css">
+
+    <link rel="stylesheet" href="css/header.css">
+
+    <link rel="stylesheet" href="css/font.css">
+
+
+    <!-- script
+    ================================================== -->
+    <script src="js/modernizr.js"></script>
+
+    <!-- Modernizr JS -->
+    <script src="js/modernizr-2.6.2.min.js"></script>
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="css/ReportList.css">
+
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200&display=swap" rel="stylesheet"/>
+
+
+
+    <style>
+        .fishDiv {
+            width: 50%;
+            border: 1px solid black;
+            text-align: center;
+            height: auto;
+            padding: 10px;
+            margin-left: 25%;
+        }
+
+        table{
+            width: 50% !important;
+        }
+
+        th {
+            text-align: center;
+        !important;
+        }
+
+    </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <style>
+        h1, h2, h3, h4, h5, h6, span, p, a, label, input, textarea, button {
+            font-family: 'Gowun Dodum', sans-serif !important;
+            font-size: large !important;
+            letter-spacing: 0rem; !important;
+        }
+    </style>
+
+
+    <link rel="stylesheet" href="css/modal.css">
+
+</head>
+<style th:replace="mouse.html :: style"></style>
+<body>
+
+<div id="colorlib-page">
+    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+
+    <header th:replace="sider.html :: header"></header>
+
+    <div id="colorlib-main" class="animate-box" data-animate-effect="fadeInLeft">
+
+        <section class="notice">
+            <div class="page-title">
+                <div class="container">
+                    <h1 style="text-align: center;">프로필 검색</h1>
+                </div>
+            </div>
+
+            <div class="fishDiv">
+
+                <div class="container" data-animate-effect="fadeInLeft" style="margin-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    width: 1450px;">
+                    <table class="board-table">
+                        <tr>
+                            <th style="text-align: center;"><h1>프로필 사진</h1></th>
+                            <th style="text-align: center;"><h1>닉네임</h1></th>
+                        </tr>
+                        <tr th:each="mlist: ${memberList}">
+                            <td><a th:href="@{PRO001(user = ${mlist.memCode})}"><img th:src="@{fish/img/memProfileImg/{img1}(img1=${mlist.memProfileName})}"
+                                     width="150px" height="150px"></a></td>
+                            <td><a th:href="@{PRO001(user = ${mlist.memCode})}" th:text="${mlist.memName}"></a></td>
+                        </tr>
+                    </table>
+
+                </div>
+                <!--페이지-->
+                <div className="row">
+                    <div class="col-md-12 animate-box" data-animate-effect="fadeInLeft"
+                         style="opacity: inherit; margin-top: 50px; margin-bottom: 50px;">
+                        <ul class="pagination" id="pageNum">
+                            <li th:if="${paging.page <= 1}">[이전]</li>
+                            <li th:if="${paging.page > 1}">
+                                <a th:href="@{ProfileSearch(page=${paging.page -1},search=${search})}">[이전]</a>
+                            </li>
+                            &nbsp;
+                            <!-- [페이지 번호] 페이지에 대한 처리 -->
+                            <li th:each="i : ${#numbers.sequence(paging.startpage, paging.endpage)}">
+                                                <span th:if="${paging.page == i}">
+                                                    [[${i}]]
+                                                </span>
+                                <span th:unless="${paging.page == i}">
+                                                    <a th:href="@{ProfileSearch(page=${i},search=${search})}">[[${i}]]</a>
+                                                </span>
+                            </li>
+                            <!-- [다음] 페이지에 대한 처리 -->
+                            &nbsp;
+                            <li th:if="${paging.page >= paging.maxpage}">[다음]</li>
+                            <li th:if="${paging.page < paging.maxpage}">
+                                <a th:href="@{ProfileSearch(page=${paging.page +1},search=${search})}">[다음]</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+</div>
+<!--모달창-->
+<div id="modalList"></div>
+
+<!-- jQuery -->
+<script src="js/jquery.min.js"></script>
+<!-- jQuery Easing -->
+<script src="js/jquery.easing.1.3.js"></script>
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Waypoints -->
+<script src="js/jquery.waypoints.min.js"></script>
+<!-- Flexslider -->
+<script src="js/jquery.flexslider-min.js"></script>
+<!-- Sticky Kit -->
+<script src="js/sticky-kit.min.js"></script>
+<!-- Owl carousel -->
+<script src="js/owl.carousel.min.js"></script>
+<!-- Counters -->
+<script src="js/jquery.countTo.js"></script>
+
+
+<!-- MAIN JS -->
+<script src="js/main.js"></script>
+
+<script src="js/modal.js"></script>
+</body>
+</html>

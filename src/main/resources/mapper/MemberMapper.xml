@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.artisans.atelier.dao.MemDAO">
+
+    <!--중복 아이디 확인-->
+    <select id="MEM002" parameterType="String" resultType="String">
+        SELECT MEMID FROM MEMBER WHERE MEMID =#{memId}
+    </select>
+
+    <!--중복 닉네임 확인-->
+    <select id="MEM003" parameterType="String" resultType="String">
+        SELECT MEMNAME FROM MEMBER WHERE MEMNAME =#{memName}
+    </select>
+
+    <!--회원 가입-->
+    <insert id="MEM004" parameterType="member">
+        INSERT INTO MEMBER VALUES (MEM_SEQ.NEXTVAL, #{memId}, #{memPw}, #{memName}, '미입력', '미입력', '미입력', '미입력', 'default.png', '실버', '없음', '미인증', 0, 0,'default.jpg','소개글을 작성해주세요',sysdate)
+    </insert>
+
+    <!--아이디로 memCode가져오기-->
+    <select id="takeMemCode" parameterType="String" resultType="int">
+        SELECT MEMCODE FROM MEMBER WHERE MEMID = #{memId}
+    </select>
+
+    <!--이메일 인증 -> 인증 상태로 변경-->
+    <update id="MEM005" parameterType="int">
+        UPDATE MEMBER SET MEMSTATE = '인증' WHERE MEMCODE = #{memCode}
+    </update>
+
+    <!-- 로그인시 회원의 전체 정보 가져오기-->
+    <select id="MEM006" parameterType="int" resultType="member">
+        SELECT * FROM MEMBER WHERE MEMCODE= #{memCode}
+    </select>
+
+    <!-- 로그인시 비밀번호 일치 여부 확인-->
+    <select id="checkPw" parameterType="String" resultType="String">
+        SELECT MEMPW FROM MEMBER WHERE MEMID = #{memId}
+    </select>
+
+    <!-- 사용할 세션 정보 가져오기 -->
+    <select id="login" parameterType="int" resultType="login">
+        SELECT * FROM login WHERE MEMCODE = #{memCode}
+    </select>
+
+    <!-- 로그인 기록 남기기-->
+    <insert id="insertLH" parameterType="loginHistory">
+        INSERT INTO LOGINHISTORY VALUES (#{LHMemCode}, systimestamp, #{LHIp})
+    </insert>
+
+    <!--신고처리-->
+    <insert id="MEM009" parameterType="report">
+        INSERT INTO REPORT VALUES (REP_SEQ.NEXTVAL, '처리 전', #{repTitle}, #{repMemCode}, #{repContent}, #{repFileName})
+    </insert>
+
+    <!--신고 갯수 조회 -->
+    <select id="reportCount" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM REPORT ${sqlData}
+    </select>
+
+    <!-- 신고 페이징 조회 -->
+    <select id="MEM010" parameterType="paging" resultType="report">
+        ${sql}
+    </select>
+
+    <!-- 신고 상태 변경-->
+    <update id="ReportState" parameterType="int">
+        UPDATE REPORT SET REPSTATE = '처리 후' WHERE REPCODE = #{repCode}
+    </update>
+
+    <!--DB 카운트 전용 맵퍼-->
+    <select id="everyCount" parameterType="String" resultType="int">
+      <![CDATA[ ${sql} ]]>
+    </select>
+
+    <!--회원 페이지 조회-->
+    <select id="MEM011" parameterType="paging" resultType="member">
+        ${sql}
+    </select>
+
+    <!--직원으로 변경-->
+    <select id="MemberState" parameterType="int">
+        UPDATE MEMBER SET MEMAUTCODE = 2 WHERE MEMCODE = #{memCode}
+    </select>
+
+    <!--경고-->
+    <update id="MemberWarning" parameterType="member">
+        UPDATE MEMBER SET MEMSTATE = #{memState} WHERE MEMCODE = #{memCode}
+    </update>
+
+    <!--공지메일 회원 검색-->
+    <select id="MEM016" parameterType="String" resultType="member">
+        ${sql}
+    </select>
+
+    <!--비밀번호 재설정-->
+    <update id="MEM020" parameterType="member">
+        UPDATE MEMBER SET MEMPW = #{memPw} WHERE MEMID = #{memId}
+    </update>
+
+    <!--직원들 권한 조회-->
+    <select id="MEM023" resultType="authority">
+        SELECT * FROM AUTHORITY WHERE AUTCODE != 0
+    </select>
+
+    <!--직원 권한 수정-->
+    <update id="MEM025" parameterType="member">
+        UPDATE MEMBER SET MEMAUTCODE = #{memAutCode} WHERE MEMCODE = #{memCode}
+    </update>
+
+    <!--결과값으로 문자열을 리턴해주는 맵퍼-->
+    <select id="StringReturn" parameterType="String" resultType="String">
+        ${sql}
+    </select>
+
+    <!-- 직원해고-->
+    <update id="MEM026" parameterType="int">
+        UPDATE MEMBER SET MEMAUTCODE = 0 WHERE MEMCODE = #{memCode}
+    </update>
+
+    <!--직책 조회-->
+    <select id="autResearch" parameterType="paging" resultType="authority">
+        ${sql}
+    </select>
+
+    <!--sql 업데이트-->
+    <update id="sqlUpdate" parameterType="String">
+        ${sql}
+    </update>
+
+    <!--권한 생성-->
+    <insert id="MEM024" parameterType="authority">
+        INSERT INTO AUTHORITY values (AUT_SEQ.NEXTVAL,#{autName},#{autGive},#{autSecu},#{autAcco},#{autAChat},#{autAMail},#{autCategory})
+    </insert>
+
+    <!--권한 삭제-->
+    <delete id="autDelete" parameterType="int">
+        DELETE AUTHORITY WHERE AUTCODE = #{autCode}
+    </delete>
+
+
+    <!--프로필 정보 가져오기-->
+    <select id="PRO001" parameterType="int" resultType="profile">
+        SELECT * FROM MEMPROFILE WHERE MEMCODE = #{memCode}
+    </select>
+
+    <!--프로필에서 워크스페이스 조회-->
+    <select id="ProfileWorkSpace" parameterType="paging" resultType="memWorkspace">
+        ${sql}
+    </select>
+
+    <!--프로필에서 게시물 조회-->
+    <select id="ProfileBoard" parameterType="paging" resultType="memboard">
+        ${sql}
+    </select>
+
+    <!--프로필에서 팔로잉 팔로워 조회-->
+    <select id="ProfileFollow" parameterType="paging" resultType="member">
+        ${sql}
+    </select>
+
+    <!--DTO없는 객체들 insert해주는 항목-->
+    <insert id="everyInsert" parameterType="String">
+        ${sql}
+    </insert>
+
+    <!--DTO없는 객체들 DELETE해주는 항목-->
+    <delete id="everyDelete" parameterType="String">
+        ${sql}
+    </delete>
+
+    <!--회원 수정-->
+    <update id="MEM019" parameterType="member">
+        UPDATE MEMBER SET MEMNAME = #{memName}, MEMPHONE = #{memPhone}, MEMADDR = #{memAddr}, MEMBIRTH = #{memBirth}, MEMGENDER = #{memGender}, MEMINTRO = #{memIntro} WHERE MEMCODE = #{memCode}
+    </update>
+
+    <!--로그인 기록 가져오기-->
+    <select id="PRO013" parameterType="paging" resultType="loginHistory">
+        ${sql}
+    </select>
+</mapper>

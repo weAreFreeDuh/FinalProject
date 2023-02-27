@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="css/main/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="css/main/icomoon.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="css/main/bootstrap.css">
+    <!-- Flexslider  -->
+    <link rel="stylesheet" href="css/main/flexslider.css">
+    <!-- Flaticons  -->
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="css/main/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/main/owl.theme.default.min.css">
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="css/main/style.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="css/header.css">
+
+    <link rel="stylesheet" href="css/category.css">
+    <link rel="stylesheet" href="css/button.css">
+
+    <!-- script
+        ================================================== -->
+    <script src="js/modernizr.js"></script>
+
+    <!-- Modernizr JS -->
+    <script src="js/modernizr-2.6.2.min.js"></script>
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+        .fishDiv {
+            min-width: 500px;
+            /*max-width: 800px;*/
+            border: 1px solid white;
+            width: 1000px;
+            /*text-align: center;*/
+            /*height: 700px;*/
+        }
+    </style>
+    <link rel="stylesheet" href="css/modal.css">
+</head>
+
+<style th:replace="mouse.html :: style"></style>
+<body>
+<div id="colorlib-page">
+    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+
+    <header th:replace="sider.html :: header"></header>
+
+    <div id="colorlib-main">
+        <div class="colorlib-blog">
+            <div class="colorlib-narrow-content">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
+                        <h2 class="colorlib-heading">워크스페이스</h2>
+                    </div>
+                </div>
+
+                <!--    워크스페이스 사진 1장만           -->
+
+                <div class="row row-bottom-padded-md" style="width: 1250px">
+                    <div class="col-md-4 animate-box" data-animate-effect="fadeInLeft" style="margin-left: 20%">
+                        <div class="project">
+                            <img th:src="@{junho/workSpaceImg/{img}(img=${workspace.workImgName})}" width="100%"
+                                 height="100%" style="border-radius: 20px">
+                            <div class="desc" style="border-radius: 20px">
+                                <div class="con">
+                                    <h3 style="color: #FFFFFF">[[${workspace.workTitle}]]</h3>
+                                    <span>[[${workspace.memName}]]</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fishDiv">
+                        <div style="float: right">
+                            <h3 class="animate-box" data-animate-effect="fadeInLeft">상세정보</h3>
+                            <h4 class="animate-box" data-animate-effect="fadeInLeft">카테고리 :
+                                [[${workspace.category}]]</h4>
+                            <h4 class="animate-box" data-animate-effect="fadeInLeft">세부카테고리 :
+                                [[${workspace.subCategory}]]</h4>
+                            <h4 class="animate-box" data-animate-effect="fadeInLeft">태그 :
+                            <span id="innerTable"></span></h4>
+                            <block th:if="${literature ne null}">
+                                <h4 class="animate-box" data-animate-effect="fadeInLeft"> [[${literature.litMethod}]] : [[${literature.litCount}]]화 이후 </h4>
+                            </block>
+                            <h4 class="animate-box" data-animate-effect="fadeInLeft">설명 :
+                                [[${workspace.workIntro}]]</h4>
+
+                            <h4 class="animate-box" data-animate-effect="fadeInLeft">💬 : [[${workspace.comentNum}]] / 💓
+                                : [[${workspace.likeNum}]] / 👤 : [[${workspace.HitNum}]] / 📒 : [[${workspace.BoardNum}]]</h4>
+                            <block th:if="${session.login ne null && session.login.memCode eq workspace.workMemCode}"
+                                   class="animate-box" data-animate-effect="fadeInLeft">
+                                <button th:onclick="|location.href='@{WOR5(workCode=${workspace.workCode})}'|"
+                                        class="btn btn-light-green"
+                                        style="background-color: #000000; color: #FFFFFF !important;">수정
+                                </button>
+                                <button th:onclick="|location.href='@{WOR8(workCode=${workspace.workCode})}'|"
+                                        class="btn btn-light-green"
+                                        style="background-color: #000000; color: #FFFFFF !important;">삭제
+                                </button>
+                            </block>
+
+                        </div>
+                    </div>
+                </div>
+                <!--      여기까지 워크스페이스 사진 한장          -->
+                <!--수정시 보낼 value-->
+                <input type="hidden" th:value="${workspace.workCode}" name="workCode">
+
+
+                <!--여기부터 게시물.-->
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
+                        <h2 class="colorlib-heading">게시글</h2>
+                    </div>
+                </div>
+
+                <div class="colorlib-work" id="board">
+                    <div class="colorlib-narrow-content">
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box"
+                                 data-animate-effect="fadeInLeft">
+                                <div class="container"></div>
+                            </div>
+
+                            <div class="row row-bottom-padded-md" style="width: 1250px">
+                <span th:each="list : ${boardList}">
+                    <div class="col-md-4 animate-box" data-animate-effect="fadeInLeft">
+                        <div class="project">
+                         <label><a th:attr="onclick=|checkLiterature('${list.boaCode}','${list.category}')|">
+                             <img th:src="@{/PSW/bestimg/{boaBestImg}(boaBestImg=${list.boaBestImg})}" alt=""
+                                  width="380px" height="300px"></a>
+                         </label>
+                            <div class="desc"><a th:attr="onclick=|checkLiterature('${list.boaCode}','${list.category}')|">
+                                <div class="con">
+
+                                    <span>카테고리 [[${list.category}]], [[${list.subCategory}]]</span>
+                                    <span>[[${list.memName}]]</span>
+                                    <span>[[${list.memGrade}]] , 등급 : [[${list.memPayGrade}]]</span>
+
+                                    <p class="icon">
+                                        <span><i class="icon-eye">[[${list.boaHit}]]</i></span>
+                                        <span><i class="icon-heart">[[${list.likeNum}]]</i></span>
+                                        <span><i class="icon-heart">[[${list.comentNum}]]</i></span>
+                                        <block th:if="${session.login ne null }">
+                                        <span><a th:onclick="|location.href='@{WOR7(boaCode=${list.boaCode}, workCode = ${workspace.workCode})}'|" style="float: right" ><i class="icon-reply2">제거</i></a></span>
+                                        </block>
+                                    </p>
+
+                    </div></a>
+                            </div>
+                            </div>
+                        </div>
+                            </div>
+                            </span>
+
+
+                            <block th:if="${session.login ne null}">
+                                <input type="hidden" id="loginId" th:value="${session.login.memCode}">
+                            </block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="js/jquery.min.js"></script>
+    <!-- jQuery Easing -->
+    <script src="js/jquery.easing.1.3.js"></script>
+    <!-- Bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Waypoints -->
+    <script src="js/jquery.waypoints.min.js"></script>
+    <!-- Flexslider -->
+    <script src="js/jquery.flexslider-min.js"></script>
+    <!-- Sticky Kit -->
+    <script src="js/sticky-kit.min.js"></script>
+    <!-- Owl carousel -->
+    <script src="js/owl.carousel.min.js"></script>
+    <!-- Counters -->
+    <script src="js/jquery.countTo.js"></script>
+
+
+    <!-- MAIN JS -->
+    <script src="js/main.js"></script>
+
+    <script src="js/modal.js"></script>
+</div>
+</body>
+<!--<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>-->
+<script>
+
+    /*태그 리스트 불러오기*/
+
+    /* value값에 넣기 위한 리스트*/
+    let tags = "[[${workspace.workTag}]]"
+    tags = tags.split(",");
+    console.log(tags)
+    let arr = [];
+
+    console.log(tags.length);
+    for (j = 0; j < tags.length; j++) {
+
+        tagShow(tags[j].replace("#", ""));
+    }
+
+    /*태그 누를 시 입력*/
+    function tagShow(tag) {
+        /* html에 보여주기 위한 내용*/
+        let output = "";
+
+        /*태그에 입력한 값 리스트에 넣기*/
+        arr.push("#" + tag);
+        console.log("리스트 값" + arr);
+        console.log(tag);
+
+        /*리스트 html 출력 칸*/
+        for (i = 0; i < arr.length; i++) {
+            output += ""
+            output += "<div id='test" + i + "'><a href='UnifiedSearch?q=" + arr[i].replace('#', '%23') + "'>" + arr[i];
+            output += "</a></div>"
+        }
+        /*html 삽입명령문*/
+        document.getElementById("innerTable").innerHTML = output;
+
+        /*inputWork();*/
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /*/!* a태그 누를 시 발동*!/
+    function asd(asd){
+        location.href="UnifiedSearch?q="+asd;
+    }*/
+
+    // 문학 게시글 페이
+
+    /*let memCode = $('#loginId').val();*/
+
+
+
+</script>
+<script src="js/junho/checkLit.js"></script>
+
+</html>

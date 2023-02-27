@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="seq-ui">
+<head >
+
+	<link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png">
+
+	<meta name="apple-mobile-web-app-title" content="CodePen">
+
+	<link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+
+	<link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg" color="#111">
+
+	<script src="https://kit.fontawesome.com/8591377d67.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://kit.fontawesome.com/8591377d67.css" crossorigin="anonymous">
+
+
+	<title>SolMusic | HTML Template</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="SolMusic HTML Template">
+	<meta name="keywords" content="music, html">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+	<link rel="stylesheet" href="https://codepen.io/njmcode/pen/MYXJGM.css">
+
+	<style>
+		#app {
+			margin: 0 auto;
+			width: 500px;
+			position: relative;
+		}
+
+		#r-head {
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+		#r-head h3 {
+			margin-top: 0;
+		}
+
+		.presets {
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
+		}
+		.presets li {
+			display: inline-block;
+			border: 1px solid #111;
+		}
+		.presets a {
+			display: inline-block;
+			padding: 5px;
+			width: 200px;
+			border: 2px solid #333;
+			background: #222;
+			color: #555;
+			background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+			transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+		}
+		.presets a:hover {
+			background-color: #530;
+			border-color: #ff9900;
+		}
+		.presets a.active {
+			border-color: #99ccaa;
+			color: white;
+			-webkit-animation: focused 0.5s ease;
+			animation: focused 0.5s ease;
+			-webkit-animation-iteration-count: infinite;
+			animation-iteration-count: infinite;
+			-webkit-animation-direction: alternate;
+			animation-direction: alternate;
+		}
+		.seq-ui {
+			 background-color: #FFFFFF !important;
+
+		}
+		.seq-ui h3 {
+			color: #FFFFFF;
+		}
+		.presets a {
+			color: #FFFFFF;
+		}
+	</style>
+
+	<script>
+		window.console = window.console || function(t) {};
+	</script>
+
+
+
+	<script>
+		if (document.location.search.match(/type=embed/gi)) {
+			window.parent.postMessage("resize", "*");
+		}
+	</script>
+
+	<!-- Favicon -->
+	<link href="img/favicon.ico" rel="shortcut icon"/>
+
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet">
+
+	<link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="css/main/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="css/main/icomoon.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="css/main/bootstrap.css">
+	<!-- Flexslider  -->
+	<link rel="stylesheet" href="css/main/flexslider.css">
+	<!-- Flaticons  -->
+	<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+	<!-- Owl Carousel -->
+	<link rel="stylesheet" href="css/main/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/main/owl.theme.default.min.css">
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="css/main/style.css">
+
+
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<!-- script
+    ================================================== -->
+	<script src="js/modernizr.js"></script>
+
+	<!-- Modernizr JS -->
+	<script src="js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="css/music/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/music/font-awesome.min.css"/>
+	<link rel="stylesheet" href="css/music/owl.carousel.min.css"/>
+	<link rel="stylesheet" href="css/music/slicknav.min.css"/>
+
+	<!-- Main Stylesheets -->
+	<link rel="stylesheet" href="css/music/style.css"/>
+	<link rel="stylesheet" href="css/header.css">
+	<link rel="stylesheet" href="css/membership.css">
+
+
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+	</style>
+	<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+	<style>
+		h1, h2, h3, h4, h5, h6, span, p, a, label, input, textarea, button {
+			font-family: 'Gowun Dodum', sans-serif !important;
+			font-size: large !important;
+			letter-spacing: 0rem; !important;
+		}
+	</style>
+
+	<link rel="stylesheet" href="css/modal.css">
+
+</head>
+<style th:replace="mouse.html :: style"></style>
+<body  translate="no" style="background-color: #FFFFFF !important;">
+<!-- Page Preloder -->
+<div id="preloder">
+	<div class="loader"></div>
+</div>
+
+<div id="colorlib-page">
+	<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+
+	<header th:replace="sider.html :: header"></header>
+
+
+	<div id="colorlib-main">
+
+		<!-- Category section -->
+		<section class="category-section spad">
+			<div class="container-fluid">
+				<div class="section-title">
+					<h2>Live Concert Playlist</h2>
+				</div>
+				<div class="container">
+					<div class="category-links">
+						<a href="MUS003?category=음악" >전체</a>
+						<!--DDAN 서브카테고리-->
+						<span id="DDANsubCategory">
+
+				</span>
+					</div>
+				</div>
+
+				<div class="category-items">
+					<!--워크스페이스 시작--><!--DDAN 리스트-->
+					<div class="row">
+						<div class="col-md-4" th:each="list : ${WorkSpaceList}"><!--반복-->
+							<div class="category-item">
+								<img th:src="@{/junho/workSpaceImg/{workImgName}(workImgName=${list.workImgName})}" alt="" width="300px" height="300px">
+								<div class="ci-text">
+									<h4>[[${list.memName}]]</h4>
+									<p><span style="display: flex" th:text="${list.workTag}" class="reTag"></span></p>
+									<p>💓 : [[${list.likeNum}]]</p>
+									<p>💬 : [[${list.comentNum}]]</p>
+									<p>👤 : [[${list.HitNum}]]</p>
+									<p>📒 : [[${list.BoardNum}]]</p>
+								</div>
+								<a th:href="@{WOR4(workCode=${list.workCode})}" class="ci-link"><i class="fa fa-play"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<div id="get-in-touch" class="colorlib-bg-color" style="background-color: #FFFFFF">
+			<div class="colorlib-narrow-content">
+				<div class="row" style="margin-left: 14%">
+					<div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
+						<p><button onclick="location.href='MUS004?category=음악'" style="border: 2px solid #FFC300;" class="btn btn-primary btn-learn">더보기</button></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Category section end -->
+		<div style="
+		height: 560px;
+		">
+			<iframe id="nx-player" frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" title="대한민국 최고 엘리트 유망주들을 만나다 I 폼카우터 2화 I 그라운드N" width="100%" height="100%" src="https://www.youtube.com/embed/k3rUzmGK1Hs?mute=0&amp;autoplay=1&amp;playsinline=1&amp;widget_referrer=https%3A%2F%2Ffifaonline4.nexon.com%2F&amp;enablejsapi=1&amp;origin=https%3A%2F%2Fnccplayer.na.nexon.com&amp;widgetid=1"></iframe>
+
+		</div>
+		<script>
+			// API 키 설정
+			var apiKey = 'AIzaSyAHmSzEtbMvGGGufr4sJmTzZp45ELBM67g';
+
+			// 인기 있는 음악 동영상 검색 요청 보내기
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', 'https://www.googleapis.com/youtube/v3/search?part=id%2Csnippet&type=video&q= 인기있는 뮤비  &key=' + apiKey + '&maxResults=2');
+			xhr.onload = function() {
+				if (xhr.status === 200) {
+					// 검색 결과에서 동영상 ID 가져오기
+					var videoId = JSON.parse(xhr.responseText).items[0].id.videoId;
+
+					// 동영상 재생을 위한 URL 생성
+					var url = 'https://www.youtube.com/embed/' + videoId;
+
+					// iframe 태그의 src 속성에 URL 지정하기
+					document.getElementById('player').setAttribute('src', url);
+				} else {
+					console.error('Request failed.  Returned status of ' + xhr.status);
+				}
+			};
+			xhr.send();
+		</script>
+		<!-- Songs section  -->
+		<section class="songs-section">
+			<div class="container">
+				<!-- song -->
+				<!--DDAN 리스트-->
+				<div class="song-item" th:each="list , stat : ${BoardList}">
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="song-info-box">
+								<a th:href="@{DRA004(boaCode=${list.boaCode})}"><img th:src="@{/PSW/bestimg/{boaBestImg}(boaBestImg=${list.boaBestImg})}" alt="" ></a>
+								<div class="song-info">
+									<h4>[[${list.memName}]]</h4>
+									<p>[[${list.memGrade}]]</p>
+									<p><span style="display: flex" th:text="${list.boaTag}" class="reTag"></span></p>
+									<span th:id="asd+|${stat.index}|">[[asd+|${stat.index}|]]</span>
+									<p>💓 : [[${list.likeNum}]]</p>
+									<p>💬 : [[${list.comentNum}]]</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="single_player_container">
+								<div class="single_player">
+									<div class="jp-jplayer jplayer" th:data-ancestor=".jp_container_+|${stat.index}|" th:data-url="@{/PSW/mp3/{boaFileName}(boaFileName=${list.boaFileName})}"></div>
+									<div class="jp-audio " th:classappend="jp_container_+|${stat.index}|" role="application" aria-label="media player">
+										<div class="jp-gui jp-interface">
+
+											<!-- Player Controls -->
+											<div class="player_controls_box">
+												<!-- 음악 재생 버튼	-->
+												<button class="jp-prev player_button" tabindex="0" id="test" th:onclick="test([[${list.boaCode}]])" ></button>
+												<button class="jp-play player_button" tabindex="0"></button>
+												<button class="jp-next player_button" tabindex="0"></button>
+												<button class="jp-stop player_button" tabindex="0"></button>
+											</div>
+											<!-- Progress Bar -->
+											<div class="player_bars">
+												<div class="jp-progress">
+													<div class="jp-seek-bar">
+														<div>
+															<div class="jp-play-bar"><div class="jp-current-time" role="timer" aria-label="time">0:00</div></div>
+														</div>
+													</div>
+												</div>
+												<div class="jp-duration ml-auto" role="timer" aria-label="duration">00:00</div>
+											</div>
+										</div>
+										<div class="jp-no-solution">
+											<span>Update Required</span>
+											To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-2">
+							<div class="songs-links">
+								<a href=""><img src="img/icons/p-1.png" alt=""></a>
+								<a href=""><img src="img/icons/p-2.png" alt=""></a>
+								<a href=""><img src="img/icons/p-3.png" alt=""></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="get-in-touch" class="colorlib-bg-color" style="background-color: #FFFFFF">
+					<div class="colorlib-narrow-content">
+						<div class="row">
+							<div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
+								<p><button onclick="morebView()" style="border: 2px solid #FFC300" class="btn btn-primary btn-learn">더보기</button></p>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+			<input type="hidden" th:value="${category}" id="category">
+			<input type="hidden" th:value="${cateCode}" id="cateCode">
+
+		</section>
+	</div>
+</div>
+<div id="mainCoantiner" style="width:100%; height: 550px">
+	<div>
+		<div class="starsec"></div>
+		<div class="starthird"></div>
+		<div class="starfourth"></div>
+		<div class="starfifth"></div>
+		<div  id="beat"><h2 style="text-align: center;color: aliceblue;margin-top: 0px;padding-top: 20px;">비트만들기</h2><div id="app" class="">
+			<div class="app-region" id="r-head">		<h3>Metronome</h3>		<div class="control metronome">      <span class=""></span>      <span></span>      <span></span>      <span></span>    </div>	</div>
+			<div class="app-region" id="r-top">    <div class="module transport">      <h3>Transport</h3>      <button class="transport-play" title="Play">►</button>			<button class="transport-stop" title="Stop">■</button>			<input type="text" size="3" min="30" max="250" value="130" class="transport-tempo">     </div>  </div>
+			<div class="app-region" id="r-mid">  </div>
+			<div class="app-region" id="r-bottom"></div>
+			<div class="app-region" id="r-footer" >
+		</div></div>
+	</div>
+
+
+
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+	<script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js"></script>
+
+		<script src="js/modal.js"></script>
+
+	<script id="rendered-js">
+		console.clear();
+
+		var AUDIO = new (window.AudioContext || window.webkitAudioContext)();
+
+		var dispatcher = _.extend({
+					'EventKeys': {},
+					register: function (eventHash) {
+						for (var k in eventHash) {
+							if (k in this.EventKeys) throw 'Dispatcher error: duplicate event key: ' + k;
+
+							this.EventKeys[k] = eventHash[k];
+						}
+					} },
+				Backbone.Events);
+
+
+
+
+
+
+		/**
+		 * Sample bank.  Loads and maintains sound sources
+		 * and responds to requests to play them.
+		 **/
+		var SampleBank = function (A) {
+
+			var bank = {},
+					loadCount = 0,
+					totalCount = 0;
+
+			/**
+			 * Resource loading
+			 **/
+
+			function loadSamples(srcObj, callback) {
+				for (var k in srcObj) {
+					totalCount++;
+				}
+				for (var k in srcObj) {
+					_loadSample(k, srcObj[k]);
+				}
+				_onSamplesLoaded = callback;
+			}
+
+			function _onSamplesLoaded() {
+				console.warn('Need to pass a callback to load()');
+			}
+
+			function _handleSampleLoad(key, buffer) {
+				if (!buffer) {
+					console.error('Unable to decode audio file', url);
+					return;
+				}
+				bank[key] = buffer;
+				if (++loadCount == totalCount) _onSamplesLoaded();
+			}
+
+			function _loadSample(key, url) {
+				var req = new XMLHttpRequest();
+				req.responseType = "arraybuffer";
+				req.onload = function () {
+					A.decodeAudioData(req.response, function (b) {
+						_handleSampleLoad(key, b);
+					}, function (err) {
+						console.error('Unable to decode audio data', err);
+					});
+				};
+				req.onerror = function (err) {
+					console.error('Error loading sample data', key, url, err);
+				};
+				req.open('GET', url, true);
+				req.send();
+			}
+
+			/**
+			 * Resource playing
+			 **/
+
+			function playSample(id, when) {
+				var s = A.createBufferSource();
+				s.buffer = bank[id];
+				s.connect(A.destination);
+				s.start(when || 0);
+			}
+
+			var API = {
+				play: playSample,
+				init: loadSamples };
+
+			return API;
+
+		}(AUDIO);
+
+
+
+
+
+
+
+		/**
+		 * Sequencer
+		 **/
+		var Sequencer = function (A, S) {
+
+			var evs = {
+				SEQUENCER_PLAY: 'sequencer:play',
+				SEQUENCER_STOP: 'sequencer:stop',
+				SEQUENCER_SET_PATTERN: 'sequencer:setpattern',
+				SEQUENCER_PATTERN_CHANGED: 'sequencer:patternchanged',
+				SEQUENCER_STEP: 'sequencer:step',
+				SEQUENCER_NOTE_PLAY: 'sequencer:noteplay' };
+
+
+			var tempo,tic,_initialized = false;
+			var noteTime,startTime,ti,currentStep = 0;
+			var isPlaying = false;
+			var currentPattern = null,_currentPatternSequenceRaw;
+			var channelStatus = {};
+
+			function setTempo(newTempo) {
+				tempo = newTempo;
+				tic = 60 / tempo / 4; // 16th
+			}
+
+			/* Scheduling */
+
+			function scheduleNote() {
+				if (!isPlaying) return false;
+				var ct = A.currentTime;
+				ct -= startTime;
+				while (noteTime < ct + 0.200) {if (window.CP.shouldStopExecution(0)) break;
+					var pt = noteTime + startTime;
+
+					playPatternStepAtTime(pt);
+
+					nextNote();
+				}window.CP.exitedLoop(0);
+				ti = setTimeout(scheduleNote, 0);
+			}
+
+			function nextNote() {
+				currentStep++;
+				if (currentStep == 16) currentStep = 0;
+				noteTime += tic;
+			}
+
+			function playPatternStepAtTime(pt) {
+				for (var k in currentPattern) {
+					if (channelStatus[k] !== false && currentPattern[k][currentStep] == "1") {
+						S.play(k, pt);
+						dispatcher.trigger(dispatcher.EventKeys.SEQUENCER_NOTE_PLAY, k);
+					}
+					dispatcher.trigger(dispatcher.EventKeys.SEQUENCER_STEP, currentStep);
+				}
+			}
+
+			/* Parsing */
+
+			function playPattern(pattern, loops) {
+				if (!_initialized) throw 'Sequencer not initialized';
+				if (currentPattern === null) _parsePattern(pattern);
+
+				if (loops === undefined) loops = 1;
+				if (loops === -1) loops = Number.MAX_INT;
+
+				play();
+			}
+
+			function _parsePattern(pattern) {
+				currentPattern = {};
+				_currentPatternSequenceRaw = _.extend(pattern.sequence, {});
+				for (var k in pattern.sequence) {
+					var pat = _parseLine(pattern.sequence[k]);
+					currentPattern[k] = pat;
+				}
+			}
+
+			function _parseLine(line) {
+				if (line.length !== 16) console.error('Invalid line length', pattern);
+				return line.split('');
+			}
+
+			/** Transport **/
+
+			function play() {
+				isPlaying = true;
+				noteTime = 0.0;
+				startTime = A.currentTime + 0.005;
+				scheduleNote();
+			}
+
+			function stop() {
+				isPlaying = false;
+				currentStep = 0;
+				dispatcher.trigger(dispatcher.EventKeys.SEQUENCER_STEP, currentStep);
+			}
+
+			function changeChannelActiveStatus(channel, status) {
+				channelStatus[channel] = status;
+			}
+
+			var _template = Handlebars.compile('\
+    <div class="module sequencer">\
+      <h3>Sequencer</h3>\
+      <div class="sequencer-channels">\
+			{{#each channels}}\
+				<div class="channel" data-inst="{{ this }}"></div>\
+				<div class="sep"></div>\
+			{{/each}}\
+ 			</div>\
+    </div>');
+
+			var SequencerView = Backbone.View.extend({
+
+				channelViews: {},
+				initialize: function (options) {
+					this.listenTo(dispatcher, dispatcher.EventKeys.SEQUENCER_PLAY, playPattern);
+					this.listenTo(dispatcher, dispatcher.EventKeys.SEQUENCER_STOP, this.stop);
+					this.listenTo(dispatcher, dispatcher.EventKeys.SEQUENCER_SET_PATTERN, this.setPattern);
+					this.listenTo(dispatcher, dispatcher.EventKeys.SEQUENCER_SET_TEMPO, setTempo);
+					this.listenTo(dispatcher, dispatcher.EventKeys.SEQUENCER_STEP, this.setPlayhead);
+					this.listenTo(dispatcher, dispatcher.EventKeys.SEQUENCER_NOTE_PLAY, this.onNotePlay);
+				},
+				setPattern: function (pattern) {
+					_parsePattern(pattern);
+
+					this.render();
+
+					for (var k in this.channelViews) {
+						this.channelViews[k].remove();
+					}
+					for (var k in currentPattern) {
+						var $cel = this.$el.find('.channel[data-inst="' + k + '"]');
+						this.channelViews[k] = new ChannelView({
+							channel: k,
+							model: currentPattern[k],
+							el: $cel });
+
+					}
+
+					this.renderChannels();
+				},
+				render: function () {
+					var data = currentPattern ? Object.keys(currentPattern) : [];
+					var rawHTML = _template({ channels: data });
+					this.$el.html(rawHTML);
+					return this;
+				},
+				renderChannels: function () {
+					this.$channelContainer = this.$el.find('.sequencer-channels');
+					for (var k in this.channelViews) {
+						this.channelViews[k].render();
+					}
+					this.$steps = $('.channel span');
+				},
+				setPlayhead: function (stepId) {
+					for (var k in this.channelViews) {
+						this.channelViews[k].setPlayhead(stepId);
+					}
+				},
+				onNotePlay: function (channel) {
+					this.channelViews[channel].spikeEQ();
+				},
+				stop: function () {
+					stop();
+					for (var k in this.channelViews) {
+						this.channelViews[k].clearPlayhead();
+					}
+				} });
+
+
+			var _channelTemplate = Handlebars.compile('\
+      <button class="control mute active"></button>\
+      <button class="control pad">{{ symbol }}</button>\
+      <div class="control meter vertical">\
+      	<span></span>\
+      </div>\
+      <div class="seq-row inline">\
+      	{{#each notes}}\
+        <span data-tic="{{ @index }}" class=""></span>\
+				{{/each}}\
+      </div>\
+	');
+
+			var ChannelView = Backbone.View.extend({
+				events: {
+					'click .seq-row span': 'onNoteClick',
+					'click .pad': 'onPadClick',
+					'click .mute': 'onMuteClick' },
+
+				channel: null,
+				active: true,
+				initialize: function (options) {
+					this.channel = options.channel;
+				},
+				render: function () {
+					var rawHTML = _channelTemplate({
+						id: this.channel,
+						symbol: this.channel.substr(0, 1).toUpperCase(),
+						notes: this.model });
+
+					this.$el.html(rawHTML);
+
+					this.$notes = this.$el.find('.seq-row span');
+					this.$eq_bar = this.$el.find('.meter span');
+					this.$active = this.$el.find('.mute');
+
+					var self = this;
+					this.model.forEach(function (note, idx) {
+						var $el = self.$notes.eq(idx);
+						if (note === "1") $el.addClass('seq-note');
+						if (idx % 4 === 0) $el.addClass('seq-step-measure');
+					});
+					this.spikeEQ();
+					this.$active.toggleClass('active', this.active);
+					return this;
+				},
+				clearPlayhead: function () {
+					this.$notes.removeClass('seq-playhead');
+				},
+				setPlayhead: function (id) {
+					this.clearPlayhead();
+					this.$notes.filter('[data-tic="' + id + '"]').addClass('seq-playhead');
+				},
+				onNoteClick: function (e) {
+					var tic = $(e.currentTarget).attr('data-tic');
+					currentPattern[this.channel][tic] = currentPattern[this.channel][tic] === "1" ? "0" : "1";
+					this.render();
+				},
+				onMuteClick: function (e) {
+					this.active = !this.active;
+					channelStatus[this.channel] = this.active;
+					this.$active.toggleClass('active', this.active);
+				},
+				onPadClick: function (e) {
+					S.play(this.channel);
+					this.spikeEQ(this.channel);
+				},
+				spikeEQ: function () {
+
+					var self = this;
+					this.$eq_bar.removeClass('fade');
+					this.$eq_bar.css('transform', 'scaleX(1)');
+
+					setTimeout(function () {
+						self.$eq_bar.addClass('fade');
+						self.$eq_bar.css('transform', 'scaleX(0)');
+					}, 50);
+				} });
+
+
+			function init(options) {
+				dispatcher.register(evs);
+				new SequencerView(options).render();
+				setTempo(130);
+				_initialized = true;
+			}
+
+			return {
+				init: init };
+
+
+		}(AUDIO, SampleBank);
+
+
+
+
+
+
+
+		/**
+		 * Transport
+		 **/
+		var Transport = function () {
+
+			var evs = {
+				TRANSPORT_PLAY: 'transport:play',
+				TRANSPORT_STOP: 'transport:stop',
+				TRANSPORT_REQUEST_PLAY: 'transport:requestplay',
+				TRANSPORT_REQUEST_STOP: 'transport:requeststop',
+				TRANSPORT_TEMPO_CHANGED: 'transport:tempochanged',
+				TRANSPORT_CHANGE_TEMPO: 'transport:changetempo' };
+
+
+			var _template = Handlebars.compile('\
+    <div class="module transport">\
+      <h3>Transport</h3>\
+      <button class="transport-play" title="Play">&#9658;</button>\
+			<button class="transport-stop" title="Stop">&#9632;</button>\
+			<input type="text" size="3" min="30" max="250" value="130" class="transport-tempo" /> \
+    </div>\
+  ');
+
+			function play() {
+				console.log('play');
+				dispatcher.trigger(dispatcher.EventKeys.TRANSPORT_REQUEST_PLAY);
+			}
+
+			function stop() {
+				dispatcher.trigger(dispatcher.EventKeys.TRANSPORT_REQUEST_STOP);
+			}
+
+			var TransportView = Backbone.View.extend({
+				events: {
+					'click .transport-play': 'onPlayClick',
+					'click .transport-stop': 'onStopClick',
+					'change .transport-tempo': 'onTempoChange' },
+
+				initialize: function (options) {
+					this.listenTo(dispatcher, dispatcher.EventKeys.TRANSPORT_PLAY, play);
+					this.listenTo(dispatcher, dispatcher.EventKeys.TRANSPORT_STOP, stop);
+					this.listenTo(dispatcher, dispatcher.EventKeys.TRANSPORT_CHANGE_TEMPO, this.onIncomingTempoChange);
+				},
+				render: function () {
+					var rawHTML = _template();
+					this.$el.html(rawHTML);
+					this.$tempo = this.$el.find('.transport-tempo');
+					return this;
+				},
+				onPlayClick: play,
+				onStopClick: stop,
+				onTempoChange: function (e) {
+					var newTempo = $(e.currentTarget).val();
+					dispatcher.trigger(dispatcher.EventKeys.TRANSPORT_TEMPO_CHANGED, newTempo);
+				},
+				onIncomingTempoChange: function (newTempo) {
+					this.$tempo.val(newTempo);
+					dispatcher.trigger(dispatcher.EventKeys.TRANSPORT_TEMPO_CHANGED, newTempo);
+				} });
+
+
+			function init(options) {
+				dispatcher.register(evs);
+				new TransportView(options).render();
+			}
+
+			return {
+				init: init };
+
+
+		}();
+
+
+
+
+
+
+
+		/**
+		 * Metronome
+		 **/
+		var Metronome = function () {
+
+			var evs = {
+				METRONOME_TIC: 'metronome:tic',
+				METRONOME_CLEAR: 'metronome:clear' };
+
+
+			var _template = Handlebars.compile('\
+		<h3>Metronome</h3>\
+		<div class="control metronome">\
+      <span></span>\
+      <span></span>\
+      <span></span>\
+      <span></span>\
+    </div>\
+	');
+
+			var MetronomeView = Backbone.View.extend({
+				initialize: function (options) {
+					this.listenTo(dispatcher, dispatcher.EventKeys.METRONOME_TIC, this.onTic);
+					this.listenTo(dispatcher, dispatcher.EventKeys.METRONOME_CLEAR, this.clear);
+				},
+				render: function () {
+					var rawHTML = _template();
+					this.$el.html(rawHTML);
+					this.$steps = this.$el.find('span');
+					return this;
+				},
+				clear: function () {
+					this.$steps.removeClass('active');
+				},
+				onTic: function (stepId) {
+					if (stepId % 4 == 0) {
+						this.clear();
+						this.$steps.eq(Math.floor(stepId / 4)).addClass('active');
+					}
+				} });
+
+
+			function init(options) {
+				dispatcher.register(evs);
+				new MetronomeView(options).render();
+			}
+
+			return {
+				init: init };
+
+		}();
+
+
+
+
+
+
+		/**
+		 * Preset pattern selector
+		 **/
+		var PresetList = function () {
+
+			var evs = {
+				PRESET_SELECTED: 'preset:selected' };
+
+
+			var presets = {
+				'remaining': {
+					tempo: 100,
+					name: 'Remaining',
+					sequence: {
+						'openHat': '0010001000100010',
+						'closedHat': '1000100010001000',
+						'snare': '0000100000001000',
+						'kick': '1000000010100100' } },
+
+
+				'coagulate': {
+					tempo: 124,
+					name: 'Coagulate',
+					sequence: {
+						'openHat': '0010000000000010',
+						'closedHat': '1100111111111100',
+						'snare': '0000100000001000',
+						'kick': '0110000010000001' } },
+
+
+				'deodorize': {
+					tempo: 118,
+					name: 'Deodorize',
+					sequence: {
+						'openHat': '1000100010001000',
+						'closedHat': '0000000000000000',
+						'snare': '0000100101001000',
+						'kick': '1001000000110100' } },
+
+
+				'maintain': {
+					tempo: 90,
+					name: 'Maintain',
+					sequence: {
+						'openHat': '0000000000100000',
+						'closedHat': '1010101010001010',
+						'snare': '0000100000001000',
+						'kick': '0010010010000010' } },
+
+
+				'mufuh': {
+					tempo: 130,
+					name: 'Mufu',
+					sequence: {
+						'openHat': '0011000000000110',
+						'closedHat': '1100111111111001',
+						'snare': '0000100101001101',
+						'kick': '1010000000100000' } },
+
+
+				'gabriel': {
+					tempo: 135,
+					name: 'Gabriel',
+					sequence: {
+						'openHat': '0000000000010000',
+						'closedHat': '0000011000000100',
+						'snare': '0000109000001000',
+						'kick': '1000010100100000' } },
+
+
+				'empty': {
+					tempo: 130,
+					name: '[empty]',
+					sequence: {
+						'openHat': '0000000000000000',
+						'closedHat': '0000000000000000',
+						'snare': '0000000000000000',
+						'kick': '0000000000000000' } } };
+
+
+
+
+			var _template = Handlebars.compile('\
+		<h3>Presets</h3>\
+		<ul class="control presets menu">\
+		{{#each items}}\
+    	<li><a href="#" data-preset-id="{{ @key }}"  onclick="return false"	>{{ name }}</a></li>\
+    {{/each}}\
+    </ul>\
+	');
+
+			var PresetListView = Backbone.View.extend({
+				events: {
+					'click a': 'onPresetClick' },
+
+				render: function () {
+					var rawHTML = _template({ items: presets });
+					this.$el.html(rawHTML);
+					this.$items = this.$el.find('a');
+					return this;
+				},
+				onPresetClick: function (e) {
+					var id = $(e.currentTarget).attr('data-preset-id');
+					this.$items.removeClass('active');
+					$(e.currentTarget).addClass('active');
+					dispatcher.trigger(dispatcher.EventKeys.PRESET_SELECTED, presets[id]);
+				} });
+
+
+			function init(options) {
+				dispatcher.register(evs);
+				new PresetListView(options).render();
+			}
+
+			return {
+				init: init };
+
+
+		}();
+
+
+
+
+
+		/** Application **/
+
+		var App = {
+
+			_connectModules: function () {
+
+				// Transport controls -> sequencer
+				dispatcher.on(dispatcher.EventKeys.TRANSPORT_REQUEST_PLAY, function () {
+					dispatcher.trigger(dispatcher.EventKeys.SEQUENCER_PLAY);
+				});
+				dispatcher.on(dispatcher.EventKeys.TRANSPORT_REQUEST_STOP, function () {
+					dispatcher.trigger(dispatcher.EventKeys.SEQUENCER_STOP);
+				});
+				dispatcher.on(dispatcher.EventKeys.TRANSPORT_TEMPO_CHANGED, function (newTempo) {
+					dispatcher.trigger(dispatcher.EventKeys.SEQUENCER_SET_TEMPO, newTempo);
+				});
+
+				// Sequencer actions -> metronome
+				dispatcher.on(dispatcher.EventKeys.SEQUENCER_STEP, function (stepId) {
+					dispatcher.trigger(dispatcher.EventKeys.METRONOME_TIC, stepId);
+				});
+				dispatcher.on(dispatcher.EventKeys.SEQUENCER_STOP, function () {
+					dispatcher.trigger(dispatcher.EventKeys.METRONOME_CLEAR);
+				});
+
+				// Preset list -> tempo and sequencer
+				dispatcher.on(dispatcher.EventKeys.PRESET_SELECTED, function (preset) {
+					dispatcher.trigger(dispatcher.EventKeys.TRANSPORT_CHANGE_TEMPO, preset.tempo);
+					dispatcher.trigger(dispatcher.EventKeys.SEQUENCER_SET_PATTERN, preset);
+				});
+
+			},
+
+			onLoad: function () {
+
+				this._connectModules();
+
+				var pattern = {
+					sequence: {
+						'openHat': '0000000000000000',
+						'closedHat': '0000000000000000',
+						'snare': '0000100000001000',
+						'kick': '1000000010000000' } };
+
+
+
+				dispatcher.trigger(dispatcher.EventKeys.SEQUENCER_SET_PATTERN, pattern);
+				//dispatcher.trigger(dispatcher.EventKeys.TRANSPORT_PLAY);
+			},
+
+			init: function () {
+				//
+				document.addEventListener('visibilitychange', function (e) {
+					if (document.hidden) dispatcher.trigger(dispatcher.EventKeys.SEQUENCER_STOP);
+				}, false);
+
+				// 808 or GTFO
+				var samples = {},
+						sampleList = ['kick', 'snare', 'openHat', 'closedHat'];
+				sampleList.forEach(function (id) {
+					samples[id] = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/101507/' + id + '.wav';
+				});
+
+				Sequencer.init({ el: $('#r-mid') });
+				Transport.init({ el: $('#r-top') });
+				Metronome.init({ el: $('#r-head') });
+				PresetList.init({ el: $('#r-footer') });
+
+				// Load samples and kickoff
+				SampleBank.init(samples, this.onLoad.bind(this));
+			} };
+
+
+		App.init();
+		//# sourceURL=pen.js
+	</script>
+
+
+
+
+</div>
+<!-- Songs section end -->
+<!--DDAN 서브카테고리 가져오기-->
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+	<script>
+		/*서브 카테고리 가져와 열기*/
+		let music = "음악";
+
+		$.ajax({
+			type: 'post',
+			url : 'category',
+			data:{
+				"cate" : music
+			},
+			dataType: "json",
+			success:
+					function(subCategoryList){
+						console.log("연결");
+						/*선택 리스트 출력*/
+						musicSubCategory(subCategoryList);
+					},
+			error:function (){
+				alert('category 연결 실패')
+			}
+		})
+
+		function musicSubCategory(List){
+			let output=""
+
+			for(let i in List){
+				output += "<a href=\"MUS003?cateCode="+List[i].cateCode+"\">"+List[i].subCategory+"</a>"
+			}
+
+			$("#DDANsubCategory").html(output);
+		}
+
+		//////////////////////////////////////////////////////////////////////////////////////////////////
+		/*태그 리스트 출력*/
+		let workList = [];
+		workList = "[[${WorkSpaceList}]]";
+		/*console.log(workList);*/
+		let workTag = [];
+
+		for(let i; i <workList.length; i++){
+			console.log(workList[i]);
+		};
+
+		/////////////////////////////////////////////////////////////////////////////////////
+		/*태그 기능 실행 자바 스크립트*/
+
+		let retag = $('.reTag');
+
+		for (let i = 0; i <   retag.length; i++) {
+			let tagArr = $(retag[i]).text().split(",")
+			let input = "";
+
+			for ( j in tagArr){
+				//console.log(tagArr[j]);
+				input += "<a href='UnifiedSearch?q="+tagArr[j].replace('#','%23')+"'>"+tagArr[j]+"</a>"+"<br/>";
+			}
+			$(retag[i]).html(input);
+		}
+		/////////////////////////////////////////////////////////////////////////////////////
+		let category = $('#category').val();
+		let cateCode = $('#cateCode').val();
+
+		function morebView(){
+			location.href="DRA008?cateCode="+cateCode+"&category="+category;
+		}
+	</script>
+
+<!--로그인 할시 onclick기능 추가-->
+<script th:if="${session.login ne null}">
+
+	/*/!*음악을 실행시 히스토리 데이터에 넣어주기*!/
+	var element = document.getElementById("test");
+	element.onclick = function() {
+		console.log("onclick기능 실현");
+		let memCode = [[${session.login.memCode}]];
+
+	}*/
+
+	/*음악 실행시 히스토리 데이터 넣어주기*/
+	function test(Code){
+		console.log("하이하이하이");
+		let boaCode = Code;
+		let memCode = [[${session.login.memCode}]];
+
+		$.ajax({
+			type: 'post',
+			url : 'ajaxMusHistroyInput',
+			data:{
+				"bhBoaCode" : boaCode,
+				"bhMemCode" : memCode
+			},
+			dataType: "text",
+			success:
+					function(result){
+						if(result=="OK"){
+							console.log("히스토리 넣기 성공");
+						}else {
+							console.log("히스토리 넣기 실패 맞아?");
+						}
+					},
+			error:function (){
+				alert('응애 실패');
+			}
+		})
+
+
+	}
+</script>
+
+
+
+<!--====== Javascripts & Jquery ======-->
+<script src="js/music/jquery-3.2.1.min.js"></script>
+<script src="js/music/bootstrap.min.js"></script>
+<script src="js/music/jquery.slicknav.min.js"></script>
+<script src="js/music/owl.carousel.min.js"></script>
+<script src="js/music/mixitup.min.js"></script>
+<script src="js/music/main.js"></script>
+
+<!-- Audio Player and Initialization -->
+<script src="js/music/jquery.jplayer.min.js"></script>
+<script src="js/music/jplayerInit.js"></script>
+
+<!-- jQuery -->
+<script src="js/jquery.min.js"></script>
+<!-- jQuery Easing -->
+<script src="js/jquery.easing.1.3.js"></script>
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Waypoints -->
+<script src="js/jquery.waypoints.min.js"></script>
+<!-- Flexslider -->
+<script src="js/jquery.flexslider-min.js"></script>
+<!-- Sticky Kit -->
+<script src="js/sticky-kit.min.js"></script>
+<!-- Owl carousel -->
+<script src="js/owl.carousel.min.js"></script>
+<!-- Counters -->
+<script src="js/jquery.countTo.js"></script>
+
+
+<!-- MAIN JS -->
+<script src="js/main.js"></script>
+
+</body>
+
+
+</html>

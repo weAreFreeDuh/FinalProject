@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.artisans.atelier.dao.UnifiedSearchDAO">
+
+    <!--게시글 통합 검색-->
+    <select id="BoardSearch" parameterType="String" resultType="memboard">
+        <![CDATA[ ${sql} ]]>
+    </select>
+
+    <!--워크스페이스 통합검색 -->
+    <select id="WorkSearch" parameterType="String" resultType="memWorkspace">
+        <![CDATA[ ${sql} ]]>
+    </select>
+
+    <!--워크스페이스 더보기-->
+    <select id="WorkMoreSearch" parameterType="paging" resultType="memWorkspace">
+        <![CDATA[ ${sql} ]]>
+    </select>
+
+    <!-- 게시글 더보기-->
+    <select id="BoardMoreSearch" parameterType="paging" resultType="memboard">
+        <![CDATA[ ${sql} ]]>
+    </select>
+
+    <!--태그 중심의 추천-->
+    <select id="TagRecommand" parameterType="int" resultType="String">
+        <![CDATA[
+        SELECT DISTINCT BOATAG FROM boardhistory bh INNER JOIN BOARD ON BHBOACODE = BOACODE WHERE bh.bhmemcode = #{memCode} AND BOATAG IS NOT NULL
+        ]]>
+    </select>
+</mapper>

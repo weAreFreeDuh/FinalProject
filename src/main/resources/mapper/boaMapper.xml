@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.artisans.atelier.dao.BoardDAO">
+
+    <!--데이터베이스 안 카테고리 가져오기-->
+    <select id="ajaxcategory" parameterType="String" resultType="bocategory" >
+        select * from BOCATEGORY where category = #{category}
+    </select>
+
+    <!--워크 스페이스 카테고리 찾기-->
+    <select id="workCateCode" parameterType="memWorkspace" resultType="int">
+        select catecode from BOCATEGORY where category = #{category} and subcategory = #{subCategory}
+    </select>
+
+    <!--워크스페이스 작성-->
+    <insert id="WOR2" parameterType="memWorkspace">
+        insert into WORKSPACE(WORKCODE, WORKCATECODE,WORKMEMCODE,WORKTITLE,WORKINTRO,WORKIMGNAME,WORKTAG)
+        values(workcode_seq.Nextval,#{workCateCode}, #{workMemCode},#{workTitle}, #{workIntro}, #{workImgName}, #{workTag})
+        <selectKey resultType="integer" keyProperty="workCode" order="AFTER">
+            SELECT workcode_seq.currval FROM dual
+        </selectKey>
+    </insert>
+
+    <!--/*워크스페이스 게시글 묶어주기*/-->
+    <update id="tieBoard" parameterType="String">
+        ${sql}
+    </update>
+
+    <!--워크스페이스 전체 갯수 구하기-->
+    <select id="wCount" resultType="int">
+        SELECT COUNT(*) FROM workspace
+    </select>
+
+    <!-- 페이징 처리 -->
+    <select id="wList" parameterType="paging" resultType="memWorkspace">
+        SELECT * FROM workspacelist WHERE RN BETWEEN #{startRow} AND #{endRow} order by workcode DESC
+    </select>
+
+    <select id="WOR4" parameterType="int" resultType="memWorkspace">
+        select * from finalWorkspaceList where workCode = #{workCode}
+    </select>
+
+    <select id="WOR4Lit" parameterType="int" resultType="literature">
+        select * from literature where LitworkCode = #{workCode}
+    </select>
+
+    <update id="WOR6" parameterType="memWorkspace">
+        update workspace set workCatecode = #{workCateCode}, workMemCode = #{workMemCode}, workTitle=#{workTitle}, workIntro =#{workIntro}, workImgName =#{workImgName}, workTag = #{workTag} where workCode = #{workCode}
+    </update>
+
+
+    <!--더보기 하기 전 리스트 처리 3 개만 보내줌-->
+    <select id="MUS003" parameterType="String" resultType="memWorkspace" >
+        SELECT * FROM (SELECT finalWorkspaceList.*, ROW_NUMBER() OVER(ORDER BY workCode DESC) AS RN
+                       FROM finalWorkspaceList WHERE category = #{category} ) WHERE RN BETWEEN 1 AND 3
+    </select>
+
+    <!--더보기 하기 전 리스트 6개 만 보여줌-->
+    <select id="MUS003B" parameterType="String" resultType="memboard" >
+        SELECT * FROM (SELECT finalboardlist.*, ROW_NUMBER() OVER(ORDER BY boacode DESC) AS RN
+                       FROM finalboardlist WHERE category = #{category} ) WHERE RN BETWEEN 1 AND 6
+    </select>
+
+    <!--서브카테고리 클릭 시 출력 워크스페이스 최신순-->
+    <select id="MUS003Code" parameterType="int" resultType="memWorkspace" >
+        SELECT * FROM (SELECT finalWorkspaceList.*, ROW_NUMBER() OVER(ORDER BY workCode DESC) AS RN
+                       FROM finalWorkspaceList WHERE workcatecode = #{cateCode} ) WHERE RN BETWEEN 1 AND 3
+    </select>
+
+    <!--서브카테고리 클릭 시 출력 게시글-->
+    <select id="MUS003CodeB" parameterType="int" resultType="memboard" >
+        SELECT * FROM (SELECT finalboardlist.*, ROW_NUMBER() OVER(ORDER BY boacode DESC) AS RN
+                       FROM finalboardlist WHERE boacatecode = #{cateCode} ) WHERE RN BETWEEN 1 AND 6
+    </select>
+
+    <!-- 음악 워크스페이스 페이징 처리-->
+    <select id="MUS004Count" parameterType="bocategory" resultType="int">
+        select count(*) from finalWorkspaceList where category = #{category}
+        <if test='cateCode != 999'>
+            AND WORKCATECODE= #{cateCode}
+        </if>
+
+    </select>
+
+    <select id="MUS004List" parameterType="paging" resultType="memWorkspace">
+        SELECT * FROM
+        (SELECT finalWorkspaceList.*, ROW_NUMBER() OVER(
+            ORDER BY ${orderby} DESC
+        ) AS RN
+        FROM finalWorkspaceList WHERE category = #{category}
+        <if test='cateCode != 999'>
+        AND WORKCATECODE= #{cateCode}
+        </if>
+        ) WHERE RN BETWEEN #{startRow} AND #{endRow}
+    </select>
+
+    <!--ajax 워크스페이스 작성시 게시글 검색 기능-->
+    <select id="ajaxsearchAll" parameterType="String" resultType="memboard">
+        ${sql}
+    </select>
+
+    <select id="tiedbBoard" parameterType="int" resultType="memboard">
+        select * from finalboardlist where boaWorkcode = #{workCode} order by boaCode ASC
+    </select>
+
+    <select id="workCodeSet" parameterType="int" resultType="String">
+        select category from BOCATEGORY where catecode = #{cateCode}
+    </select>
+
+    <!--/*음악을 들을 시 히스토리 업데이트*/-->
+    <insert id="ajaxMusHistroyInput" parameterType="boardhistory">
+        insert into BOARDHISTORY values(#{bhBoaCode},#{bhMemCode},sysdate)
+    </insert>
+
+    <!--=================================================================-->
+    <update id="WOR7" parameterType="int">
+        update board set boaWorkCode = 0 where boaCode = #{boaCode}
+    </update>
+
+    <!--카테고리 구하기-->
+    <select id="getCategoryBoard" parameterType="int" resultType="String">
+        select category from finalWorkspaceList where workcode = #{workCode}
+    </select>
+
+    <!--/*워크스페이스 내 게시글 갯수 구하기*/-->
+    <select id="WOR4Count" parameterType="int" resultType="int">
+        select count(*) from finalboardlist where boaworkCode = #{workCode}
+    </select>
+
+    <!--워크스페이스 내 게시글 리스트 처리-->
+    <select id="boardList" parameterType="paging" resultType="memboard">
+        SELECT * FROM (SELECT finalboardlist.*, ROW_NUMBER() OVER(ORDER BY boaCode DESC) AS RN
+                       FROM finalboardlist where boaworkcode = #{workCode}) WHERE RN BETWEEN 1 AND 6
+    </select>
+
+    <insert id="litMethod" parameterType="memWorkspace">
+        insert into literature(litWorkCode,LITMETHOD,litCount,litPrice) values(#{workCode}, #{litMethod}, #{litCount},#{litPrice})
+    </insert>
+
+    <select id="getWorkCodeFormLit" parameterType="int" resultType="memboard">
+        select * from finalboardlist where boaCode = #{boaCode}
+    </select>
+
+    <select id="getAllAboutLit" parameterType="int" resultType="literature">
+        select * from literature where LITWORKCODE = #{workCode}
+    </select>
+
+    <select id="getLitNeedPay" parameterType="memWorkspace" resultType="memWorkspace">
+        SELECT * FROM (SELECT finalboardlist.*, ROW_NUMBER() OVER(ORDER BY boaCode ASC) AS RN
+                       FROM finalboardlist where boaworkcode = #{workCode}
+                      ) where rn > #{litCount} and boacode = #{boaCode}
+    </select>
+
+    <select id="getPayCodeLit" parameterType="literature" resultType="integer">
+        select litboaCode from LITERATUREPAY where litboaCode =#{litBoaCode} and litMemCode = #{memCode}
+    </select>
+
+    <select id="getMemPointLit" parameterType="int" resultType="int">
+        select mempoint from member where memCode = #{memCode}
+    </select>
+
+    <select id="getSellPointLit" parameterType="int" resultType="int">
+        select mempoint from member where memCode = #{boaMemCode}
+    </select>
+
+    <update id="memPointafterPayLit" parameterType="literature">
+        BEGIN
+            update member set mempoint = #{memPoint} where memCode = #{memCode};
+
+            update member set mempoint = #{memCodeSellPoint} where memCode = #{memCodeSell};
+        END;
+    </update>
+
+    <update id="setPointHistoryLit" parameterType="literature">
+        BEGIN
+            insert into LITERATUREPAY(litboaCode,litMemCode) values(#{litBoaCode},#{memCode});
+
+            insert into pointhistory(poiMemcode, poicontent, poiupdate,poidate) values(#{memCode},'문학 게시글 결제',-#{litPrice},sysdate);
+
+            insert into pointhistory(poiMemcode, poicontent, poiupdate,poidate) values(#{memCodeSell},'문학 게시글 판매',#{litPrice},sysdate);
+        END;
+    </update>
+
+   <delete id="WOR8_Board" parameterType="int">
+            delete boardHistory where bhboaCode = #{boaCode}
+    </delete>
+
+    <delete id="WOR8_BoardDelete" parameterType="int">
+        delete board where boaCode = #{boaCode}
+    </delete>
+
+    <delete id="WOR8_Workspace" parameterType="int">
+            delete workspace where workCode = #{workCode}
+    </delete>
+
+    <delete id="WOR8_Workspace_lit" parameterType="int">
+        delete literature where LitworkCode = #{boaCode}
+    </delete>
+
+    <delete id="WOR8_BoardLit" parameterType="int">
+        delete literaturePay where LITBOACODE = #{boaCode}
+    </delete>
+
+    <select id="indexAddObject" resultType="index">
+        select boardNum, memberNum, productNum, memberGradeNum from
+        (select count(*) as boardNum from board),
+        (select count(*) as memberNum from member),
+        (select count(*) as productNum from product),
+        (select count(*) as memberGradeNum from member where not mempaygrade ='없음')
+    </select>
+
+</mapper>

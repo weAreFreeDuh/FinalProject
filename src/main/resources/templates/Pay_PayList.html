@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="siwon">
+    <meta name="date" content="2023.01.27">
+    <meta name="description" content="게시물 리스트">
+    <title></title>
+
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <script src="https://kit.fontawesome.com/8591377d67.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://kit.fontawesome.com/8591377d67.css" crossorigin="anonymous">
+
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="css/main/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="css/main/icomoon.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="css/main/bootstrap.css">
+    <!-- Flexslider  -->
+    <link rel="stylesheet" href="css/main/flexslider.css">
+    <!-- Flaticons  -->
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="css/main/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/main/owl.theme.default.min.css">
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="css/main/style.css">
+
+    <link rel="stylesheet" href="css/header.css">
+
+    <link rel="stylesheet" href="css/category.css">
+    <link rel="stylesheet" href="css/selection.css">
+
+    <!-- script
+        ================================================== -->
+    <script src="js/modernizr.js"></script>
+
+    <!-- Modernizr JS -->
+    <script src="js/modernizr-2.6.2.min.js"></script>
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+<style>
+    .project .desc span {
+        font-size: 15px; !important;
+    }
+</style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <style>
+        h1, h2, h3, h4, h5, h6, span, p, a, label, textarea, button {
+            font-family: 'Gowun Dodum', sans-serif !important;
+            font-size: large !important;
+            letter-spacing: 0rem; !important;
+        }
+    </style>
+
+    <link rel="stylesheet" href="css/modal.css">
+</head>
+<style th:replace="mouse.html :: style"></style>
+
+<body>
+
+<div id="colorlib-page">
+    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+
+    <header th:replace="sider.html :: header"></header>
+
+    <div id="colorlib-main">
+
+        <div class="colorlib-blog">
+            <div class="colorlib-narrow-content">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
+                        <h2 class="colorlib-heading">Read Blog</h2>
+                    </div>
+                </div>
+                <label class="select animate-box" data-animate-effect="fadeInLeft" id="selects">
+
+                </label>
+                <div class="category-links animate-box" data-animate-effect="fadeInLeft" style="text-align: left">
+                    <!--카테고리별-->
+                    <a href="javascript:void(0);" onclick="productAll()">전체</a>
+                    <a href="javascript:void(0);" onclick="productCategory('음악')">음악</a>
+                    <a href="javascript:void(0);" onclick="productCategory('패션')">패션</a>
+                    <a href="javascript:void(0);" onclick="productCategory('DIY')">DIY</a>
+                    <a href="javascript:void(0);" onclick="productCategory('그림')">그림</a>
+                </div>
+
+                <input type="hidden" id="category">
+                <div class="row row-bottom-padded-md animate-box" data-animate-effect="fadeInLeft" id="workspaceBoard">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="endWorkspaceBoard"></div>
+</body>
+
+<!-- jQuery -->
+<script src="js/jquery.min.js"></script>
+<!-- jQuery Easing -->
+<!--<script src="js/jquery.easing.1.3.js"></script>-->
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Waypoints -->
+<script src="js/jquery.waypoints.min.js"></script>
+<!-- Flexslider -->
+<script src="js/jquery.flexslider-min.js"></script>
+<!-- Sticky Kit -->
+<script src="js/sticky-kit.min.js"></script>
+<!-- Owl carousel -->
+<script src="js/owl.carousel.min.js"></script>
+<!-- Counters -->
+<script src="js/jquery.countTo.js"></script>
+
+<!-- MAIN JS -->
+<script src="js/main.js"></script>
+
+<script src="js/modal.js"></script>
+
+<!--DDAN 서브카테고리 가져오기-->
+<!--<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="-->
+<!--        crossorigin="anonymous"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+<script>
+    // 페이징
+    let page = 1;
+    let endPage = 0;
+
+    // 전체 조회해오기
+    let WOB = '전체'; // 그림 / 음악 / DIY / 패션
+
+    // 스크롤 조회를 할 수 있는가?
+    let scrollSelect = false;   // true일때 스크롤 조회
+
+    moment.locale('ko');
+
+
+    // 처음 페이지 실행시 워크스페이스 불러오기
+    getproductAll();
+
+
+    // 전체 판매게시판 보고싶을때,
+    function productAll() {
+        page = 1;
+        WOB = '전체';
+
+        // 워크스페이스 및 게시글 띄운것들 초기화
+        $('#workspaceBoard').html(" ");
+
+        // 워크스페이스를 가져오기
+        getproductAll();
+    }
+
+    // 워크스페이스 조회
+    function getproductAll() {
+        $.ajax({
+            type: "POST",
+            url: "productAll",
+            data: {
+                "page": page
+            },
+            async: false,
+            dataType: "json",
+            success: function (result) {
+
+                page = result[0].page;
+                endPage = result[0].endpage;
+
+                //console.log("바뀐 page:"+page);
+                //console.log("현재페이지"+(page-1));
+                //console.log("바뀐 endPage:"+endPage);
+                innerProductAll(result[1]);
+                innerSelect();
+            },
+            error: function () {
+                alert("통신실패");
+            }
+
+        });
+    }
+
+    function innerSelect(){
+        let output = "";
+        output += "<select id=\"order\" onchange=\"orderby(this.value)\">";
+        output += "<option disabled=\"disabled\" selected=\"selected\">정렬</option>";
+        output += "<option value=\"PROENDDATE\">경매 마감일 순</option>";
+        output += "<option value=\"LIKENUM\">좋아요 순</option>";
+        output += "<option value=\"BOAHIT\">조회수 순</option>";
+        output += "<option value=\"PROPRICE1\">가격 높은순</option>";
+        output += "<option value=\"PROPRICE2\">가격 낮은순</option>";
+        output += "</select>";
+        output += "<svg>";
+        output += "<use xlink:href=\"#select-arrow-down\"></use>";
+        output += "</svg>";
+
+        $('#selects').html(output);
+    }
+
+    // 워크스페이스 정보 넣기
+    function innerProductAll(result) {
+        let output = "";
+
+        console.log(result);
+
+        for (let i in result) {
+
+
+           // console.log(typeof(result[i].proStartDate));
+            output += "<a onclick=\"checkTime('"+result[i].proStartDate+"', '"+result[i].proEndDate+"', '"+result[i].proBoaCode+"', '"+result[i].proPrice+"')\">";
+            output += "<div class=\"col-md-4 col-sm-6 animate-box\" data-animate-effect=\"fadeInRight\">";
+            output += "<div class=\"project\">";
+            output += "<img " +
+                "src=\"/PSW/bestimg/"+result[i].boaBestImg+"\"\n" +
+                "style=\"width: 100%;height: 100%\">";
+            output += "<div class=\"desc\">";
+            output += "<div class=\"con\">";
+            output += "<h3 style=\"color: #FFFFFF\" text=\""+result[i].boaTitle+"\"></h3>";
+            output += "<strong>"+result[i].memName+"</strong>";
+            /*output += "<span><i class=\"icon-clock3\">경매 시작시간 : "+result[i].proStartDate.getFullYear()+"년 "+result[i].proStartDate.getMonth()+"월 "+result[i].proStartDate.getDate()+"일 "+result[i].proStartDate.getHours()+" : "+result[i].proStartDate.getMinutes()+"</i></span>";output += "<span><i class=\"icon-clock3\">경매 시작시간 : "+result[i].proStartDate.getFullYear()+"년 "+result[i].proStartDate.getMonth()+"월 "+result[i].proStartDate.getDate()+"일 "+result[i].proStartDate.getHours()+" : "+result[i].proStartDate.getMinutes()+"</i></span>";*/
+            output += "<span style='margin-top: 20px; margin-bottom: 20px; color: white;'><i class=\"icon-clock3\">  경매 시작시간 : "+moment(result[i].proStartDate).format('YYYY년 MM월 DD일, A h:mm')+"</i></span>";
+            output += "<span style='margin-top: 20px; margin-bottom: 20px; color: white;'><i class=\"icon-clock3\">  경매 종료시간 : "+moment(result[i].proEndDate).format('YYYY년 MM월 DD일, A h:mm')+"</i></span>";
+            output += "<span style='margin-top: 20px; margin-bottom: 20px; color: white;'><i class=\"icon-diamond\"> 경매 최저가 : "+ result[i].proPrice +"원</i></span>";
+            output += "<p class=\"icon\">";
+            output += "<span><i class=\"icon-eye\">"+result[i].boaHit+"</i></span>";
+            output += "<span><i class=\"icon-heart\">"+result[i].likeNum+"</i></span>";
+            output += "<span><i class=\"icon-reply2\">"+result[i].comentNum+"</i></span>";
+            output += "</p>";
+            output += "</div></div></div></div></a>";
+        }
+        $('#workspaceBoard').append(output);
+        // Animations
+            var i = 0;
+            $('.animate-box').waypoint( function( direction ) {
+
+                if( direction === 'down' && !$(this.element).hasClass('animated') ) {
+
+                    i++;
+
+                    $(this.element).addClass('item-animate');
+                    setTimeout(function(){
+
+                        $('body .animate-box.item-animate').each(function(k){
+                            var el = $(this);
+                            setTimeout( function () {
+                                var effect = el.data('animate-effect');
+                                if ( effect === 'fadeIn') {
+                                    el.addClass('fadeIn animated');
+                                } else if ( effect === 'fadeInLeft') {
+                                    el.addClass('fadeInLeft animated');
+                                } else if ( effect === 'fadeInRight') {
+                                    el.addClass('fadeInRight animated');
+                                } else {
+                                    el.addClass('fadeInUp animated');
+                                }
+
+                                el.removeClass('item-animate');
+                            },  k * 200, 'easeInOutExpo' );
+                        });
+
+                    }, 100);
+
+                }
+
+            } , { offset: '85%' } );
+        //console.log("append 적용");
+        scrollSelect = true;
+    }
+
+    // 각 카테고리별 상품 불러오기
+    function getproductCategory() {
+        $.ajax({
+            type: "POST",
+            url: "productCategory",
+            data: {
+                "category": WOB,
+                "page": page
+            },
+            async: false,
+            dataType: "json",
+            success: function (result) {
+                console.log(result[0]);
+                console.log(result[1]);
+
+                page = result[0].page;
+                endPage = result[0].endpage;
+
+                //console.log("바뀐 page:"+page);
+                //console.log("현재페이지"+(page-1));
+                //console.log("바뀐 endPage:"+endPage);
+                innerproductCategory(result[1]);
+                innerSelect();
+            },
+            error: function () {
+                alert("통신실패");
+            }
+
+        });
+    }
+
+    // 게시물 넣기
+    function innerproductCategory(result) {
+        let output = "";
+
+        for (let i in result) {
+            output += "<a onclick=\"checkTime('"+result[i].proStartDate+"', '"+result[i].proEndDate+"', '"+result[i].proBoaCode+"', '"+result[i].proBoaCode+"')\">";
+            output += "<div class=\"col-md-4 col-sm-6 animate-box\" data-animate-effect=\"fadeInLeft\">";
+            output += "<div class=\"project\">";
+            output += "<img " +
+                "src=\"/PSW/bestimg/"+result[i].boaBestImg+"\"\n" +
+                "style=\"width: 100%;height: 100%\">";
+            output += "<div class=\"desc\">";
+            output += "<div class=\"con\">";
+            output += "<h3 style=\"color: #FFFFFF\" text=\""+result[i].boaTitle+"\"></h3>";
+            output += "<strong>"+result[i].memName+"</strong>";
+            /*output += "<span><i class=\"icon-clock3\">경매 시작시간 : "+result[i].proStartDate.getFullYear()+"년 "+result[i].proStartDate.getMonth()+"월 "+result[i].proStartDate.getDate()+"일 "+result[i].proStartDate.getHours()+" : "+result[i].proStartDate.getMinutes()+"</i></span>";output += "<span><i class=\"icon-clock3\">경매 시작시간 : "+result[i].proStartDate.getFullYear()+"년 "+result[i].proStartDate.getMonth()+"월 "+result[i].proStartDate.getDate()+"일 "+result[i].proStartDate.getHours()+" : "+result[i].proStartDate.getMinutes()+"</i></span>";*/
+            output += "<span style='margin-top: 20px; margin-bottom: 20px; color: white;'><i class=\"icon-clock3\" id='proStartDate'>경매 시작시간 : "+moment(result[i].proStartDate).format('YYYY년 MM월 DD일, A h:mm')+"</i></span>";
+            output += "<span style='margin-top: 20px; margin-bottom: 20px; color: white;'><i class=\"icon-clock3\" id='proEndDate'>경매 종료시간 : "+moment(result[i].proEndDate).format('YYYY년 MM월 DD일, A h:mm')+"</i></span>";
+            output += "<span style='margin-top: 20px; margin-bottom: 20px; color: white;'><i class=\"icon-diamond\"> 경매 최저가 : "+ result[i].proPrice +"원</i></span>";
+            output += "<p class=\"icon\">";
+            output += "<span><i class=\"icon-eye\">"+result[i].boaHit+"</i></span>";
+            output += "<span><i class=\"icon-heart\">"+result[i].likeNum+"</i></span>";
+            output += "<span><i class=\"icon-reply2\">"+result[i].comentNum+"</i></span>";
+            output += "</p>";
+            output += "</div></div></div></div></a>";
+        }
+        $('#workspaceBoard').append(output);
+        // Animations
+            var i = 0;
+            $('.animate-box').waypoint( function( direction ) {
+
+                if( direction === 'down' && !$(this.element).hasClass('animated') ) {
+
+                    i++;
+
+                    $(this.element).addClass('item-animate');
+                    setTimeout(function(){
+
+                        $('body .animate-box.item-animate').each(function(k){
+                            var el = $(this);
+                            setTimeout( function () {
+                                var effect = el.data('animate-effect');
+                                if ( effect === 'fadeIn') {
+                                    el.addClass('fadeIn animated');
+                                } else if ( effect === 'fadeInLeft') {
+                                    el.addClass('fadeInLeft animated');
+                                } else if ( effect === 'fadeInRight') {
+                                    el.addClass('fadeInRight animated');
+                                } else {
+                                    el.addClass('fadeInUp animated');
+                                }
+
+                                el.removeClass('item-animate');
+                            },  k * 200, 'easeInOutExpo' );
+                        });
+
+                    }, 100);
+
+                }
+
+            } , { offset: '85%' } );
+        //console.log("append 적용");
+        scrollSelect = true;
+    }
+
+    // 카테고리별게시물을 보고 싶을때,
+    function productCategory(category) {
+        page = 1;
+        WOB = category;
+
+        // 워크스페이스 및 게시글 띄운것들 초기화
+        $('#workspaceBoard').html("");
+
+        // 게시글 가져오기
+        getproductCategory();
+    }
+
+    // 조회순, 좋아요순, 입찰가 낮은순, 입찰가 높은순서 4가지
+    function orderby(order) {
+        page =1;
+
+        // 워크스페이스 및 게시글 띄운것들 초기화
+        $('#workspaceBoard').html(" ");
+
+        // 워크스페이스를 가져오기
+        getOrderby(order);
+    }
+
+    function getOrderby(order){
+        $.ajax({
+            type: "POST",
+            url: "ProSelect",
+            data: {
+                "category": WOB,
+                "page": page,
+                "order" : order
+            },
+            async: false,
+            dataType: "json",
+            success: function (result) {
+                console.log(result[0]);
+                console.log(result[1]);
+
+                page = result[0].page;
+                endPage = result[0].endpage;
+
+                //console.log("바뀐 page:"+page);
+                //console.log("현재페이지"+(page-1));
+                //console.log("바뀐 endPage:"+endPage);
+                innerProductAll(result[1]);
+            },
+            error: function () {
+                alert("통신실패");
+            }
+
+        });
+    }
+
+    function checkTime(proStartDate, proEndDate, proBoaCode, proPrice){
+
+/*        alert(proStartDate);
+        alert(proEndDate);*/
+
+        let sysdate = new Date();
+        let StartDate = new Date(proStartDate);
+        let EndDate = new Date(proEndDate);
+
+/*        alert('StartDate > sysdate : ' + (StartDate > sysdate));
+        alert('StartDate < sysdate : ' + (StartDate < sysdate));*/
+
+
+            location.href="PAY015?boaCode=" + proBoaCode;
+
+    }
+
+
+
+</script>
+<script>
+    // 스크롤 조회
+    window.addEventListener('scroll', function () {
+        if (scrollSelect && ((page - 1) <= endPage)) {
+            //console.log("중간실행 성공");
+            let posY = this.window.pageYOffset;
+            let wb = this.document.querySelector('#endWorkspaceBoard').getBoundingClientRect().bottom;
+
+            if (posY > wb) {
+                //console.log("수정후 내려감");
+                if (WOB == "전체") {    // 워크스페이스 조회
+                    scrollSelect = false;
+                    getproductAll();
+                } else {  // 게시물 조회
+                    scrollSelect = false;
+                    getproductCategory(WOB);
+                }
+
+            }
+        }
+
+
+    });
+</script>
+
+</html>
+

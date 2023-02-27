@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>직원목록</title>
+
+    <script src="https://kit.fontawesome.com/8591377d67.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://kit.fontawesome.com/8591377d67.css" crossorigin="anonymous">
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="css/main/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="css/main/icomoon.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="css/main/bootstrap.css">
+    <!-- Flexslider  -->
+    <link rel="stylesheet" href="css/main/flexslider.css">
+    <!-- Flaticons  -->
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="css/main/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/main/owl.theme.default.min.css">
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="css/main/style.css">
+
+    <link rel="stylesheet" href="css/header.css">
+
+    <link rel="stylesheet" href="css/font.css">
+
+    <link rel="stylesheet" href="css/selection.css">
+
+
+
+    <!-- script
+    ================================================== -->
+    <script src="js/modernizr.js"></script>
+
+    <!-- Modernizr JS -->
+    <script src="js/modernizr-2.6.2.min.js"></script>
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="css/ReportList.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" />
+
+    <!--모달 css-->
+    <style>
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0); /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 94%; /* Could be more or less, depending on screen size */
+            height: 105%;
+            text-align: center;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+
+    <style>
+        .fishUl {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .fishLi {
+            float: left;
+            margin-left: 200px;
+        }
+
+        .fishDiv {
+            min-width: 500px;
+            max-width: 800px;
+            border: 1px solid black;
+            text-align: center;
+            height: 700px;
+        }
+
+        .fishDiv2 {
+            border: 1px solid black;
+            width: 90%;
+            height: auto;
+            margin: auto;
+            overflow: scroll;
+            text-align: center;
+        }
+
+        .fishDiv3{
+            min-width: 500px;
+            border: 1px solid black;
+            text-align: center;
+            height: 850px;
+        }
+
+        .fishTable {
+            margin: auto;
+        }
+        .fishStrong{
+            font-size: 25px;
+        }
+        /*권한 조회시 권한 이름이 나오는 a태그 버튼*/
+        .selectAutBtn{
+
+        }
+
+        /*권한생성폼에서 생성하기 a태그 버튼*/
+        .newAutBtn{
+
+        }
+        /*권한 삭제 a태그 버튼*/
+        .deleteAutBtn{
+
+        }
+
+        .rainbow {
+            position: relative;
+            z-index: 0;
+            width: 400px;
+            height: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 2rem;
+        }
+        .rainbow::before {
+            content: "";
+            position: absolute;
+            z-index: -2;
+            left: -50%;
+            top: -50%;
+            width: 200%;
+            height: 200%;
+            background-color: #399953;
+            background-repeat: no-repeat;
+            background-size: 50% 50%, 50% 50%;
+            background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+            background-image: linear-gradient(#399953, #399953), linear-gradient(#fbb300, #fbb300), linear-gradient(#d53e33, #d53e33), linear-gradient(#377af5, #377af5);
+            -webkit-animation: rotate 4s linear infinite;
+            animation: rotate 4s linear infinite;
+        }
+        .rainbow::after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            left: 6px;
+            top: 6px;
+            width: calc(100% - 12px);
+            height: calc(100% - 12px);
+            background: white;
+            border-radius: 5px;
+        }
+    </style>
+
+    <style>
+        table {
+            border: 1px #a39485 solid;
+            font-size: .9em;
+            box-shadow: 0 2px 5px rgba(0,0,0,.25);
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        th {
+            text-align: left;
+        }
+
+        thead {
+            font-weight: bold;
+            color: #fff;
+            background: #73685d;
+        }
+
+        td, th {
+            padding: 1em .5em;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        td {
+            border-bottom: 1px solid rgba(0,0,0,.1);
+            background: #fff;
+        }
+
+        a {
+            color: #73685d;
+        }
+
+        @media all and (max-width: 768px) {
+
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            th {
+                text-align: right;
+            }
+
+            table {
+                position: relative;
+                padding-bottom: 0;
+                border: none;
+                box-shadow: 0 0 10px rgba(0,0,0,.2);
+            }
+
+            thead {
+                float: left;
+                white-space: nowrap;
+            }
+
+            tbody {
+                overflow-x: auto;
+                overflow-y: hidden;
+                position: relative;
+                white-space: nowrap;
+            }
+
+            tr {
+                display: inline-block;
+                vertical-align: top;
+            }
+
+            th {
+                border-bottom: 1px solid #a39485;
+            }
+
+            td {
+                border-bottom: 1px solid #e5e5e5;
+                width: 244px;
+            }
+
+
+        }
+    </style>
+</head>
+<style th:replace="mouse.html :: style"></style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+    h1, h2, h3, h4, h5, h6, span, p, a, label, input, textarea, button {
+        font-family: 'Gowun Dodum', sans-serif !important;
+        font-size: large !important;
+        letter-spacing: 0rem; !important;
+    }
+</style>
+
+<link rel="stylesheet" href="css/modal.css">
+
+
+<body>
+
+<div id="colorlib-page" style="height: 937px;">
+    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+
+    <header th:replace="sider.html :: header"></header>
+
+    <div id="colorlib-main" class="animate-box" data-animate-effect="fadeInLeft" style="width: 85%; height: 100%;">
+
+<h3 class="colorlib-heading" style="margin-top: 30px; margin-left: 60px">직원 권한</h3>
+<a href="#" class="bbtns" style="margin-left: 765px;">권한편집</a>
+<ul class="fishUl">
+    <li class="fishLi">
+        <div class="fishDiv">
+            <h1 style="margin-top: 20px; margin-bottom: 20px;">직원 검색</h1>
+            <div>
+                <div id="searchArea">
+                    <!--분류에 따라서 가져오기-->
+                    <br/>
+                    <label class="select">
+                    <select id="autDevide" onchange="changeAutCode(this.value)" required="required">
+
+                    </select>
+                        <svg>
+                            <use xlink:href="#select-arrow-down"></use>
+                        </svg>
+                    </label>
+                    <!-- SVG Sprites-->
+                    <svg class="sprites">
+                        <symbol id="select-arrow-down" viewbox="0 0 10 6">
+                            <polyline points="1 1 5 5 9 1"></polyline>
+                        </symbol>
+                    </svg>
+                    <label class="select">
+                    <select onchange="changeCategory(this.value)" required="required">
+                        <option disabled="disabled" selected="selected">조회 방법</option>
+                        <option value="MEMID">Id조회</option>
+                        <option value="MEMNAME">닉네임조회</option>
+                    </select>
+                    <svg>
+                        <use xlink:href="#select-arrow-down"></use>
+                    </svg>
+                    </label>
+                    <!-- SVG Sprites-->
+                    <svg class="sprites">
+                        <symbol id="select-arrow-down" viewbox="0 0 10 6">
+                            <polyline points="1 1 5 5 9 1"></polyline>
+                        </symbol>
+                    </svg>
+                    <!--한페이지에 가져올 갯수-->
+                   <!-- <label class="select">
+                    <select onchange="changeLimit(this.value)">
+                        <option value="5" disabled="disabled" selected="selected">직원 목록 개수</option>
+                        <option value="5">5개씩</option>
+                        <option value="10">10개씩</option>
+                        <option value="20">20개씩</option>
+                    </select>
+                    <svg>
+                        <use xlink:href="#select-arrow-down"></use>
+                    </svg>
+                    </label>
+                    &lt;!&ndash; SVG Sprites&ndash;&gt;
+                    <svg class="sprites">
+                        <symbol id="select-arrow-down" viewbox="0 0 10 6">
+                            <polyline points="1 1 5 5 9 1"></polyline>
+                        </symbol>
+                    </svg>-->
+                    <br/>
+                    <input type="text" onkeyup="changeSearch(this.value)" placeholder="검색" style="width: 86%;
+    margin-top: 20px;
+    margin-bottom: 20px"/>
+                    <div class="fishDiv2" style="width: 100%; height: auto;">
+                        <table id="MemList" class="fishTable">
+
+                        </table>
+                    </div>
+                    <div className="row">
+                        <div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
+                            <ul class="pagination" id="pageNum">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </li>
+    <li class="fishLi">
+        <div class="fishDiv" id="detailShow">
+
+        </div>
+    </li>
+</ul>
+<div class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h1>권한편집</h1>
+        <div><a href="javascript:void(0);" onclick="autResearch()">조회 및 수정</a> | <a href= "javascript:void(0);" onclick="autCreateForm()">생성</a></div>
+        <div class="fishDiv3">
+            <ul class="fishUl">
+                <li class="fishLi" style="margin-left: 155px;">
+                    <div class="fishDiv" style="height: 790px;">
+                        <h2 style="margin-top: 20px;">권한조회</h2>
+                        <!--한페이지에 가져올 갯수-->
+                        <label class="select">
+                        <select onchange="changeAutLimit(this.value)">
+
+                            <option value="5" disabled="disabled" selected="selected">권한 목록 개수</option>
+                            <option value="5">5개씩</option>
+                            <option value="10">10개씩</option>
+                            <option value="20">20개씩</option>
+                        </select>
+                            <svg>
+                                <use xlink:href="#select-arrow-down"></use>
+                            </svg>
+                        </label>
+                        <!-- SVG Sprites-->
+                        <svg class="sprites">
+                            <symbol id="select-arrow-down" viewbox="0 0 10 6">
+                                <polyline points="1 1 5 5 9 1"></polyline>
+                            </symbol>
+                        </svg>
+                        <!--특정 권한이 있는 직책 조회-->
+                        <label class="select">
+                        <select onchange="changeAutCategory(this.value)">
+                            <option value="all">모든권한</option>
+                            <option value="AUTGIVE">권한부여</option>
+                            <option value="AUTSECU">보안</option>
+                            <option value="AUTACCO">재정</option>
+                            <option value="AUTCHAT">문의</option>
+                            <option value="AUTAMAIL">공지</option>
+                            <option value="AUTCATEGORY">카테고리</option>
+                        </select>
+                        <svg>
+                            <use xlink:href="#select-arrow-down"></use>
+                        </svg>
+                        </label>
+                        <!-- SVG Sprites-->
+                        <svg class="sprites">
+                            <symbol id="select-arrow-down" viewbox="0 0 10 6">
+                                <polyline points="1 1 5 5 9 1"></polyline>
+                            </symbol>
+                        </svg>
+                        <input type="text" onkeyup="changeAutSearch(this.value)" placeholder="검색" style="margin-top: 30px; width: 90%;" />
+                        <br/>
+                        <div class="fishDiv2" style="margin-top: 30px;">
+                            <table id ="autList" class="fishTable">
+                            </table>
+                        </div>
+                        <div className="row">
+                            <div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
+                                <ul class="pagination" id="autListPageNum">
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="fishLi" style="margin-left: 155px;">
+                    <div id="autPlace" class="fishDiv" style="height: 790px;">
+                        <h1 style="margin-top: 20px;">조회 또는 생성을 눌러주세요</h1>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="js/jquery.min.js"></script>
+<!-- jQuery Easing -->
+<script src="js/jquery.easing.1.3.js"></script>
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Waypoints -->
+<script src="js/jquery.waypoints.min.js"></script>
+<!-- Flexslider -->
+<script src="js/jquery.flexslider-min.js"></script>
+<!-- Sticky Kit -->
+<script src="js/sticky-kit.min.js"></script>
+<!-- Owl carousel -->
+<script src="js/owl.carousel.min.js"></script>
+<!-- Counters -->
+<script src="js/jquery.countTo.js"></script>
+
+
+<!-- MAIN JS -->
+<script src="js/main.js"></script>
+
+<script src="js/modal.js"></script>
+
+</body>
+
+<script>
+
+    // 전역 변수들
+    let autAll = true;     // 전체권한 조회
+    let autCode = 0;       // 검색 autCode
+    let category = "MEMID"; // 아이디,닉네임 검색
+    let search = "";        // 검색 아이디 || 닉네임
+    let employeeCode;       // 수정할 직원코드
+
+    let page = 1;   // 직원목록 페이징 처리
+    let limit = 5;   // 직원목록 페이징 처리
+
+    let autAllSelect = true; // 모든 상세 권한 조회
+    let autCategory = ""; // 해당 상세 권한 조회
+    let autSearch = ""; // 권한 이름 검색
+
+    let autPage = 1; // 권한조회 페이징
+    let autLimit = 5; // 권한조회 페이징
+
+
+    // 페이지 로딩시 불러올 함수들
+    MEM023();
+    getList();
+    autResearch();
+
+
+    // 기존 권한을 select에 넣는 함수
+    function autInner(result) {
+        let output = "";
+        output = "<option disabled=\"disabled\" selected=\"selected\">권한 종류</option>";
+        output = "<option value=\"all\">전체조회</option>";
+        for (let i in result) {
+            output += "<option value='" + result[i].autCode + "'>" + result[i].autName + "</option>";
+        }
+
+        // select에 넣기
+        $('#autDevide').html(output);
+    }
+
+    // 검색 autCode 변경
+    function changeAutCode(input) {
+        if (input == 'all') {
+            autAll = true;
+        } else {
+            autAll = false;
+            autCode = input;
+        }
+        //console.log(autAll);
+        //console.log(autCode);
+        page = 1;
+        getList();
+    }
+
+    // 검색 카테고리 변경 (아이디, 닉네임)
+    function changeCategory(input) {
+        category = input;
+        page = 1;
+        getList();
+    }
+
+    // 페이지 변경
+    function changePage(input) {
+        page = input;
+        getList();
+    }
+
+    // 페이징 리미트 변경
+    function changeLimit(input) {
+        limit = input;
+        page = 1;
+        getList();
+    }
+
+    // 검색어
+    function changeSearch(input) {
+        search = input;
+        page = 1;
+        getList();
+    }
+
+    // 직원 목록 innerHTML
+    function listInner(paging, result) {
+        let output = "";
+        output += "<thead><tr><th>아이디</th><th>닉네임</th><th>권한</th></tr></thead>";
+        for (let i in result) {
+            output += "<tbody><tr>";
+            output += "<td>" + result[i].memId + "</td>";
+            output += "<td><a href= 'javascript:void(0);' onclick=\"MEM022(" + result[i].memCode + ", '" + result[i].AutName + "');\">" + result[i].memName + "</a></td>";
+            output += "<td>" + result[i].AutName + "</td>";
+            output += "</tr></tbody>";
+        }
+        $('#MemList').html(output);
+        output = "";
+        //하단에 페이지 처리
+        output = "";
+        //console.log(paging.page);
+
+        if (page <= 1) {
+            output += "<li><a>&laquo;</a></li>"
+        } else {
+            output += "<li><a href= 'javascript:void(0);' onclick=\"changePage(" + (page - 1) + ");\">&laquo;</a></li>";
+        }
+
+        for (let i = paging.startpage; i <= paging.endpage; i++) {
+            if (i == page) {
+                output += "<li class=\"active\"><a href='javascript:void(0);' onclick=\"changePage(" + i + ");\">" + i + "</a></li>";
+            } else {
+                output += "<li><a href= 'javascript:void(0);' onclick=\"changePage(" + i + ");\">" + i + "</a></li>";
+            }
+        }
+        if (page < paging.maxpage) {
+            output += "<li><a href= 'javascript:void(0);' onclick=\"changePage(" + (page + 1) + ");\">&raquo;</a></li>";
+        } else {
+            output += "<li><a>&raquo;</a></li>";
+        }
+
+        $('#pageNum').html(output);
+    }
+
+
+    // 직원 상세보기 innerHTML
+    // 수정좀
+    function showDetail(result, autName) {
+        let output = "";
+        output += "<div class=\"image_inner_container\" style=\"" +
+            "width: 110px; height: 110px; margin: auto;\">" +
+            "<img class=\"profile\" src=\"fish/img/memProfileImg/" + result.memProfileName + "\" ></div><br/>";
+        output += "<table style=\"width: 100%; height: 80%;\">";
+        output += "<tr>";
+        output += "<td style='width: 263px;'><b> 아이디</b> </td><td> " + result.memId + "</td>";
+        output += "</tr>";
+        output += "<tr>";
+        output += "<td><b> 닉네임</b> </td><td> " + result.memName + "</td>";
+        output += "</tr>";
+        output += "<tr>";
+        output +=  "<td> <b>생년월일</b> </td><td> " + result.memBirth + "</td>";
+        output += "</tr>";
+        output += "<tr>";
+        output += "<td> <b>회원멤버쉽</b> </td><td> " + result.memPayGrade + "</td>";
+        output += "</tr>";
+        output += "<tr>";
+        output += "<td> <b>회원연락처</b> </td><td> " + result.memPhone + "</td>";
+        output += "</tr>";
+        output += "<td> <b>회원주소 </b></td><td> " + result.memAddr + "</td></tr>";
+
+        output += "<tr><td colspan='2'>";
+        output += "<span id='autChange'>";
+        output += "권한 : " + autName + "</span></td></tr> ";
+        output += "<tr><td colspan='2'><div style='margin: auto;'><button class=\"btn btn-light-green\"  style=\"background-color: #000000; color: #FFFFFF !important;\" onclick='changeAut(\"" + autName + " \", " + result.memCode + ")'>수정</button> <button class=\"btn btn-light-green\"  style=\"background-color: #000000; color: #FFFFFF !important;\" onclick='fireCheck(" + result.memCode + ")'>해고처리</button></div></td> </tr>"
+        output += "</table>";
+
+        $('#detailShow').html(output);
+    }
+
+    // 직원 권한 변경 띄우기
+    function changeAut(name, memCode) {
+        let options = MEM023();
+        //console.log(options);
+        employeeCode = memCode;
+        let output = "<strong>권한수정 | </strong>";
+        output += "<select onchange='MEM025(this.value)'>";
+        output += "<option>" + name + "</option>";
+        for (let i in options) {
+            output += "<option value='" + options[i].autCode + "'>" + options[i].autName + "</option>";
+        }
+        output += "</select>";
+
+        // select에 넣기
+        $('#autChange').html(output);
+    }
+
+
+    // 해고 확인
+    function fireCheck(memCode) {
+        if (!confirm("정말로 해고하시겠습니까?")) {
+            alert("해고를 취소하였습니다.");
+        } else {
+            // 해고 MEM026
+            //console.log(memCode);
+            MEM026(memCode);
+
+        }
+    }
+
+    // 권한 리스트 보여주기
+    function autResearchInner(paging, result){
+        let output = "";
+        output += "<tr><th><Strong class='fishStrong'>권한이름</Strong></th></tr>";
+        for (let i in result) {
+            output += "<tr>";
+            output += "<td><strong class='fishStrong'><a class='selectAutBtn' href= 'javascript:void(0);' onclick=\"autDetailResearchInner('" +result[i].autName+ "', "+result[i].autGive+", "+result[i].autSecu+", "+result[i].autAcco+", "+result[i].autAChat+", "+result[i].autAMail+", "+result[i].autCategory+", "+result[i].autCode+");\">" + result[i].autName + "</a></strong></td>";
+            output += "</tr>";
+        }
+        $('#autList').html(output);
+
+        //하단에 페이지 처리
+        output = "";
+        //console.log(paging.page);
+
+        if (autPage <= 1) {
+            output += "<li><a>&laquo;</a></li>"
+        } else {
+            output += "<li><a href= 'javascript:void(0);' onclick=\"changeAutPage(" + (autPage - 1) + ");\">&laquo;</a></li>";
+        }
+
+        for (let i = paging.startpage; i <= paging.endpage; i++) {
+            if (i == autPage) {
+                output += "<li class=\"active\"><a href='javascript:void(0);' onclick=\"changeAutPage(" + i + ");\">" + i + "</a></li>";
+            } else {
+                output += "<li><a href= 'javascript:void(0);' onclick=\"changeAutPage(" + i + ");\">" + i + "</a></li>";
+            }
+        }
+        if (autPage < paging.maxpage) {
+            output += "<li><a href= 'javascript:void(0);' onclick=\"changeAutPage(" + (autPage + 1) + ");\">&raquo;</a></li>";
+        } else {
+            output += "<li><a>&raquo;</a></li>";
+        }
+
+        $('#autListPageNum').html(output);
+    }
+
+    // 권한 상세보기
+    function autDetailResearchInner(name,give,secu,acco,chat,amail,category,code) {
+        //console.log(name,give,secu,acco,chat,amail,category,code);
+        let output ="";
+        output ="<table style='text-align: left; margin: auto; height: 100%;'><tr><td colspan='2'><h1 style='text-align: center;'>권한 이름: "+name+"</h1></td></tr>";
+
+        // 권한 부여 권한
+        output +="<tr><td><strong class='fishStrong'>권한부여 권한 </strong></td><td><label class='select'><select onchange=\"autUpdate('autGive',this.value,"+code+")\">";
+        if(give==1){
+            output +="<option value='1'>있음</option><option value='0'>없음</option>";
+        }else{
+            output +="<option value='0'>없음</option><option value='1'>있음</option>";
+        }
+        output+="</select>                    <svg>\n" +
+            "                        <use xlink:href=\"#select-arrow-down\"></use>\n" +
+            "                    </svg>\n" +
+            "                    </label>\n" +
+            "                    <!-- SVG Sprites-->\n" +
+            "                    <svg class=\"sprites\">\n" +
+            "                        <symbol id=\"select-arrow-down\" viewbox=\"0 0 10 6\">\n" +
+            "                            <polyline points=\"1 1 5 5 9 1\"></polyline>\n" +
+            "                        </symbol>\n" +
+            "                    </svg></td></tr>";
+
+        // 보안 권한
+        output +="<tr><td><strong class='fishStrong'>보안 권한 </strong></td><td><label class='select'><select onchange=\"autUpdate('autSecu',this.value,"+code+")\">";
+        if(secu==1){
+            output +="<option value='1'>있음</option><option value='0'>없음</option>";
+        }else{
+            output +="<option value='0'>없음</option><option value='1'>있음</option>";
+        }
+        output+="</select><svg>\n" +
+            "                            <use xlink:href=\"#select-arrow-down\"></use>\n" +
+            "                        </svg>\n" +
+            "                        </label>\n" +
+            "                        <!-- SVG Sprites-->\n" +
+            "                        <svg class=\"sprites\">\n" +
+            "                            <symbol id=\"select-arrow-down\" viewbox=\"0 0 10 6\">\n" +
+            "                                <polyline points=\"1 1 5 5 9 1\"></polyline>\n" +
+            "                            </symbol>\n" +
+            "                        </svg></td></tr>";
+
+
+        // 재정 권한
+        output +="<tr><td><strong class='fishStrong'>재정 권한 </strong></td><td><label class='select'><select onchange=\"autUpdate('AUTACCO',this.value,"+code+")\">";
+        if(acco==1){
+            output +="<option value='1'>있음</option><option value='0'>없음</option>";
+        }else{
+            output +="<option value='0'>없음</option><option value='1'>있음</option>";
+        }
+        output+="</select><svg>\n" +
+            "                            <use xlink:href=\"#select-arrow-down\"></use>\n" +
+            "                        </svg>\n" +
+            "                        </label>\n" +
+            "                        <!-- SVG Sprites-->\n" +
+            "                        <svg class=\"sprites\">\n" +
+            "                            <symbol id=\"select-arrow-down\" viewbox=\"0 0 10 6\">\n" +
+            "                                <polyline points=\"1 1 5 5 9 1\"></polyline>\n" +
+            "                            </symbol>\n" +
+            "                        </svg></td></tr>";
+
+
+        // 문의답변권한
+        output +="<tr><td><strong class='fishStrong'>관리자 문의 권한 </strong></td><td><label class='select'><select onchange=\"autUpdate('AUTACHAT',this.value,"+code+")\">";
+        if(chat==1){
+            output +="<option value='1'>있음</option><option value='0'>없음</option>";
+        }else{
+            output +="<option value='0'>없음</option><option value='1'>있음</option>";
+        }
+        output+="</select><svg>\n" +
+            "                            <use xlink:href=\"#select-arrow-down\"></use>\n" +
+            "                        </svg>\n" +
+            "                        </label>\n" +
+            "                        <!-- SVG Sprites-->\n" +
+            "                        <svg class=\"sprites\">\n" +
+            "                            <symbol id=\"select-arrow-down\" viewbox=\"0 0 10 6\">\n" +
+            "                                <polyline points=\"1 1 5 5 9 1\"></polyline>\n" +
+            "                            </symbol>\n" +
+            "                        </svg></td></tr>"
+
+
+        // 공지메일 권한
+        output +="<tr><td><strong class='fishStrong'>공지사항 권한 </strong></td><td><label class='select'><select onchange=\"autUpdate('AUTAMAIL',this.value,"+code+")\">";
+        if(amail==1){
+            output +="<option value='1'>있음</option><option value='0'>없음</option>";
+        }else{
+            output +="<option value='0'>없음</option><option value='1'>있음</option>";
+        }
+        output+="</select><svg>\n" +
+            "                            <use xlink:href=\"#select-arrow-down\"></use>\n" +
+            "                        </svg>\n" +
+            "                        </label>\n" +
+            "                        <!-- SVG Sprites-->\n" +
+            "                        <svg class=\"sprites\">\n" +
+            "                            <symbol id=\"select-arrow-down\" viewbox=\"0 0 10 6\">\n" +
+            "                                <polyline points=\"1 1 5 5 9 1\"></polyline>\n" +
+            "                            </symbol>\n" +
+            "                        </svg></td></tr>"
+
+
+        // 카테고리 생성 권한 category
+        output +="<tr><td><strong class='fishStrong'>카테고리 권한 </strong></td><td><label class='select'><select onchange=\"autUpdate('AUTCATEGORY',this.value,"+code+")\">";
+        if(amail==1){
+            output +="<option value='1'>있음</option><option value='0'>없음</option>";
+        }else{
+            output +="<option value='0'>없음</option><option value='1'>있음</option>";
+        }
+        output+="</select><svg>\n" +
+            "                            <use xlink:href=\"#select-arrow-down\"></use>\n" +
+            "                        </svg>\n" +
+            "                        </label>\n" +
+            "                        <!-- SVG Sprites-->\n" +
+            "                        <svg class=\"sprites\">\n" +
+            "                            <symbol id=\"select-arrow-down\" viewbox=\"0 0 10 6\">\n" +
+            "                                <polyline points=\"1 1 5 5 9 1\"></polyline>\n" +
+            "                            </symbol>\n" +
+            "                        </svg></td></tr>"
+            "<tr><td colspan='2' style='text-align: center;'><a class='deleteAutBtn' href= 'javascript:void(0);' onclick=\"autDelete("+code+");\">삭제</a></td></tr></table>" +
+
+        //넣어주기
+        $('#autPlace').html(output);
+    }
+
+    // 권한 페이지
+    function changeAutPage(input){
+        autPage = input;
+        autResearch();
+    }
+
+    // 권한 한페이지에 가져올 갯수
+    function changeAutLimit(input){
+        autPage = 1;
+        autLimit = input;
+        autResearch();
+    }
+
+    //권한 검색 카테고리
+    function changeAutCategory(input){
+        autPage=1;
+        autCategory = input;
+        if(input=="all"){
+            autAllSelect = true;
+        }else{
+            autAllSelect = false;
+        }
+        autResearch();
+    }
+
+    //권한 검색 검색어
+    function changeAutSearch(input){
+        autPage = 1;
+        autSearch = input;
+        autResearch();
+    }
+
+    // 권한 생성 폼
+    function autCreateForm(){
+        let output="<table style='text-align: left; margin: auto; height: 100%;'><tr><th colspan='2' style='text-align: center' height: 100%;><h1>권한생성</h1></th></tr>";
+        output+="<tr><td><Strong class='fishStrong'>직책이름 : </Strong></td><td><input id='newAutName' type='text'/></td></tr>";
+        output+="<tr><td><Strong class='fishStrong'>권한부여 권한 : </Strong></td><td><label class='select'><select id='newAutGive'><option value='0'>없음</option><option value='1'>있음</option></select>                        <svg>\n" +
+            "                            <use xlink:href=\"#select-arrow-down\"></use>\n" +
+            "                        </svg>\n" +
+            "                        </label>\n" +
+            "                        <!-- SVG Sprites-->\n" +
+            "                        <svg class=\"sprites\">\n" +
+            "                            <symbol id=\"select-arrow-down\" viewbox=\"0 0 10 6\">\n" +
+            "                                <polyline points=\"1 1 5 5 9 1\"></polyline>\n" +
+            "                            </symbol>\n" +
+            "                        </svg></td></tr>";
+        output+="<tr><td><Strong class='fishStrong'>보안 권한 : </Strong></td><td><label class='select'><select id='newAutSecu'><option value='0'>없음</option><option value='1'>있음</option></select>                        <svg>\n" +
+            "                            <use xlink:href=\"#select-arrow-down\"></use>\n" +
+            "                        </svg>\n" +
+            "                        </label>\n" +
+            "                        <!-- SVG Sprites-->\n" +
+            "                        <svg class=\"sprites\">\n" +
+            "                            <symbol id=\"select-arrow-down\" viewbox=\"0 0 10 6\">\n" +
+            "                                <polyline points=\"1 1 5 5 9 1\"></polyline>\n" +
+            "                            </symbol>\n" +
+            "                        </svg></td></tr>";
+        output+="<tr><td><Strong class='fishStrong'>재정 권한 : </Strong></td><td><label class='select'><select id='newAutAcco'><option value='0'>없음</option><option value='1'>있음</option></select>                        <svg>\n" +
+            "                            <use xlink:href=\"#select-arrow-down\"></use>\n" +
+            "                        </svg>\n" +
+            "                        </label>\n" +
+            "                        <!-- SVG Sprites-->\n" +
+            "                        <svg class=\"sprites\">\n" +
+            "                            <symbol id=\"select-arrow-down\" viewbox=\"0 0 10 6\">\n" +
+            "                                <polyline points=\"1 1 5 5 9 1\"></polyline>\n" +
+            "                            </symbol>\n" +
+            "                        </svg></td></tr>";
+        output+="<tr><td><Strong class='fishStrong'>관리자 문의 권한 : </Strong></td><td><label class='select'><select id='newAutAChat'><option value='0'>없음</option><option value='1'>있음</option></select>                        <svg>\n" +
+            "                            <use xlink:href=\"#select-arrow-down\"></use>\n" +
+            "                        </svg>\n" +
+            "                        </label>\n" +
+            "                        <!-- SVG Sprites-->\n" +
+            "                        <svg class=\"sprites\">\n" +
+            "                            <symbol id=\"select-arrow-down\" viewbox=\"0 0 10 6\">\n" +
+            "                                <polyline points=\"1 1 5 5 9 1\"></polyline>\n" +
+            "                            </symbol>\n" +
+            "                        </svg></td></tr>";
+        output+="<tr><td><Strong class='fishStrong'>공지사항 권한 : </Strong></td><td><label class='select'><select id='newAutAMail'><option value='0'>없음</option><option value='1'>있음</option></select>                        <svg>\n" +
+            "                            <use xlink:href=\"#select-arrow-down\"></use>\n" +
+            "                        </svg>\n" +
+            "                        </label>\n" +
+            "                        <!-- SVG Sprites-->\n" +
+            "                        <svg class=\"sprites\">\n" +
+            "                            <symbol id=\"select-arrow-down\" viewbox=\"0 0 10 6\">\n" +
+            "                                <polyline points=\"1 1 5 5 9 1\"></polyline>\n" +
+            "                            </symbol>\n" +
+            "                        </svg></td></tr>";
+        output+="<tr><td><Strong class='fishStrong'>카테고리 권한 : </Strong></td><td><label class='select'><select id='newAutCategory'><option value='0'>없음</option><option value='1'>있음</option></select>                        <svg>\n" +
+            "                            <use xlink:href=\"#select-arrow-down\"></use>\n" +
+            "                        </svg>\n" +
+            "                        </label>\n" +
+            "                        <!-- SVG Sprites-->\n" +
+            "                        <svg class=\"sprites\">\n" +
+            "                            <symbol id=\"select-arrow-down\" viewbox=\"0 0 10 6\">\n" +
+            "                                <polyline points=\"1 1 5 5 9 1\"></polyline>\n" +
+            "                            </symbol>\n" +
+            "                        </svg></td></tr>";
+        output+="<tr><td colspan='2' style='text-align: center;'><a class='newAutBtn' href= 'javascript:void(0);' onclick=\"autCreate();\">생성</a></td></tr>";
+        output+="</table>";
+        //넣어주기
+        $('#autPlace').html(output);
+    }
+
+    // 권한 삭제
+    function autDelete(autCode) {
+        if (!confirm("삭제하시겠습니까?")) {
+            alert("권한 삭제를 취소하였습니다.");
+        } else {
+            // 권한삭제
+            $.ajax({
+                type: "POST",
+                url: "autDelete",
+                data: {
+                    "autCode": autCode
+                },
+                async: false,
+                dataType: "text",
+                success: function (result) {
+                    //console.log(result);
+                    if(result=="OK"){
+                        autResearch();
+                        alert("권한이 삭제되었습니다.");
+                        $('#autPlace').html("<h1>삭제된 권한입니다.</h1>");
+                    }else{
+                        alert(result);
+                    }
+
+                },
+                error: function () {
+                    alert("통신실패");
+                }
+
+            });
+
+        }
+    }
+
+    // 권한 생성
+    function autCreate(){
+        let newName = $('#newAutName').val();
+        let newGive = $('#newAutGive').val();
+        let newSecu = $('#newAutSecu').val();
+        let newAcco = $('#newAutAcco').val();
+        let newChat = $('#newAutAChat').val();
+        let newMail = $('#newAutAMail').val();
+        let newCategory = $('#newAutCategory').val();
+        //console.log(newName,newGive,newSecu,newAcco,newChat,newMail,newCategory);
+        $.ajax({
+            type: "POST",
+            url: "MEM024",
+            data: {
+                "name": newName,
+                "give": newGive,
+                "secu": newSecu,
+                "acco": newAcco,
+                "chat": newChat,
+                "mail": newMail,
+                "cate": newCategory
+            },
+            async: false,
+            dataType: "text",
+            success: function (result) {
+                //console.log(result);
+                if(result=="OK"){
+                    autResearch();
+                    alert(newName+"이(가) 생성되었습니다.");
+                }else{
+                    alert("권한생성 실패")
+                }
+
+            },
+            error: function () {
+                alert("통신실패");
+            }
+
+        });
+    }
+
+    // 권한 업데이트
+    function autUpdate(name,input,autCode) {
+        $.ajax({
+            type: "POST",
+            url: "autUpdate",
+            data: {
+                "category": name,
+                "data": input,
+                "autCode": autCode
+            },
+            async: false,
+            dataType: "text",
+            success: function (result) {
+                //console.log(result);
+                if(result=="OK"){
+                    autResearch();
+                    alert("권한이 변경되었습니다.");
+                }else{
+                    alert("권한수정 실패")
+                }
+
+            },
+            error: function () {
+                alert("통신실패");
+            }
+
+        });
+    }
+
+    // 권한 리스트 불러오기
+    function autResearch() {
+        $.ajax({
+            type: "POST",
+            url: "autResearch",
+            data: {
+                "autAll": autAllSelect,
+                "category": autCategory,
+                "search": autSearch,
+                "page": autPage,
+                "limit": autLimit,
+            },
+            async: false,
+            dataType: "json",
+            success: function (result) {
+                //console.log(result);
+                autResearchInner(result[0], result[1]);
+            },
+            error: function () {
+                alert("통신실패");
+            }
+
+        });
+    }
+
+    // 직원 해고
+    function MEM026(memCode) {
+        $.ajax({
+            type: "POST",
+            url: "MEM026",
+            data: {
+                "memCode": memCode
+            },
+            async: false,
+            dataType: "text",
+            success: function (result) {
+                console.log(result);
+                if (result == "OK") {
+                    $('#detailShow').html("<h1>해고된 직원입니다.</h1>");
+                    getList();
+                    alert("해고처리 하였습니다.");
+                } else {
+                    alert("해고처리 오류");
+                }
+
+            },
+            error: function () {
+                alert("통신실패");
+            }
+
+        });
+    }
+
+
+    // 직원 권한 수정
+    function MEM025(autCode) {
+        $.ajax({
+            type: "POST",
+            url: "MEM025",
+            data: {
+                "memCode": employeeCode,
+                "autCode": autCode
+            },
+            async: false,
+            dataType: "text",
+            success: function (result) {
+                //console.log(result);
+                MEM022(employeeCode, result);
+                getList();
+            },
+            error: function () {
+                alert("통신실패");
+            }
+
+        });
+    }
+
+
+    // 직원상세보기
+    function MEM022(memCode, autName) {
+        $.ajax({
+            type: "POST",
+            url: "MEM022",
+            data: {
+                "memCode": memCode
+            },
+            async: false,
+            dataType: "json",
+            success: function (result) {
+                //console.log(result);
+                showDetail(result, autName);
+            },
+            error: function () {
+                alert("통신실패");
+            }
+
+        });
+    }
+
+    // 기존 권한 가져오기 함수
+    function MEM023() {
+        let options = [];
+        $.ajax({
+            type: "POST",
+            url: "MEM023",
+            async: false,
+            dataType: "json",
+            success: function (result) {
+                //console.log(result)
+                autInner(result);
+                options = result;
+            },
+            error: function () {
+                alert("통신실패");
+            }
+
+        });
+        return options;
+    }
+
+
+    // 직원 검색
+    function getList() {
+        $.ajax({
+            type: "POST",
+            url: "EmployeeSelect",
+            data: {
+                "autAll": autAll,
+                "autCode": autCode,
+                "category": category,
+                "search": search,
+                "page": page,
+                "limit": limit
+            },
+            async: false,
+            dataType: "json",
+            success: function (result) {
+                //console.log(result);
+                listInner(result[0], result[1]);
+            },
+            error: function () {
+                alert("통신실패");
+            }
+
+        });
+    }
+
+    // 모달 js
+    // Modal을 가져옵니다.
+    let modals = document.getElementsByClassName("modal");
+    // Modal을 띄우는 클래스 이름을 가져옵니다.
+    let btns = document.getElementsByClassName("bbtns");
+    // Modal을 닫는 close 클래스를 가져옵니다.
+    let spanes = document.getElementsByClassName("close");
+    let funcs = [];
+
+    // Modal을 띄우고 닫는 클릭 이벤트를 정의한 함수
+    function Modal(num) {
+        return function () {
+            // 해당 클래스의 내용을 클릭하면 Modal을 띄웁니다.
+            btns[num].onclick = function () {
+                modals[num].style.display = "block";
+                console.log(num);
+            };
+
+            // <span> 태그(X 버튼)를 클릭하면 Modal이 닫습니다.
+            spanes[num].onclick = function () {
+                modals[num].style.display = "none";
+            };
+        };
+    }
+
+    // 원하는 Modal 수만큼 Modal 함수를 호출해서 funcs 함수에 정의합니다.
+    for (let i = 0; i < btns.length; i++) {
+        funcs[i] = Modal(i);
+    }
+
+    // 원하는 Modal 수만큼 funcs 함수를 호출합니다.
+    for (let j = 0; j < btns.length; j++) {
+        funcs[j]();
+    }
+
+    // Modal 영역 밖을 클릭하면 Modal을 닫습니다.
+    window.onclick = function (event) {
+        if (event.target.className == "modal") {
+            event.target.style.display = "none";
+        }
+    };
+
+</script>
+
+</html>

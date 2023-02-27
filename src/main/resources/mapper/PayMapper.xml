@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.artisans.atelier.dao.PayDAO">
+
+    <insert id="PAY007" parameterType="sales">
+        INSERT INTO SALES VALUES(SAL_SEQ.NEXTVAL, #{salMemCode}, #{salName}, #{salPrice}, SYSDATE)
+    </insert>
+
+    <insert id="pHistory" parameterType="sales">
+        INSERT INTO POINTHISTORY VALUES(#{salMemCode}, #{salContent}, #{salPoint}, SYSDATE)
+    </insert>
+
+    <update id="memPoint" parameterType="sales">
+        UPDATE MEMBER SET MEMPOINT = MEMPOINT + #{salPoint} WHERE MEMCODE = #{salMemCode}
+    </update>
+
+    <update id="memGrade" parameterType="sales">
+        UPDATE MEMBER SET MEMPAYGRADE = 'VIP' WHERE MEMCODE = #{salMemCode}
+    </update>
+
+    <insert id="PAY008" parameterType="sales">
+        INSERT INTO SALES VALUES(SAL_SEQ.NEXTVAL, #{salMemCode}, #{salName}, #{salPrice}, SYSDATE)
+    </insert>
+
+    <insert id="PAY014" parameterType="sales">
+        INSERT INTO SALES VALUES(SAL_SEQ.NEXTVAL, #{salMemCode}, #{salName}, -#{salPrice}, SYSDATE)
+    </insert>
+
+    <insert id="RePointHistory" parameterType="sales">
+        INSERT INTO POINTHISTORY VALUES(#{salMemCode}, #{salContent}, -#{salPrice}, SYSDATE)
+    </insert>
+
+    <update id="RememPoint" parameterType="sales">
+        UPDATE MEMBER SET MEMPOINT = MEMPOINT - #{salPrice} WHERE MEMCODE = #{salMemCode}
+    </update>
+
+    <insert id="PAY003" parameterType="product">
+        INSERT INTO PRODUCT VALUES(PRO_SEQ.NEXTVAL, #{proBoaCode}, #{proName}, #{proPrice}, #{proStartDate}, #{proEndDate}, SYSDATE)
+        <selectKey resultType="integer" keyProperty="proCode" order="AFTER">
+            SELECT PRO_SEQ.currval FROM dual
+        </selectKey>
+    </insert>
+
+    <!--프로필에서 전체게시물 조회-->
+    <select id="productAll" parameterType="paging" resultType="productBoard">
+        ${sql}
+    </select>
+    <!--프로필에서 카테고리별 게시물 조회-->
+    <select id="productCategory" parameterType="paging" resultType="productBoard">
+        ${sql}
+    </select>
+
+    <select id="ProSelect" parameterType="paging" resultType="productBoard">
+        ${sql}
+    </select>
+
+    <select id="ProBoard" parameterType="productBoard" resultType="productBoard">
+        SELECT * FROM PRODUCTBOARD WHERE PROBOACODE = #{boaCode}
+    </select>
+
+    <select id="proTime" parameterType="int" resultType="productBoard">
+        SELECT * FROM PRODUCTBOARD WHERE PROBOACODE = #{proBoaCode}
+    </select>
+
+    <insert id="auctionStart" parameterType="product">
+        INSERT INTO AUCTION VALUES(#{proCode}, #{proMemCode}, #{proPrice})
+    </insert>
+
+    <select id="auctionGet" parameterType="int" resultType="auction">
+        SELECT * FROM AUCTION WHERE AUCPROCODE = #{AucProCode}
+    </select>
+
+    <update id="auctionInsert" parameterType="auction">
+        UPDATE AUCTION SET AUCPRICE = #{AucPrice}, AUCMEMCODE = #{AucMemCode} WHERE AUCPROCODE = #{AucProCode}
+    </update>
+
+    <select id="pbdtoGet" parameterType="int" resultType="productBoard">
+        SELECT * FROM PRODUCTBOARD WHERE PROCODE = #{proCode}
+    </select>
+
+    <update id="memBuy" parameterType="auction">
+        UPDATE MEMBER SET MEMPOINT = MEMPOINT - #{AucPrice} WHERE MEMCODE = #{AucMemCode}
+    </update>
+
+    <insert id="pointBuy" parameterType="auction">
+        INSERT INTO POINTHISTORY VALUES(#{AucMemCode}, '상품 경매 입찰', -#{AucPrice}, SYSDATE)
+    </insert>
+
+    <update id="memGet" parameterType="auction">
+        UPDATE MEMBER SET MEMPOINT = MEMPOINT + #{AucPrice} WHERE MEMCODE = #{AucMemCode}
+    </update>
+
+    <insert id="pointGet" parameterType="auction">
+        INSERT INTO POINTHISTORY VALUES(#{AucMemCode}, '새로운 입찰로 인한 반환', #{AucPrice}, SYSDATE)
+    </insert>
+
+    <select id="auctionResult" parameterType="auction" resultType="auction">
+        SELECT * FROM AUCTION WHERE AUCPROCODE = #{AucProCode}
+    </select>
+
+    <select id="checkProduct" parameterType="int" resultType="int">
+        SELECT COUNT(*) FROM PRODUCT WHERE PROBOACODE = #{boaCode}
+    </select>
+
+    <select id="auctionFinish" parameterType="auction" resultType="aucMember">
+        SELECT * FROM AUCMEMBER WHERE AUCPROCODE = #{AucProCode}
+    </select>
+
+    <delete id="auctionDelete" parameterType="auction">
+        DELETE FROM PRODUCT WHERE PROCODE = #{AucProCode}
+    </delete>
+
+    <delete id="auctionDel" parameterType="auction">
+        DELETE FROM AUCTION WHERE AUCPROCODE = #{AucProCode}
+    </delete>
+
+    <select id="getBoard" parameterType="int" resultType="int">
+        SELECT BOAMEMCODE FROM BOARD INNER JOIN (SELECT PROBOACODE FROM PRODUCT WHERE PROCODE = #{proCode}) ON PROBOACODE = BOACODE
+    </select>
+</mapper>

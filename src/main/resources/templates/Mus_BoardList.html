@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SolMusic | HTML Template</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="SolMusic HTML Template">
+    <meta name="keywords" content="music, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="shortcut icon"/>
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="css/main/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="css/main/icomoon.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="css/main/bootstrap.css">
+    <!-- Flexslider  -->
+    <link rel="stylesheet" href="css/main/flexslider.css">
+    <!-- Flaticons  -->
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="css/main/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/main/owl.theme.default.min.css">
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="css/main/style.css">
+
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/selection.css">
+
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- script
+    ================================================== -->
+    <script src="js/modernizr.js"></script>
+
+    <!-- Modernizr JS -->
+    <script src="js/modernizr-2.6.2.min.js"></script>
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="https://kit.fontawesome.com/8591377d67.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://kit.fontawesome.com/8591377d67.css" crossorigin="anonymous">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/music/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/music/font-awesome.min.css"/>
+    <link rel="stylesheet" href="css/music/owl.carousel.min.css"/>
+    <link rel="stylesheet" href="css/music/slicknav.min.css"/>
+
+    <!-- Main Stylesheets -->
+    <link rel="stylesheet" href="css/music/style.css"/>
+
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+        .category-links {
+            margin-bottom: 0px;
+            margin-top: 350px;
+        }
+
+        .site-logo {
+            display: inline-block;
+            padding: 0;
+            /* padding: 44px 15px; */
+        }
+
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <style>
+        h1, h2, h3, h4, h5, h6, span, p, a, label, input, textarea, button {
+            font-family: 'Gowun Dodum', sans-serif !important;
+            font-size: large !important;
+            letter-spacing: 0rem; !important;
+        }
+
+        .btn-primary {
+            color: #000000;
+             background-color: #ffffff;
+        }
+
+    </style>
+
+    <link rel="stylesheet" href="css/modal.css">
+</head>
+<style th:replace="mouse.html :: style"></style>
+<body>
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+<div id="colorlib-page">
+    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+
+    <header th:replace="sider.html :: header"></header>
+    <div class="container">
+        <div class="category-links">
+            <h2 style="text-align: left;font-size: 50px">Music List</h2>
+            <a href="DRA008?category=음악" >전체</a>
+            <!--DDAN 서브카테고리-->
+            <span id="DDANsubCategory">
+
+				</span>
+        </div>
+
+            <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
+                <div class="container">
+                    <div id="get-in-touch" class="colorlib-bg-color" style="background-color: #FFFFFF">
+                        <p><a href="Dra_Write" style="border: 2px solid #FFC300" class="btn btn-primary btn-learn">게시글 생성</a></p>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+
+
+
+    <div id="colorlib-main">
+
+        <!-- Songs section  -->
+        <section class="songs-section">
+            <div class="container">
+                <!-- song -->
+                <!--DDAN 리스트-->
+                <div class="song-item" th:each="list , stat : ${blist}">
+                    <div class="row">
+                        <div class="col-lg-4">
+
+                            <div class="song-info-box">
+                                <a th:href="@{DRA004(boaCode=${list.boaCode})}"><img th:src="@{/PSW/bestimg/{boaBestImg}(boaBestImg=${list.boaBestImg})}" alt=""></a>
+                                <div class="song-info">
+                                    <h4>[[${list.memName}]]</h4>
+                                    <p>[[${list.memGrade}]]</p>
+                                    <p class="reTag">[[${list.boaTag}]]</p>
+                                    <span th:id="asd+|${stat.index}|">[[asd+|${stat.index}|]]</span>
+                                    <p>좋아요 수 : [[${list.likeNum}]]</p>
+                                    <p>댓글 수 : [[${list.comentNum}]]</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="single_player_container">
+                                <div class="single_player">
+                                    <div class="jp-jplayer jplayer" th:data-ancestor=".jp_container_+|${stat.index}|" th:data-url="@{/PSW/mp3/{boaFileName}(boaFileName=${list.boaFileName})}"></div>
+                                    <div class="jp-audio " th:classappend="jp_container_+|${stat.index}|" role="application" aria-label="media player">
+                                        <div class="jp-gui jp-interface">
+
+                                            <!-- Player Controls -->
+                                            <div class="player_controls_box">
+                                                <button class="jp-prev player_button" tabindex="0"></button>
+                                                <!--음악 재생 버튼-->
+                                                <button class="jp-play player_button" tabindex="0" id="test" th:onclick="test([[${list.boaCode}]])" ></button>
+
+                                                <button class="jp-next player_button" tabindex="0"></button>
+                                                <button class="jp-stop player_button" tabindex="0"></button>
+                                            </div>
+                                            <!-- Progress Bar -->
+                                            <div class="player_bars">
+                                                <div class="jp-progress">
+                                                    <div class="jp-seek-bar">
+                                                        <div>
+                                                            <div class="jp-play-bar"><div class="jp-current-time" role="timer" aria-label="time">0:00</div></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="jp-duration ml-auto" role="timer" aria-label="duration">00:00</div>
+                                            </div>
+                                        </div>
+                                        <div class="jp-no-solution">
+                                            <span>Update Required</span>
+                                            To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="songs-links">
+                                <a href=""><img src="img/icons/p-1.png" alt=""></a>
+                                <a href=""><img src="img/icons/p-2.png" alt=""></a>
+                                <a href=""><img src="img/icons/p-3.png" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <label class="select">
+                <select id="order" onchange="orderby(this.value)">
+                    <option>정렬</option>
+                    <option value="boaCode">최신순</option>
+                    <option value="likeNum">좋아요 순</option>
+                    <option  value="boaHit">조회수 순</option>
+                </select>
+                    <svg>
+                        <use xlink:href="#select-arrow-down"></use>
+                    </svg>
+                </label>
+                <div className="row">
+                    <div class="col-md-12 animate-box" data-animate-effect="fadeInLeft" style="opacity: inherit; margin-top: 50px; margin-bottom: 50px;">
+                        <ul class="pagination">
+                            <li th:if="${paging.page <= 1}"><a>&laquo;</a></li>
+                <li th:if="${paging.page > 1}">
+                    <a th:href="@{DRA008(page=${paging.page -1} , limit=${paging.limit},category=${paging.category},cateCode=${paging.cateCode},orderby=${paging.orderby})}">&laquo;</a>
+                </li>
+                &nbsp;
+                <!-- [페이지 번호] 페이지에 대한 처리 -->
+                <li th:each="i : ${#numbers.sequence(paging.startpage, paging.endpage)}">
+                    <a th:href="@{DRA008(page=${i} , limit=${paging.limit} ,category=${paging.category},cateCode=${paging.cateCode},orderby=${paging.orderby})}">
+                                                <span th:if="${paging.page == i}">
+                                                    [[${i}]]
+                                                </span>
+                    <span th:unless="${paging.page == i}">
+                                                    [[${i}]]
+                    </span></a>
+                </li>
+                <!-- [다음] 페이지에 대한 처리 -->
+                &nbsp;
+                            <li th:if="${paging.page >= paging.maxpage}"><a>&raquo;</a></li>
+                <li th:if="${paging.page < paging.maxpage}">
+                    <a th:href="@{DRA008(page=${paging.page +1}, limit=${paging.limit},category=${paging.category},cateCode=${paging.cateCode},orderby=${paging.orderby})}">&raquo;</a>
+                </li>
+                        </ul></div></div>
+            </div>
+
+        </section>
+    </div>
+</div>
+<input type="hidden" id="cateCode" th:value="${paging.cateCode}">
+<input type="hidden" id="category" th:value="${paging.category}">
+<!-- Songs section end -->
+<!--DDAN 서브카테고리 가져오기-->
+
+<script src="js/modal.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<script>
+
+    let category = $('#category').val();
+    let cateCode = $('#cateCode').val();
+
+    /*서브 카테고리 가져와 열기*/
+    let music = "음악";
+
+    $.ajax({
+        type: 'post',
+        url : 'category',
+        data:{
+            "cate" : music
+        },
+        dataType: "json",
+        success:
+            function(subCategoryList){
+                console.log("연결");
+                /*선택 리스트 출력*/
+                musicSubCategory(subCategoryList);
+            },
+        error:function (){
+            alert('category 연결 실패')
+        }
+    })
+
+    function musicSubCategory(List){
+        let output=""
+
+        for(let i in List){
+            output += "<a href=\"DRA008?cateCode="+List[i].cateCode+"&category="+List[i].category+"\">"+List[i].subCategory+"</a>"
+        }
+
+        $("#DDANsubCategory").html(output);
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////
+
+    /*태그 리스트 출력*/
+    let workList = [];
+    workList = "[[${WorkSpaceList}]]";
+    /*console.log(workList);*/
+    let workTag = [];
+
+    for(let i; i <workList.length; i++){
+        console.log(workList[i]);
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////
+    /*태그 기능 실행 자바 스크립트*/
+
+    let retag = $('.reTag');
+
+    for (let i = 0; i <   retag.length; i++) {
+        let tagArr = $(retag[i]).text().split(",")
+        let input = "";
+
+        for ( j in tagArr){
+            //console.log(tagArr[j]);
+            input += "<a href='UnifiedSearch?q="+tagArr[j].replace('#','%23')+"'>"+tagArr[j]+"</a>"+"<br/>";
+        }
+        $(retag[i]).html(input);
+    }
+    /////////////////////////////////////////////////////////////////////////////////////
+   /* let category = $('#category').val();
+    let cateCode = $('#cateCode').val();*/
+
+    /*function morebView(){
+        location.href="DRA008?cateCode="+cateCode+"&category="+category;
+    }*/
+    function orderby(order){
+        location.href="DRA008?cateCode="+cateCode+"&category="+category+"&orderby="+order;
+    }
+</script>
+
+<!--로그인 할시 onclick기능 추가-->
+<script th:if="${session.login ne null}">
+
+
+    /*/!*음악을 실행시 히스토리 데이터에 넣어주기*!/
+    var element = document.getElementById("test");
+    element.onclick = function() {
+        console.log("onclick기능 실현");
+        let memCode = [[${session.login.memCode}]];
+
+    }*/
+
+    /*음악 실행시 히스토리 데이터 넣어주기*/
+    function test(Code){
+        console.log("히스토리 데이터 콘솔실행");
+        let boaCode = Code;
+        let memCode = [[${session.login.memCode}]];
+
+        $.ajax({
+            type: 'post',
+            url : 'ajaxMusHistroyInput',
+            data:{
+                "bhBoaCode" : boaCode,
+                "bhMemCode" : memCode
+            },
+            dataType: "text",
+            success:
+                function(result){
+                    if(result=="OK"){
+                        console.log("히스토리 넣기 성공");
+                    }else {
+                        console.log("히스토리 넣기 실패 맞아?");
+                    }
+                },
+            error:function (){
+                alert('응애 실패');
+            }
+        })
+
+
+    }
+
+</script>
+
+
+
+<!--====== Javascripts & Jquery ======-->
+<script src="js/music/jquery-3.2.1.min.js"></script>
+<script src="js/music/bootstrap.min.js"></script>
+<script src="js/music/jquery.slicknav.min.js"></script>
+<script src="js/music/owl.carousel.min.js"></script>
+<script src="js/music/mixitup.min.js"></script>
+<script src="js/music/main.js"></script>
+
+<!-- Audio Player and Initialization -->
+<script src="js/music/jquery.jplayer.min.js"></script>
+<script src="js/music/jplayerInit.js"></script>
+
+<!-- jQuery -->
+<script src="js/jquery.min.js"></script>
+<!-- jQuery Easing -->
+<script src="js/jquery.easing.1.3.js"></script>
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Waypoints -->
+<script src="js/jquery.waypoints.min.js"></script>
+<!-- Flexslider -->
+<script src="js/jquery.flexslider-min.js"></script>
+<!-- Sticky Kit -->
+<script src="js/sticky-kit.min.js"></script>
+<!-- Owl carousel -->
+<script src="js/owl.carousel.min.js"></script>
+<!-- Counters -->
+<script src="js/jquery.countTo.js"></script>
+
+
+<!-- MAIN JS -->
+<script src="js/main.js"></script>
+
+</body>
+
+
+</html>

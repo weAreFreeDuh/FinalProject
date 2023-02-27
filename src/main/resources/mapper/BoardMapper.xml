@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.artisans.atelier.dao.BOADAO">
+
+    <select id="ajaxcategory" parameterType="String" resultType="bocategory" >
+        select * from BOCATEGORY where category = #{category}
+    </select>
+
+    <!-- 워크스페이스 카테고리 별 갯수 구하기-->
+    <select id="bwCount" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM finalWorkspaceList where category = #{category}
+    </select>
+
+    <insert id="bowrite" parameterType="memboard">
+        INSERT INTO BOARD VALUES (BO_SEQ.NEXTVAL,#{boaCatecode},0,#{boaTitle},
+                                  #{boaMemcode},#{boaContent},0,SYSDATE,#{boaTag},
+                                  #{boaFileName},#{boaBestImg})
+    </insert>
+    <select id="DRA003" resultType="memboard">
+
+   <![CDATA[
+        SELECT * FROM (
+                          select * from
+                              finalBoardList                          ORDER by boacode DESC)
+        where ROWNUM <=6
+
+        ]]>
+    </select>
+    <select id="DRA003_1" resultType="memWorkspace">
+               <![CDATA[
+        SELECT * FROM (
+
+                          select * from(
+                                           (select NVL2(a.likes,a.likes,0) AS LIKES,NVL2(c.coment,c.coment,0) AS coment , b.* from
+
+                                                   (select * from memworkspace )b
+                                                       LEFT OUTER JOIN
+                                               (select count(*) as likes,likeboacode from boalike  GROUP BY likeboacode) a
+                                               on likeboacode = b.workcode
+                                                       LEFT OUTER JOIN
+                                                   (select count(*) as coment, comboacode from coment  GROUP BY comboacode) c
+                                                   on c.comboacode = b.workcode
+                                           )num1
+                                           -- where 뒤에 원하는 조건 적기
+                                           )   -- 워크스페이스 지정
+-- 검색부분
+                          ORDER by workcode DESC)
+        where ROWNUM <=3 -- 위에서부터 한번에 가져올 갯수 부분
+        ]]>
+    </select>
+    <select id="DRA004" resultType="memboard">
+        SELECT * FROM finalboardlist WHERE boaCOde= #{boaCode}
+    </select>
+    <select id="workspacelist" resultType="memWorkspace" parameterType="int">
+        SELECT * FROM memWORKSPACE WHERE workMemCode=#{workMemCode}
+    </select>
+
+    <!--좋아요 갯수 가져오기-->
+    <select id="DRA005" parameterType="int" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM BOALIKE WHERE LIKEBOACODE = #{boaCode}
+    </select>
+    <!--좋아여눌렀는지 안눌렀는지-->
+    <select id="DRA005_1" parameterType="like" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM BOALIKE WHERE LIKEBOACODE = #{boaCode} AND LIKEMEMCODE = #{boaMemcode}
+    </select>
+
+    <!-- 좋아요 추가-->
+    <insert id="DRA005_2" parameterType="like">
+        INSERT INTO BOALIKE
+        VALUES(#{boaCode}, #{boaMemcode})
+    </insert>
+    <!--좋아요 삭제하기-->
+    <delete id="DRA005_3" parameterType="like">
+        DELETE FROM BOALIKE WHERE
+            LIKEBOACODE = #{boaCode} AND LIKEMEMCODE = #{boaMemcode}
+    </delete>
+
+    <!--댓글불러오기-->
+    <select id="DRA006" parameterType="int" resultType="coment">
+        SELECT * FROM (SELECT *
+                       FROM MEMCOMENT
+                                LEFT OUTER JOIN member
+                                                ON memcoment.memname = member.memname) WHERE COMBOACODE = #{boaCode} ORDER BY comcode asc
+    </select>
+
+    <!--댓글 입력-->
+    <insert id="DRA006_1" parameterType="coment">
+        INSERT INTO coment VALUES(COMMENT_SEQ.NEXTVAL,#{ComBoaCode},#{comMemcode},#{coMent},SYSDATE,0)
+    </insert>
+
+    <!--댓글수정-->
+    <update id="DRA006_2" parameterType="coment">
+        UPDATE coment SET coMent = #{coMent},coModi=#{coModi} WHERE  ComBoaCode =  #{ComBoaCode} AND comCode = #{comCode}
+    </update>
+
+    <!--댓글삭제-->
+    <delete id="DRA006_3" parameterType="coment" >
+        DELETE FROM COMENT WHERE ComBoaCode =  #{ComBoaCode} AND comCode = #{comCode}
+    </delete>
+    <!--카테고리별 게시판 리스트가져오기-->
+    <select id="DRA007" parameterType="paging" resultType="memboard">
+        SELECT * FROM (SELECT finalboardlist.*, ROW_NUMBER() OVER(ORDER BY boaCode DESC) AS RN
+        FROM finalboardlist
+        <if test='cateCode != 0'>
+            WHERE category = #{category}
+            AND BOACATECODE= #{cateCode}
+        </if>
+
+        <if test='cateCode == 0'>
+        <if test="category != 'all'">
+            WHERE category = #{category}
+        </if>
+        </if>
+
+                            ) WHERE RN BETWEEN #{startRow} AND #{endRow}
+    </select>
+
+    <!--카테고리별 워크스페이스 리스트가져오기-->
+    <select id="DRA007_1" parameterType="paging" resultType="memWorkspace">
+        SELECT * FROM (SELECT finalworkspacelist.*, ROW_NUMBER() OVER(ORDER BY workCode DESC) AS RN
+        FROM finalworkspacelist
+        <if test='cateCode != 0'>
+            WHERE category = #{category}
+            AND WORKCATECODE= #{cateCode}
+        </if>
+        <if test='cateCode == 0 '>
+        <if test="category != 'all'">
+            WHERE category = #{category}
+        </if>
+        </if>
+
+
+        ) WHERE RN BETWEEN 1 AND 3
+    </select>
+
+    <!--게시판 갯수 구하기-->
+    <select id="bCount" parameterType="String" resultType="int">
+        ${sql}
+    </select>
+
+    <!--workspace 갯수 구하기-->
+    <select id="bwCountsql" parameterType="String" resultType="int">
+        ${sql}
+    </select>
+
+    <!--조회수 증가-->
+    <select id="viewCountUp" parameterType="int">
+        UPDATE board SET BOAHIT=BOAHIT+1 WHERE  boacode = #{boacode}
+    </select>
+
+
+    <!--카테고리별 게시판 리스트가져오기-->
+    <select id="DRA008" parameterType="paging" resultType="memboard">
+
+
+        SELECT * FROM (SELECT finalboardlist.*, ROW_NUMBER() OVER(ORDER BY ${orderby} DESC) AS RN
+        FROM finalboardlist
+        <if test='cateCode != 0'>
+            WHERE category = #{category}
+            AND BOACATECODE= #{cateCode}
+        </if>
+        <if test='cateCode == 0'>
+        <if test="category != 'all'">
+            WHERE category = #{category}
+        </if>
+        </if>
+        ) WHERE RN BETWEEN #{startRow} AND #{endRow}
+
+    </select>
+
+    <!--카테고리별 워크스페이스 리스트가져오기-->
+    <select id="DRA008_1" parameterType="paging" resultType="memWorkspace">
+
+        SELECT * FROM (SELECT finalworkspacelist.*, ROW_NUMBER() OVER(
+
+        ORDER BY ${orderby} DESC
+
+        ) AS RN
+        FROM finalworkspacelist
+        <if test='cateCode != 0'>
+            WHERE category = #{category}
+            AND WORKCATECODE= #{cateCode}
+        </if>
+        <if test='cateCode == 0'>
+        <if test="category != 'all'">
+            WHERE category = #{category}
+        </if>
+        </if>
+        ) WHERE RN BETWEEN #{startRow} AND #{endRow}
+    </select>
+    <!--DRA009_1-->
+    <update id="DRA009_1" parameterType="memboard">
+    UPDATE BOARD SET BOACATECODE=#{boaCatecode},
+                     BOATITLE=#{boaTitle},BOACONTENT=#{boaContent},BOADATE=SYSDATE,
+                     BOATAG=#{boaTag},BOAFILENAME=#{boaFileName},BOABESTIMG=#{boaBestImg}
+                    WHERE BOACODE=#{boaCode}
+
+
+    </update>
+    <!--DRA0010-->
+    <delete id="DRA010" parameterType="int">
+        DELETE FROM BOARD
+        WHERE BOACODE=#{boaCode}
+    </delete>
+
+    <insert id="DRA011" parameterType="boardhistory">
+        INSERT INTO BOARDHISTORY VALUES (#{bhBoaCode},#{bhMemCode},SYSDATE)
+    </insert>
+    <!--DRA011_1-->
+    <select id="DRA011_1" parameterType="boardhistory" resultType="int">
+        SELECT COUNT(*) FROM BOARDHISTORY WHERE BHMEMCODE = #{bhMemCode}
+    </select>
+    <!--DRA011_2-->
+    <delete id="DRA011_2" parameterType="boardhistory">
+    DELETE boardhistory b where (b.BHBOACODE,b.BHMEMCODE,b.BHDATE) IN(SELECT BHBOACODE,BHMEMCODE,BHDATE
+    FROM(
+    SELECT *
+    FROM BOARDHISTORY
+    ORDER BY BHDATE ASC)
+    WHERE BHMEMCODE= #{bhMemCode} AND ROWNUM = 1)
+    </delete>
+
+    <delete id="DRA011_3" parameterType="int">
+        DELETE FROM boardhistory WHERE BHBOACODE = #{boaCode}
+    </delete>
+
+    <select id="getCategoryBoard" parameterType="int" resultType="String">
+        select category from finalboardList where boaCode= #{boaCode}
+    </select>
+
+    <!--게시물 삭제시 좋아요삭제-->
+    <delete id="DRA010_1" parameterType="int">
+        DELETE FROM BOALIKE
+        WHERE LIKEBOACODE=#{boaCode}
+    </delete>
+
+    <!-- 게시물 삭제시 댓글 삭제-->
+    <delete id="DRA010_2">
+        DELETE FROM COMENT
+        WHERE COMBOACODE=#{boaCode}
+    </delete>
+
+    <!-- 게시물 삭제시 상품 삭제-->
+    <delete id="DRA010_3">
+        DELETE FROM PRODUCT
+        WHERE PROBOACODE=#{boaCode}
+    </delete>
+    <!-- 게시물 삭제시 문학 삭제-->
+    <delete id="DRA010_4">
+        DELETE FROM LITERATUREPAY
+        WHERE LITBOACODE=#{boaCode}
+    </delete>
+
+    <select id="likenum" parameterType="int" resultType="int">
+        SELECT COUNT(*) FROM BOALIKE WHERE LIKEBOACODE= #{boaCode}
+    </select>
+
+</mapper>

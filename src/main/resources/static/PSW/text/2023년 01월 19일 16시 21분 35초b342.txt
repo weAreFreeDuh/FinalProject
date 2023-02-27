@@ -1,0 +1,1 @@
+<p>Hello Summernote<img style="width: 256px;" src="static/PSW/upload/db714ce2-c6fc-41d0-9926-ae630a83f40f.ico"></p>

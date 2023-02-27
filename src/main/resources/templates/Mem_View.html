@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="gloria">
+    <meta name="date" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="/favicon/favicon.ico" type="image/x-icon">
+    <title></title>
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/8591377d67.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://kit.fontawesome.com/8591377d67.css" crossorigin="anonymous">
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="css/main/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="css/main/icomoon.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="css/main/bootstrap.css">
+    <!-- Flexslider  -->
+    <link rel="stylesheet" href="css/main/flexslider.css">
+    <!-- Flaticons  -->
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="css/main/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/main/owl.theme.default.min.css">
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="css/main/style.css">
+
+    <link rel="stylesheet" href="css/header.css">
+
+    <link rel="stylesheet" href="css/font.css">
+
+    <link rel="stylesheet" href="css/selection.css">
+
+    <link rel="stylesheet" href="css/ReportList.css">
+
+
+    <!-- script
+    ================================================== -->
+    <script src="js/modernizr.js"></script>
+
+    <!-- Modernizr JS -->
+    <script src="js/modernizr-2.6.2.min.js"></script>
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/setting/style.css">
+
+    <link id="pagestyle" href="css/profile/material-kit.css?v=3.0.4" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+</head>
+<style th:replace="mouse.html :: style"></style>
+<style>
+
+    .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+        color: #fff;
+        background-color: #007bff;
+    }
+
+    .col-md-6 {
+        width: 100%;
+    }
+
+    .form-control:focus {
+        border-color: black;
+    }
+
+
+</style>
+<style>
+    .modiSelect {
+        width: 200px;
+        padding: .8em .5em;
+        border: 1px solid #999;
+        font-family: inherit;
+        background: url('arrow.jpg') no-repeat 95% 50%;
+        border-radius: 0px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+    .modiSelect::-ms-expand {
+        display: none;
+    }
+
+    #v-pills-tabContent {
+        overflow: scroll;
+    }
+
+    #v-pills-tabContent::-webkit-scrollbar {
+        display: none;
+    }
+
+
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+    h1, h2, h3, h4, h5, h6, span, p, a, label, input, textarea, button {
+        font-family: 'Gowun Dodum', sans-serif !important;
+        font-size: large !important;
+        letter-spacing: 0rem; !important;
+    }
+</style>
+
+<link rel="stylesheet" href="css/modal.css">
+<body>
+<div id="colorlib-page">
+    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+
+    <header th:replace="sider.html :: header" style="font-family: 'Gowun Dodum', sans-serif; !important;"></header>
+
+
+    <div id="colorlib-main" style="height: 800px;">
+
+        <section class="py-5 my-5">
+            <div class="container" style="margin-left: 180px;">
+                <h1 class="mb-5">계정</h1>
+                <div class="bg-white shadow rounded-lg d-block d-sm-flex" style="height: 800px;">
+                    <div class="profile-tab-nav border-right">
+                        <div class="p-4">
+                            <div class="img-circle text-center mb-3">
+                                <img th:src="@{/fish/img/memProfileImg/{img1}(img1=${member.memProfileName})}"
+                                     alt="Image" class="shadow" width="300px">
+                            </div>
+                            <h4 class="text-center">[[${member.memName}]]</h4>
+                        </div>
+                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                             aria-orientation="vertical">
+                            <a class="nav-link" id="security-tab" data-toggle="pill" href="#account" role="tab"
+                               aria-controls="account" aria-selected="true">
+                                <i class="fa fa-user text-center mr-1"></i>
+                                개인정보
+                            </a>
+                            <a class="nav-link" id="password-tab" data-toggle="pill" href="#password" role="tab"
+                               aria-controls="password" aria-selected="false">
+                                <i class="fa fa-key text-center mr-1"></i>
+                                비밀번호 재설정
+                            </a>
+                            <a class="nav-link" id="account-tab" data-toggle="pill" href="#security" role="tab"
+                               aria-controls="security" aria-selected="false">
+                                <i class="fa fa-home text-center mr-1"></i>
+                                로그인 기록
+                            </a>
+                            <a class="nav-link" id="application-tab" data-toggle="pill" href="#application" role="tab" aria-controls="application" aria-selected="false">
+                                <i class="fa fa-tv text-center mr-1"></i>
+                                아이디 비활성화
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
+                        <div class="tab-pane show active" id="account" role="tabpanel" aria-labelledby="account-tab">
+                            <h3 class="mb-4">계정상태</h3>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>ID : [[${member.memId}]]</label><br/>
+                                        <label>계정상태 : [[${member.memState}]]</label><br/>
+                                        <label>계정등급 : [[${member.memGrade}]]</label><br/>
+                                        <label>계정권한 :
+                                            <th:block th:if="${member.memAutCode eq 0}">
+                                                유저
+                                            </th:block>
+                                            <th:block th:if="${member.memAutCode ne 0}">
+                                                직원
+                                            </th:block>
+                                        </label><br/>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="mb-4">계정수정</h3>
+
+                            <form action="MEM019" method="post" onsubmit="return nameCheck();">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>닉네임</label>
+                                            <input type="text" name="memName" Id="memName" onkeyup="nameCheck()"
+                                                   class="form-control" th:value="${member.memName}">
+                                            <br/>
+                                            <span id="checkName"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Phone</label>
+                                            <input type="text" name="memPhone" class="form-control"
+                                                   th:value="${member.memPhone}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>주소</label><br/>
+                                            <input th:value="${member.memAddr1}" type="text" id="sample6_postcode"
+                                                   placeholder="우편번호" name="memAddr1">
+                                            <input type="button" onclick="sample6_execDaumPostcode()"
+                                                   value="우편번호 찾기"><br/>
+                                            <input th:value="${member.memAddr2}" type="text" id="sample6_address"
+                                                   placeholder="주소" name="memAddr2"><br/>
+                                            <input th:value="${member.memAddr3}" type="text" id="sample6_detailAddress"
+                                                   placeholder="상세주소" name="memAddr3">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>생년월일</label><br/>
+                                            <select class="modiSelect" name="yy" id="year">
+
+                                            </select><label>년</label>
+                                            <select class="modiSelect" name="mm" id="month">
+
+                                            </select><label>월</label>
+                                            <select class="modiSelect" name="dd" id="day">
+
+                                            </select><label>일</label>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>성별</label><br/>
+                                            <select name="memGender" class="modiSelect">
+                                                <option th:value="${member.memGender}">[[${member.memGender}]]</option>
+                                                <option value="미입력">미입력</option>
+                                                <option value="남자">남자</option>
+                                                <option value="여자">여자</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>소개말</label>
+                                            <textarea name="memIntro" class="form-control" rows="4">[[${member.memIntro}]]</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 100px; margin-top: 50px;">
+                                    <input type="hidden" name="memCode" th:value="${member.memCode}">
+                                    <button type="submit" class="btn btn-primary">수정</button>
+                                    <button type="reset" class="btn btn-light">취소</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+                            <h3 class="mb-4">비밀번호 재설정</h3>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>기존 비밀번호</label>
+                                        <input id="oldPw" type="password" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>새 비밀번호</label>
+                                        <input id="newPw" type="password" onkeyup="pwRegexp()" class="form-control">
+                                        <!--비밀번호 정규식이 맞는지 결과.-->
+                                        <span id="pwResult1"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>새 비밀번호 확인</label>
+                                        <input id="newPwCheck" type="password" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <button onclick="ChangePw()" class="btn btn-primary">재설정</button>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
+                            <h3 class="mb-4">로그인 기록</h3>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <table class="container" style="width: 85%; height: 100%; font-size: 21px; !important;">
+                                        <thead>
+                                        <tr>
+                                            <th>접속 아이피</th>
+                                            <th>접속일</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="loginArea">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-12 animate-box" data-animate-effect="fadeInLeft" style="opacity: 1;">
+                                <ul class="pagination" id="pageNum">
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="application" role="tabpanel" aria-labelledby="application-tab">
+                            <h3 class="mb-4">계정 비활성화</h3>
+                            <div>
+                                <button class="btn btn-primary" onclick="accountDeactivation()">비활성화</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+
+<!-- jQuery -->
+<script src="js/jquery.min.js"></script>
+
+
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Waypoints -->
+<script src="js/jquery.waypoints.min.js"></script>
+<!-- Flexslider -->
+<script src="js/jquery.flexslider-min.js"></script>
+<!-- Sticky Kit -->
+<script src="js/sticky-kit.min.js"></script>
+<!-- Owl carousel -->
+<script src="js/owl.carousel.min.js"></script>
+<!-- Counters -->
+<script src="js/jquery.countTo.js"></script>
+
+
+<!-- MAIN JS -->
+<script src="js/main.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+<script src="js/modal.js"></script>
+
+</body>
+<script th:if="${session.login eq null || session.login.memCode ne member.memCode}">
+    alert("제한된 접근");
+    location.href = "index";
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        let now = new Date();
+        let year = now.getFullYear();
+        let mon = (now.getMonth() + 1) > 9 ? '' + (now.getMonth() + 1) : '0' + (now.getMonth() + 1);
+        let day = (now.getDate()) > 9 ? '' + (now.getDate()) : '0' + (now.getDate());
+        //년도 selectbox만들기
+        for (let i = year; i >= 1900; i--) {
+            $('#year').append('<option value="' + i + '">' + i + '년</option>');
+        }
+
+        // 월별 selectbox 만들기
+        for (let i = 1; i <= 12; i++) {
+            let mm = i > 9 ? i : "0" + i;
+            $('#month').append('<option value="' + mm + '">' + mm + '월</option>');
+        }
+
+        // 일별 selectbox 만들기
+        for (let i = 1; i <= 31; i++) {
+            let dd = i > 9 ? i : "0" + i;
+            $('#day').append('<option value="' + dd + '">' + dd + '일</option>');
+        }
+        let alreadyBirth = "[[${member.memBirth}]]";
+        //console.log(alreadyBirth);
+        if (alreadyBirth != "미입력") {
+            //alert("생년월일미입력아님");
+            year = alreadyBirth.substring(0, 4);
+            mon = alreadyBirth.substring(4, 6);
+            day = alreadyBirth.substring(6, 8)
+            //console.log(year,mon,day);
+        }
+        $("#year  > option[value=" + year + "]").attr("selected", "true");
+        $("#month  > option[value=" + mon + "]").attr("selected", "true");
+        $("#day  > option[value=" + day + "]").attr("selected", "true");
+    })
+
+</script>
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+        crossorigin="anonymous"></script>
+<script>
+    // 닉네임 중복 및 적합성 체크
+    function nameCheck() {
+        let memName = document.getElementById("memName").value;
+        let spc = memName.search(/\s/);
+        let check = document.getElementById("checkName");
+        let conf = false;
+        let alreadyName = "[[${member.memName}]]"
+
+        if (memName == null || memName == "") {
+            message = "닉네임을 입력해주세요";
+        } else if (spc != -1) {
+            message = "닉네임에 공백을 제거해 주세요";
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "MEM003",
+                data: {
+                    "memName": memName
+                },
+                async: false,
+                dataType: "text",
+                success: function (result) {
+                    if (alreadyName == memName) {
+                        // 기존의 사용중인 닉네임
+                        check.innerHTML = "";
+                        conf = true;
+                        //console.log("확인1 : " + conf);
+                    } else if (result == "OK") {
+                        // 사용할 수 있는 아이디일 경우 실행
+                        check.innerHTML = "사용가능한 닉네임";
+                        check.style.color = "#0000ff";
+                        conf = true;
+                        //console.log("확인2 : " + conf);
+                    } else {
+                        // 사용할 수 없는 아이디일 경우 실행
+                        check.innerHTML = "이미 사용중인 닉네임";
+                        check.style.color = "#ff0000";
+                        message = "이미 사용중인 닉네임 입니다.";
+                    }
+                },
+                error: function () {
+                    alert("MEM003함수 통신실패!");
+                }
+
+            });
+        }
+        //console.log(conf);
+        return conf;
+    }
+</script>
+<script>
+    // 비밀번호 재설정
+    function ChangePw() {
+        let oldPw = $("#oldPw").val();
+        let newPw = $("#newPw").val();
+        let newPwCheck = $("#newPwCheck").val();
+        let memCode = "[[${member.memCode}]]";
+        let memId = "[[${member.memId}]]";
+
+        $.ajax({
+            type: "POST",
+            url: "PRO010",
+            data: {
+                "memCode": memCode,
+                "oldPw": oldPw,
+                "newPw": newPw,
+                "newPwCheck": newPwCheck,
+                "memId": memId
+            },
+            async: false,
+            dataType: "text",
+            success: function (result) {
+                alert(result);
+            },
+            error: function () {
+                alert("비밀번호 변경 통신오류");
+            }
+        });
+    }
+
+    // 비밀번호 정규식
+    function pwRegexp() {
+        let memPw = document.getElementById("newPw").value;
+        let pwResult1 = document.getElementById("pwResult1");
+
+        // search는 찾은 갯수를 나타내며 찾지못하면 -1으로 표시된다.
+        let num = memPw.search(/[0-9]/);
+        let eng = memPw.search(/[a-z]/);
+        let spe = memPw.search(/[`~!@#$%^&*|\\\'\":;\/?]/);
+        // 특수문자 : `~!@#$%^&*|\\\'\":;\/?
+        let spc = memPw.search(/\s/);
+        if (memPw.length < 8 || memPw.length > 16) {
+            pwResult1.style.color = "#ff0000";
+            pwResult1.innerHTML = "비밀번호는 8자리에서 16자리 이내로 입력해주세요.";
+            return false;
+
+        } else if (spc != -1) {
+            pwResult1.style.color = "#ff0000";
+            pwResult1.innerHTML = "비밀번호는 공백없이 입력해주세요.";
+            return false;
+
+        } else if (num < 0 || eng < 0 || spe < 0) {
+            pwResult1.style.color = "#ff0000";
+            pwResult1.innerHTML = "영문, 숫자, 특수문자를 혼합하여 입력해주세요.";
+            return false;
+
+        } else {
+            pwResult1.style.color = "#0000ff";
+            pwResult1.innerHTML = "사용가능한 비밀번호 입니다.";
+            return true;
+        }
+    }
+</script>
+<script>
+    // 로그인 기록 js
+
+    // 페이지
+    let page = 1;
+
+    // 시작시 1회 불러옴
+    getLoginList();
+
+    // 로그인 기록 가져오기
+    function getLoginList() {
+        let memCode = "[[${member.memCode}]]";
+        $.ajax({
+            type: "POST",
+            url: "PRO013",
+            data: {
+                "page": page,
+                "memCode": memCode
+            },
+            async: false,
+            dataType: "json",
+            success: function (result) {
+                console.log(result[0]);
+                console.log(result[1]);
+                LoginInner(result[0], result[1]);
+            },
+            error: function () {
+                alert("로그인기록 통신 실패")
+            }
+
+        });
+    }
+
+    function LoginInner(paging,result){
+        let output="";
+        for(let i in result){
+            output +="<tr>";
+            output +="<td>"+result[i].LHIp+"</td>";
+            output +="<td>"+result[i].LHDate+"</td>";
+            output +="</tr>";
+        }
+        $("#loginArea").html(output);
+
+        //하단에 페이지 처리
+        output = "";
+
+        if(page<=1){
+            output+="<li><a>&laquo;</a></li>"
+        }else{
+            output += "<li><a href= 'javascript:void(0);' onclick=\"changePage("+(page-1)+");\">&laquo;</a></li>";
+        }
+
+        for (let i = paging.startpage; i <= paging.endpage; i++) {
+            if (i == page) {
+                output += "<li class=\"active\"><a href='javascript:void(0);' onclick=\"changePage("+i+");\">"+i+"</a></li>";
+            } else {
+                output += "<li><a href= 'javascript:void(0);' onclick=\"changePage("+i+");\">"+i+"</a></li>";
+            }
+        }
+        if(page<paging.maxpage){
+            output += "<li><a href= 'javascript:void(0);' onclick=\"changePage("+(page+1)+");\">&raquo;</a></li>";
+        }else{
+            output += "<li><a>&raquo;</a></li>";
+        }
+
+        $('#pageNum').html(output);
+    }
+
+    // 페이지 변경
+    function changePage(input) {
+        page = input;
+        getLoginList();
+    }
+</script>
+<script
+        src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                let addr = ''; // 주소 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample6_postcode').value = data.zonecode;
+                document.getElementById("sample6_address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("sample6_detailAddress").focus();
+            }
+        }).open();
+    }
+</script>
+<script>
+    // 계정 비활성화
+    function accountDeactivation(){
+        if(confirm("계정을 비활성화 하시겠습니까?")){
+            let memCode = "[[${member.memCode}]]";
+            location.href="MEM014?user="+memCode;
+        }
+    }
+</script>
+</html>

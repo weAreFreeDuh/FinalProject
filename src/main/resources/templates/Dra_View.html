@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html class="no-js" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Standard Post - Typerite</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--경매 관련-->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css"
+          rel="stylesheet">
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+    <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
+
+    <script src="https://kit.fontawesome.com/8591377d67.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://kit.fontawesome.com/8591377d67.css" crossorigin="anonymous">
+
+    <script src="https://kit.fontawesome.com/8591377d67.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://kit.fontawesome.com/8591377d67.css" crossorigin="anonymous">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="css/view/base.css">
+    <link rel="stylesheet" href="css/view/vendor.css">
+    <link rel="stylesheet" href="css/view/main.css">
+    <link rel="stylesheet" href="css/input.css">
+
+
+    <!-- script
+    ================================================== -->
+    <script src="js/modernizr.js"></script>
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+
+
+    <style th:replace="mouse.html :: style"></style>
+
+    <link rel="stylesheet" href="css/modal.css">
+
+    <style>
+
+        a:hover {
+            text-decoration: none !important;
+        }
+
+        textarea {
+            color: rgba(0, 0, 0, .33);
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 21px;
+            height: 132px;
+            min-height: 6.6rem;
+            width: 666px;
+        !important;
+        }
+
+        svg {
+            cursor: pointer;
+            overflow: visible;
+            width: 60px;
+        }
+
+        svg #heart {
+            transform-origin: center;
+            animation: animateHeartOut 0.3s linear forwards;
+        }
+
+        svg #main-circ {
+            transform-origin: 29.5px 29.5px;
+        }
+
+        #checkbox {
+            display: none;
+        }
+
+        #checkbox:checked + label svg #heart {
+            transform: scale(0.2);
+            fill: #E2264D;
+            animation: animateHeart 0.3s linear forwards 0.25s;
+        }
+
+        #checkbox:checked + label svg #main-circ {
+            transition: all 2s;
+            animation: animateCircle 0.3s linear forwards;
+            opacity: 1;
+        }
+
+        #checkbox:checked + label svg #grp1 {
+            opacity: 1;
+            transition: 0.1s all 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp1 #oval1 {
+            transform: scale(0) translate(0, -30px);
+            transform-origin: 0 0 0;
+            transition: 0.5s transform 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp1 #oval2 {
+            transform: scale(0) translate(10px, -50px);
+            transform-origin: 0 0 0;
+            transition: 1.5s transform 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp2 {
+            opacity: 1;
+            transition: 0.1s all 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp2 #oval1 {
+            transform: scale(0) translate(30px, -15px);
+            transform-origin: 0 0 0;
+            transition: 0.5s transform 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp2 #oval2 {
+            transform: scale(0) translate(60px, -15px);
+            transform-origin: 0 0 0;
+            transition: 1.5s transform 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp3 {
+            opacity: 1;
+            transition: 0.1s all 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp3 #oval1 {
+            transform: scale(0) translate(30px, 0px);
+            transform-origin: 0 0 0;
+            transition: 0.5s transform 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp3 #oval2 {
+            transform: scale(0) translate(60px, 10px);
+            transform-origin: 0 0 0;
+            transition: 1.5s transform 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp4 {
+            opacity: 1;
+            transition: 0.1s all 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp4 #oval1 {
+            transform: scale(0) translate(30px, 15px);
+            transform-origin: 0 0 0;
+            transition: 0.5s transform 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp4 #oval2 {
+            transform: scale(0) translate(40px, 50px);
+            transform-origin: 0 0 0;
+            transition: 1.5s transform 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp5 {
+            opacity: 1;
+            transition: 0.1s all 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp5 #oval1 {
+            transform: scale(0) translate(-10px, 20px);
+            transform-origin: 0 0 0;
+            transition: 0.5s transform 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp5 #oval2 {
+            transform: scale(0) translate(-60px, 30px);
+            transform-origin: 0 0 0;
+            transition: 1.5s transform 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp6 {
+            opacity: 1;
+            transition: 0.1s all 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp6 #oval1 {
+            transform: scale(0) translate(-30px, 0px);
+            transform-origin: 0 0 0;
+            transition: 0.5s transform 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp6 #oval2 {
+            transform: scale(0) translate(-60px, -5px);
+            transform-origin: 0 0 0;
+            transition: 1.5s transform 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp7 {
+            opacity: 1;
+            transition: 0.1s all 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp7 #oval1 {
+            transform: scale(0) translate(-30px, -15px);
+            transform-origin: 0 0 0;
+            transition: 0.5s transform 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp7 #oval2 {
+            transform: scale(0) translate(-55px, -30px);
+            transform-origin: 0 0 0;
+            transition: 1.5s transform 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp2 {
+            opacity: 1;
+            transition: 0.1s opacity 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp3 {
+            opacity: 1;
+            transition: 0.1s opacity 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp4 {
+            opacity: 1;
+            transition: 0.1s opacity 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp5 {
+            opacity: 1;
+            transition: 0.1s opacity 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp6 {
+            opacity: 1;
+            transition: 0.1s opacity 0.3s;
+        }
+
+        #checkbox:checked + label svg #grp7 {
+            opacity: 1;
+            transition: 0.1s opacity 0.3s;
+        }
+
+        @keyframes animateCircle {
+            40% {
+                transform: scale(10);
+                opacity: 1;
+                fill: #DD4688;
+            }
+            55% {
+                transform: scale(11);
+                opacity: 1;
+                fill: #D46ABF;
+            }
+            65% {
+                transform: scale(12);
+                opacity: 1;
+                fill: #CC8EF5;
+            }
+            75% {
+                transform: scale(13);
+                opacity: 1;
+                fill: transparent;
+                stroke: #CC8EF5;
+                stroke-width: 0.5;
+            }
+            85% {
+                transform: scale(17);
+                opacity: 1;
+                fill: transparent;
+                stroke: #CC8EF5;
+                stroke-width: 0.2;
+            }
+            95% {
+                transform: scale(18);
+                opacity: 1;
+                fill: transparent;
+                stroke: #CC8EF5;
+                stroke-width: 0.1;
+            }
+            100% {
+                transform: scale(19);
+                opacity: 1;
+                fill: transparent;
+                stroke: #CC8EF5;
+                stroke-width: 0;
+            }
+        }
+
+        @keyframes animateHeart {
+            0% {
+                transform: scale(0.2);
+            }
+            40% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes animateHeartOut {
+            0% {
+                transform: scale(1.4);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        button:hover {
+            background-color: black;
+        !important; /* Green */
+            color: white;
+        !important;
+        }
+    </style>
+
+    <style>
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: scroll; /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0); /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+        }
+
+        /* 이미지 버튼 모달 창*/
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 100%; /* Could be more or less, depending on screen size */
+            text-align: center;
+        }
+
+        /* 제출 버튼 모달창 */
+        /* Modal Content/Box */
+        .modal-content1 {
+            background-color: #fefefe;
+            margin: 2% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%; /* Could be more or less, depending on screen size */
+            text-align: center;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    </style>
+
+    <!-- h1 클래스   -->
+    <style>
+        .liner {
+            display: flex;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .liner:after {
+            content: "";
+            flex-grow: 1;
+            height: 1px;
+            background: #D66853;
+            min-width: 20px;
+            margin: auto;
+        }
+
+        .liner:after {
+            margin-left: 20px;
+        }
+    </style>
+
+    <!-- 제출 버튼 css   -->
+    <style>
+        .span1 {
+            position: relative;
+            display: inline-flex;
+            width: 180px;
+            height: 55px;
+            margin: 0 15px;
+            perspective: 1000px;
+        }
+
+        .span1 a {
+            font-size: 19px;
+            letter-spacing: 1px;
+            transform-style: preserve-3d;
+            transform: translateZ(-25px);
+            transition: transform .25s;
+            font-family: 'Montserrat', sans-serif;
+
+        }
+
+        .span1 a:before,
+        .span1 a:after {
+            position: absolute;
+            content: "상품 등록";
+            height: 55px;
+            width: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 5px solid black;
+            box-sizing: border-box;
+            border-radius: 5px;
+        }
+
+        .span1 a:before {
+            color: #fff;
+            background: #000;
+            transform: rotateY(0deg) translateZ(25px);
+        }
+
+        .span1 a:after {
+            color: #000;
+            transform: rotateX(90deg) translateZ(25px);
+        }
+
+        .span1 a:hover {
+            transform: translateZ(-25px) rotateX(-90deg);
+        }
+
+    </style>
+
+    <style>
+        .modal-backdrop {
+            position: relative;
+        !important;
+        }
+    </style>
+
+    <style>
+        .proPrice {
+            display: block;
+            margin: 2em auto;
+            border: none;
+            padding: 0;
+            width: 13.5ch;
+            background: repeating-linear-gradient(90deg, dimgrey 0, dimgrey 1ch, transparent 0, transparent 1.5ch) 0 100%/13.5ch 2px no-repeat;
+            font: 5ch droid sans mono, consolas, monospace;
+            letter-spacing: 0.5ch;
+        }
+
+        .proPrice:focus {
+            outline: none;
+            color: #F8B627;
+        }
+
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .bootstrap-datetimepicker-widget dropdown-menu {
+            margin: 2px 0;
+            padding: 4px;
+            width: 22em;
+        }
+
+    </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <style>
+        h1, h2, h3, h4, h5, h6, p, a, label, textarea {
+            font-family: 'Gowun Dodum', sans-serif !important;
+            font-size: large !important;
+            letter-spacing: 0rem; !important;
+        }
+
+        span {
+            font-family: 'Glyphicons Halflings';
+        }
+
+        .col-sm-2 {
+            width: 18.666667%;
+        }
+    </style>
+
+</head>
+
+<body class="ss-bg-white" style="-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none">
+
+<!-- preloader
+================================================== -->
+<div id="preloader">
+    <div id="loader" class="dots-fade">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div id="colorlib-page">
+    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+
+    <header th:replace="sider.html :: header"></header>
+
+
+    <div id="colorlib-main">
+
+        <!-- site content
+        ================================================== -->
+        <div class="s-content content">
+            <main class="row content__page">
+
+                <article class="column large-full entry format-standard"></article>
+                <form action="DRA005" method="post">
+                    <div class="media-wrap entry__media">
+                        <div class="entry__post-thumb">
+
+                            <img th:src="@{/PSW/bestimg/{img1}(img1=${bview.boaBestImg})}"
+                                 style="width: 860px;height: 430px;">
+                        </div>
+                    </div>
+
+
+                    <div style="margin-top: 32px; height: 40px;width: 700px; display:flex; align-items:center;">
+
+                        <a th:href="@{PRO001(user = ${bview.boaMemcode})}">
+                        <img th:src="@{fish/img/memProfileImg/{img1}(img1=${bview.memProfileName})}" width="38px"
+                             height="38px" style="border-radius: 100%; vertical-align: middle;    box-sizing: border-box;
+    border-style: none;
+    height: inherit;
+    vertical-align: top;"></a>
+                        <div width="608px" height="40px" style="margin-left: 10px;">
+                            <a th:href="@{PRO001(user = ${bview.boaMemcode})}">
+                            <div width="608px" height="20px" style="    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px; font-family: 'Noto Sans KR', sans-serif;" th:text="${bview.memName}">작성자
+                            </div></a>
+                            <div width="608px" height="20px" flex="1" style="margin-top: 2px;
+              font-size: 14px;
+               line-height: 18px;}"> [[${bview.boaDate}]] &middot;조회 [[${bview.boaHit}]] &middot;댓글
+                                [[${bview.comentNum}]]
+                            </div>
+                        </div>
+
+                        <block th:if="${session.login ne null && session.login.memCode eq bview.boaMemcode}">
+                            <span class="span1"><a href="#" class="submitBtn"></a></span>
+                        </block>
+
+                    </div>
+
+
+                    <div class="content__page-header entry__header">
+                        <blockquote>
+                            <h1 class="display-1 entry__title" th:text="${bview.boaTitle}">
+
+                            </h1>
+
+
+                        </blockquote>
+                    </div> <!-- end entry__header -->
+
+
+                    <div class="entry__content">
+                        <div id="boaContent"></div>
+
+
+                        <input type="hidden" id="orboaContent" th:value="${bview.boaContent}">
+                        <block th:if="${session.login ne null}">
+                        <input type="hidden" id="memCode" th:value="${session.login.getMemCode()}">
+                        </block>
+                        <input type="hidden" id="boaCode" th:value="${bview.boaCode}">
+
+
+                        <br/>
+                        <div>
+                            <input type="checkbox" id="checkbox"/>
+                            <label for="checkbox" id="likebtn" style="float: left;">
+                                <svg id="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg" style="
+                                    margin-left: 0px;">
+                                    <g id="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
+                                        <a onclick="DRA005();">
+                                            <path d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z"
+                                                  id="heart" fill="#AAB8C2"/>
+                                        </a>
+
+                                        <circle id="main-circ" fill="#E2264D" opacity="0" cx="29.5" cy="29.5" r="1.5"/>
+
+                                        <g id="grp7" opacity="0" transform="translate(7 6)">
+                                            <circle id="oval1" fill="#9CD8C3" cx="2" cy="6" r="2"/>
+                                            <circle id="oval2" fill="#8CE8C3" cx="5" cy="2" r="2"/>
+                                        </g>
+
+                                        <g id="grp6" opacity="0" transform="translate(0 28)">
+                                            <circle id="oval1" fill="#CC8EF5" cx="2" cy="7" r="2"/>
+                                            <circle id="oval2" fill="#91D2FA" cx="3" cy="2" r="2"/>
+                                        </g>
+
+                                        <g id="grp3" opacity="0" transform="translate(52 28)">
+                                            <circle id="oval2" fill="#9CD8C3" cx="2" cy="7" r="2"/>
+                                            <circle id="oval1" fill="#8CE8C3" cx="4" cy="2" r="2"/>
+                                        </g>
+
+                                        <g id="grp2" opacity="0" transform="translate(44 6)">
+                                            <circle id="oval2" fill="#CC8EF5" cx="5" cy="6" r="2"/>
+                                            <circle id="oval1" fill="#CC8EF5" cx="2" cy="2" r="2"/>
+                                        </g>
+
+                                        <g id="grp5" opacity="0" transform="translate(14 50)">
+                                            <circle id="oval1" fill="#91D2FA" cx="6" cy="5" r="2"/>
+                                            <circle id="oval2" fill="#91D2FA" cx="2" cy="2" r="2"/>
+                                        </g>
+
+                                        <g id="grp4" opacity="0" transform="translate(35 50)">
+                                            <circle id="oval1" fill="#F48EA7" cx="6" cy="5" r="2"/>
+                                            <circle id="oval2" fill="#F48EA7" cx="2" cy="2" r="2"/>
+                                        </g>
+
+                                        <g id="grp1" opacity="0" transform="translate(24)">
+                                            <circle id="oval1" fill="#9FC7FA" cx="2.5" cy="3" r="2"/>
+                                            <circle id="oval2" fill="#9FC7FA" cx="7.5" cy="2" r="2"/>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </label>
+
+                        </div>
+                        <div>
+                        <p style="margin-left: 5px;margin-top: 17px;">좋아요 <span id="like">
+                        </span>
+                        </p>
+                            <span class="entry__tags">
+                              <th:block th:if="${bview.boaTag ne null}">
+                                             <span style="margin-left: 15px;">태그</span>
+                                             <span class="entry__tag-list reTag">[[${bview.boaTag}]]</span>
+                                        </th:block>
+                        </span>
+
+                        </div>
+
+
+
+                        <block th:if="${bview.boaFileName} ne 'null'">
+                            다운로드 : <a
+                                th:href="@{download(boaFileName = ${bview.boaFileName})}">[[${bview.boaFileName}]]</a>
+                        </block>
+                    </div>
+                </form>
+
+                <block th:if="${session.login ne null && session.login.memCode eq bview.boaMemcode}">
+                    <p class="entry__tags" style="     margin-top: 0px;margin-bottom: 0px;margin-left: 550px;">
+                               <span class="entry__tag-list">
+                        <a href="#" onclick="bModify()">수정하기</a>
+                           </span> <span class="entry__tag-list">
+                        <a href="#" onclick="bDelete()">삭제하기</a>
+                    </span>
+                        <br>
+                    </p>
+
+
+                </block>
+                <block th:if="${bview.boaWorkcode ne 0}">
+                <p class="entry__tags" style="     margin-top: 0px;margin-bottom: 0px;margin-left: 550px;">
+                <span class="entry__tag-list">
+                        <a th:href="@{WOR4(workCode=${bview.boaWorkcode})}" onclick="">워크스페이스 보기</a>
+                            </span>
+                </p>
+                </block>
+
+
+                <div class="comments-wrap">
+
+                    <div id="comments" class="column large-12">
+
+                        <h3 class="h2">[[${bview.comentNum}]] Comments</h3>
+
+                        <!-- START commentlist -->
+                        <ol class="commentlist" id="comment__content">
+
+                            <!-- end comment level 1 -->
+
+
+                        </ol>
+                        <!-- END commentlist -->
+
+                    </div> <!-- end comments -->
+
+
+                    <div>
+                        <div id="cmtArea"></div>
+                        <div>
+                            <input type="hidden" th:value="${bview.boaCode}" id="cbNum"/>
+                            <block th:if="${session.login ne null}">
+                                <input type="hidden" th:value="${session.login.getMemCode()}" id="cmtWriter"/>
+                                <input type="hidden" id="gmemCode" th:value="${session.login.getMemCode()}">
+                            </block>
+                            <div style=" width: 700px;  height: 145px;    border-radius: 10px;   border: 1px solid rgba(0,0,0,.1);background-color: #fff; padding: 16px;margin-bottom: 40px;">
+                                <div>
+                                    <textarea type="text" id="cmtContent" onfocus="checkLogin()" onkeypress="enterkey(event)"
+                                               style="margin-bottom: 0px; float: left; width: 564px; height: 108px;">
+                                    </textarea>
+                                </div>
+                                <div style="text-align: right;margin-top: 40px;float: right;">
+                                    <a id="button-send" onclick="cmtWrite()" style="">
+                                    댓글 입력
+                                    </a>
+                                </div>
+                            </diV>
+
+                        </div>
+
+                        <div class="column large-12 comment-respond">
+
+
+                        </div> <!-- end comment-respond -->
+
+                    </div> <!-- end comments-wrap -->
+                </div> <!-- end comments-wrap -->
+
+                <div class="modal">
+
+                    <!-- 제출 모달 -->
+                    <div class="modal-content1 animate-box" data-animate-effect="fadeInLeft">
+                        <span class="close">&times;</span>
+                        <hr/>
+                        <br/><br/>
+                        <form action="PAY003" method="post" id="checker">
+                            <input type="hidden" th:value="${bview.boaCode}" name="proBoaCode"/>
+                            <block th:if="${session.login ne null}">
+                            <input type="hidden" th:value="${session.login.memCode}" name="proMemCode"/>
+                            </block>
+                            <h3 style="font-weight: bold; text-align: center">경매 등록</h3>
+                            <h4 class="liner">상품명</h4>
+                            <input type="input" class="form__field" placeholder="상품명" name="proName" id='proName' style="margin-right: 0rem; text-align: center; font-size: larger;"
+                                   required/>
+                            <h4 class="liner">경매 시작가격</h4>
+                            <div>
+                                <div style="display: inline-block;">
+                                    <input class="proPrice" type="number" name="proPrice" id="proPrice" maxlength="9" style="text-align: right;" oninput="numberMaxLength(this);">
+                                </div>
+                                <div style="display: inline-block;"><i class="fa-solid fa-sack-dollar fa-3x"></i></div>
+                            </div>
+                            <h4 class="liner">경매 날짜</h4>
+                            <h3>경매 시작일</h3>
+                            <div class="container">
+                                <div class="row">
+                                    <div class='col-lg-9'>
+                                        <div class="form-group" style="margin-left: 30%;">
+                                            <label for="dtpickerdemo" class="col-sm-2 control-label">Select date/time:</label>
+                                            <div class='col-sm-4 input-group date' id='dtpickerdemo'>
+                                                <input type='text' class="form-control" name="proStartDate" id="proStartDate"/>
+                                                <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <script type="text/javascript">
+                                        var newJquery = $.noConflict(true);
+                                        newJquery(function () {
+                                            newJquery('#dtpickerdemo').datetimepicker();
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                            <h3>경매 마감일</h3>
+                            <div class="container">
+                                <div class="row">
+                                    <div class='col-lg-9'>
+                                        <div class="form-group" style="margin-left: 30%;">
+                                            <label for="dt" class="col-sm-2 control-label">Select date/time:</label>
+                                            <div class='col-sm-4 input-group date' id='dt'>
+                                                <input type='text' class="form-control" name="proEndDate" id="proEndDate"/>
+                                                <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <script type="text/javascript">
+
+                                        newJquery(function () {
+                                            newJquery('#dt').datetimepicker();
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+
+                            <hr/>
+
+                            <button type="button"   onclick="check()"  class="btn btn-light-green"
+                                    style="background-color: #000000; color: #FFFFFF !important;">등록
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+
+            </main>
+
+        </div> <!-- end s-content -->
+
+        <!-- Java Script
+        ================================================== -->
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+    </div>
+</div>
+
+<script src="js/modal.js"></script>
+
+</body>
+
+
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+        crossorigin="anonymous"></script>
+
+<script>
+
+    // 경매 최저가격 글자수 제한
+    function numberMaxLength(e){
+
+        if(e.value.length > e.maxLength){
+
+            e.value = e.value.slice(0, e.maxLength);
+
+        }
+
+    }
+
+
+    // 모달 스크립트
+    // Modal을 가져옵니다.
+    let modals = document.getElementsByClassName("modal");
+    // Modal을 띄우는 클래스 이름을 가져옵니다.
+    let btns = document.getElementsByClassName("submitBtn");
+    // Modal을 닫는 close 클래스를 가져옵니다.
+    let spanes = document.getElementsByClassName("close");
+    let funcs = [];
+
+    // Modal을 띄우고 닫는 클릭 이벤트를 정의한 함수
+    function Modal(num) {
+        return function () {
+            // 해당 클래스의 내용을 클릭하면 Modal을 띄웁니다.
+            btns[num].onclick = function () {
+                modals[num].style.display = "block";
+
+                console.log(num);
+
+            };
+
+            // <span> 태그(X 버튼)를 클릭하면 Modal이 닫습니다.
+            spanes[num].onclick = function () {
+                modals[num].style.display = "none";
+
+            };
+        };
+    }
+
+    // 원하는 Modal 수만큼 Modal 함수를 호출해서 funcs 함수에 정의합니다.
+    for (let i = 0; i < btns.length; i++) {
+        funcs[i] = Modal(i);
+    }
+
+    // 원하는 Modal 수만큼 funcs 함수를 호출합니다.
+    for (let j = 0; j < btns.length; j++) {
+        funcs[j]();
+    }
+
+    // Modal 영역 밖을 클릭하면 Modal을 닫습니다.
+    window.onclick = function (event) {
+        if (event.target.className == "modal") {
+            event.target.style.display = "none";
+
+        }
+    };
+
+    // 모달 경매
+    function check() {
+        let pass = false;
+
+        let boaMemcode = $('#memCode').val();
+        let boaCode = $('#boaCode').val();
+        console.log("boaMemCode" + boaMemcode);
+        console.log("boaCode" + boaCode);
+
+        /*--------------------------------------------------------------*/
+
+        let proName = $('#proName').val();
+
+        let proPrice = $('#proPrice').val();
+
+        let proStartDate = $('#proStartDate').val();
+        let proEndDate = $('#proEndDate').val();
+
+        const proSDate = new Date(proStartDate);
+        const proEDate = new Date(proEndDate);
+
+        let memProGrade = '[[${session.login.memPayGrade}]]';
+        console.log(memProGrade);
+
+
+        if (proName == "") {
+            alert("상품명을 입력해주세요!");
+            document.getElementById("proName").focus();
+
+        } else if (proPrice == "") {
+            alert("시작 가격을 입력해주세요!");
+            document.getElementById("proPrice").focus();
+
+        } else if (proStartDate == "") {
+            alert("경매 시작일을 입력해주세요!");
+            document.getElementById("proStartDate").focus();
+
+        } else if (proEndDate == "") {
+            alert("경매 종료일을 입력해주세요!");
+            document.getElementById("proEndDate").focus();
+
+        } else if (proSDate >= proEDate ) {
+            alert("경매 날짜를 다시 확인해주세요");
+            document.getElementById("proStartDate").focus();
+
+        } else if (proEndDate == "") {
+            alert("경매 종료일을 입력해주세요!");
+            document.getElementById("proEndDate").focus();
+
+        } else if(memProGrade == "없음"){
+            alert('멤버쉽 구매 후 이용해주세요');
+            location.href="Pay_Membership";
+        } else {
+
+            boaCode = $('#boaCode').val();
+
+            $.ajax({
+                type: "POST",
+                url: "checkProduct",
+                data: {
+                    "boaCode": boaCode
+                },
+                dataType: "text",
+                success: function (result) {
+                    if(result == "있다"){
+                        alert('이미 상품등록을 하셨습니다.');
+                        location.href = "DRA004?boaCode=" + boaCode;
+                    } else{
+                        console.log('상품등록 success' + result);
+                        $('#checker').submit();
+                    }
+                },
+                error: function () {
+                    alert("맨처음 checkProduct 통신실패!");
+                }
+            });
+        }
+        console.log('pass??'+pass);
+
+    }
+</script>
+
+
+
+<script>
+
+
+    let retag = $('.reTag');
+
+    for (let i = 0; i < retag.length; i++) {
+        let tagArr = $(retag[i]).text().split(",")
+        let input = "";
+
+        for (j in tagArr) {
+            //console.log(tagArr[j]);
+            input += "<a href='UnifiedSearch?q=" + tagArr[j].replace('#', '%23') + "'>" + tagArr[j] + "</a>";
+        }
+        $(retag[i]).html(input);
+    }
+
+
+    let orboaContent = $('#orboaContent').val();
+    document.getElementById("boaContent").innerHTML = orboaContent;
+
+    let boaMemcode = $('#memCode').val();
+    let boaCode = $('#boaCode').val();
+    console.log("boaMemCode" + boaMemcode);
+    console.log("boaCode" + boaCode);
+
+    let click = 0;
+
+
+    $.ajax({
+        type : "POST",
+        url : "likenum",
+        data_type : "text",
+        data: {
+            "boaCode": boaCode
+
+        },
+        success : function (result){
+            let like = document.getElementById("like");
+            let likebtn = document.getElementById("heart");
+
+            // 좋아요 갯수 표시
+            like.innerHTML = result;
+
+            // 좋아요 눌렀나 안눌렀나? css 변화 1이면 누른거
+            if (result.MLDo == 1) {
+                likebtn.style.fill = '#E2264D';
+
+            } else {
+                likebtn.style.fill = 'rgb(140,130,135)';
+            }
+        },
+        error : function (){
+            alert("좋아요 갯수 가져오기 실패!");
+        }
+    });
+    if(boaMemcode=null){
+        $.ajax({
+            type: "POST",
+            url: "DRA005",
+            data: {
+                "boaMemcode": boaMemcode,
+                "boaCode": boaCode,
+                "click": click
+            },
+            dataType: "json",
+            success: function (result) {
+                changeLike(result);
+            },
+            error: function () {
+                alert("맨처음 DRA005함수 통신실패!");
+            }
+        });
+    }
+
+
+    function DRA005() {
+        let boaMemcode = $('#memCode').val();
+        if(boaMemcode==null){
+            alert("회원가입 후 사용가능합니다.");
+            return false;
+
+        }
+        click = 1;
+
+        $.ajax({
+            type: "POST",
+            url: "DRA005",
+            data: {
+                "boaMemcode": boaMemcode,
+                "boaCode": boaCode,
+                "click": click
+            },
+            dataType: "json",
+            success: function (result) {
+                changeLike(result);
+            },
+            error: function () {
+                alert("DRA005함수 통신실패!");
+            }
+        });
+    }
+
+    function changeLike(result) {
+        let like = document.getElementById("like");
+        let likebtn = document.getElementById("heart");
+
+        // 좋아요 갯수 표시
+        like.innerHTML = result.MLCount;
+
+        // 좋아요 눌렀나 안눌렀나? css 변화 1이면 누른거
+        if (result.MLDo == 1) {
+            likebtn.style.fill = '#E2264D';
+
+        } else {
+            likebtn.style.fill = 'rgb(140,130,135)';
+        }
+    }
+
+    DRA006();
+
+    function DRA006() {
+        $.ajax({
+            type: "POST",
+            url: "DRA006",
+            data: {
+                "boaCode": boaCode
+            },
+            dataType: "json",
+            success: function (list) {
+
+                commentList(list);
+            },
+            error: function () {
+                alert("댓글 불러오기 통신 실패!");
+            }
+        });
+    }
+
+
+    // 댓글리스트 불러오기
+    function commentList(list) {
+        let memCode = $('#memCode').val();
+        let gmemCode = $("#gmemCode").val();
+        let output = "";
+
+        let check = false;
+
+        for (let i in list) {
+            console.log("list[i].coModi?? " + list[i].coModi)
+            if (list[i].coModi == 1) {
+
+
+                output += " <li class=\"depth-1 comment\">\n" +
+                    "\n" +
+                    "                <div class=\"comment__avatar\">\n" +
+                    " <a href=\'PRO001?user= "+list[i].comMemcode+"\'> <img class=\"avatar\" src=\"/fish/img/memProfileImg/"+ list[i].memProfileName+" \" alt=\"\" width=\"50\" height=\"50\"> </a>"+
+                    "                </div>\n" +
+                    "\n" +
+                    "                <div class=\"comment__content\">\n" +
+                    "\n" +
+                    "                  <div class=\"comment__info\">\n" +
+                    "                   <a href=\'PRO001?user= "+list[i].comMemcode+"\'>  <div class=\"comment__author\">" + list[i].memName + "</div></a>\n" +
+                    "\n" +
+                    "                    <div class=\"comment__meta\">\n" +
+                    "                      <div class=\"comment__time\">" + list[i].comDate + "</div>\n" +
+                    "                      <div class=\"comment__reply\">   \n";
+
+                if (gmemCode == list[i].comMemcode || memCode == 1) {
+                    output += "<a onclick=\"DRA006_2(" + list[i].comCode + ", " + list[i].ComBoaCode + ", 'cmtModiContent" + i + "'" + ")\">수정 / </a>";
+                    output += "<a onclick=\"DRA006_3(" + list[i].comCode + ", " + list[i].ComBoaCode + ")\">삭제</a>";
+                } else {
+                    output += "";
+                }
+                output +=
+                    "                    <p>수정됨</p>  </div>\n" +
+                    "                    </div>\n" +
+                    "                  </div>\n" +
+                    "\n" +
+                    "                  <div class=\"comment__text\">\n" +
+                    "<span id='cmtModiContent" + i + "'>" + list[i].coMent + "</span>" +
+                    "                  </div>\n" +
+                    "\n" +
+                    "                </div></li>";
+
+            } else {
+
+                output += " <li class=\"depth-"+i+" comment\">\n" +
+                    "\n" +
+                    "                <div class=\"comment__avatar\">\n" +
+                    "  <a href=\'PRO001?user= "+list[i].comMemcode+"\'> <img class=\"avatar\" src=\"/fish/img/memProfileImg/"+ list[i].memProfileName+" \" alt=\"\" width=\"50\" height=\"50\"></a> "+
+                    "                </div>\n" +
+                    "\n" +
+                    "                <div class=\"comment__content\">\n" +
+                    "\n" +
+                    "                  <div class=\"comment__info\">\n" +
+                    "                   <a href=\'PRO001?user= "+list[i].comMemcode+"\'>  <div class=\"comment__author\">" + list[i].memName + "</div></a>\n" +
+                    "\n" +
+                    "                    <div class=\"comment__meta\">\n" +
+                    "                      <div class=\"comment__time\">" + list[i].comDate + "</div>\n" +
+                    "                      <div class=\"comment__reply\">\n";
+
+                if (gmemCode == list[i].comMemcode || memCode == 1) {
+                    output += "<a onclick=\"DRA006_2(" + list[i].comCode + ", " + list[i].ComBoaCode + ", 'cmtModiContent" + i + "'" + ")\">수정 / </a>";
+                    output += "<a onclick=\"DRA006_3(" + list[i].comCode + ", " + list[i].ComBoaCode + ")\">삭제</a>";
+                } else {
+                    output += "";
+                }
+                output +=
+                    "                      </div>\n" +
+                    "                    </div>\n" +
+                    "                  </div>\n" +
+                    "\n" +
+                    "                  <div class=\"comment__text\">\n" +
+                    "<span id='cmtModiContent" + i + "'>" + list[i].coMent + "</span>" +
+                    "                  </div>\n" +
+                    "\n" +
+                    "                </div></li>";
+            }
+
+
+        }
+
+        document.getElementById("comment__content").innerHTML = output;
+
+    }
+
+    function DRA006_3(comCode, ComBoaCode) {
+        $.ajax({
+            type: "POST",
+            url: "DRA006_3",
+            data: {
+                "comCode": comCode,
+                "ComBoaCode": ComBoaCode
+            },
+            dataType: "json",
+            success: function (list) {
+                commentList(list);
+            },
+            error: function () {
+                alert("댓글 삭제 통신 실패!");
+            }
+        });
+    }
+
+    // 댓글작성하기ajax
+    function cmtWrite() {
+        let cmtWriter = document.getElementById("cmtWriter").value;
+        let cmtContent = $("#cmtContent").val();
+        let cbNum = $("#cbNum").val();
+        if(cmtContent== ''){
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: "DRA006_1",
+            data: {
+                "ComBoaCode": cbNum,
+                "comMemcode": cmtWriter,
+                "coMent": cmtContent
+            },
+            dataType: "json",
+            success: function (list) {
+                commentList(list);
+                $("#cmtContent").val("");
+            },
+            error: function () {
+                alert('댓글 작성 통신 실패!');
+            }
+        });
+    }
+
+    // 수정버튼 눌렀을떄
+    function DRA006_2(comCode, ComBoaCode, tagid) {
+        console.log("comCode : " + comCode + " , ComBoaCode : " + ComBoaCode);
+        console.log("tagid : " + tagid);
+
+        $("#" + tagid).html("<input type='text' id='cContent'/><input type='button' value='확인' onclick='cmtModify(" + comCode + ", " + ComBoaCode + ")'/>");
+    }
+
+    // 수정댓글 내용 작성 후 확인 버튼 눌렀을떄
+    function cmtModify(comCode, ComBoaCode) {
+        console.log("comCode : " + comCode + " , ComBoaCode : " + ComBoaCode);
+
+        let cmtContent = $("#cContent").val();
+
+        $.ajax({
+            type: "POST",
+            url: "DRA006_2",
+            data: {
+                "comCode": comCode,
+                "ComBoaCode": ComBoaCode,
+                "coMent": cmtContent
+            },
+            dataType: "json",
+            success: function (list) {
+                commentList(list);
+            },
+            error: function () {
+                alert("댓글 수정 통신 실패!");
+            }
+        });
+
+    }
+
+    // 댓글 입력시 로그인여부
+    function checkLogin() {
+        let gmemCode = $("#gmemCode").val();
+        if (gmemCode == null) {
+            $("#cmtContent").blur();
+            alert('로그인 후 사용하세요.');
+            location.href = "index";
+        }
+    }
+
+    // 게시글 수정페이지 이동
+    function bModify() {
+        location.href = "DRA009?boaCode=" + boaCode;
+    }
+
+    function bDelete() {
+        location.href = "DRA0010?boaCode=" + boaCode;
+    }
+</script>
+<script th:if="${session.login ne null}">
+
+    console.log("세션로그인?" + boaMemcode);
+    let SessionMemCode = [[${session.login.memCode}]]
+    $.ajax({
+        type: "POST",
+        url: "DRA011",
+        data: {
+            "bhMemCode": SessionMemCode,
+            "bhBoaCode": boaCode,
+
+        },
+        dataType: "text",
+        success: function (text) {
+            if (text == "OK") {
+                console.log("히스토리 삽입성공!");
+            } else {
+                console.log("히스토리 삽입실패!");
+            }
+
+        },
+        error: function () {
+            alert("맨처음 DRA011 통신실패!");
+        }
+    });
+
+    function enterkey(e){
+
+        if(e.keyCode == 13) {
+            // 언테키 클릭시 버튼 클릭
+            document.getElementById('button-send').click();
+
+        }
+    }
+
+
+</script>

@@ -1,0 +1,24 @@
+.category-links {
+    text-align: right;
+    padding-top: 20px;
+    margin-bottom: 80px;
+}
+
+.category-links a {
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 500;
+    color: #6a7080;
+    padding: 10px 6px 16px;
+    margin-right: 55px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+}
+
+.category-links a.active {
+    font-weight: bold;
+}
+.category-links a:hover {
+    border-bottom: 2px solid #FFC300;
+}

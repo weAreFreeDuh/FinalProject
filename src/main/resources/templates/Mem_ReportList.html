@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="FISH">
+    <meta name="date" content="2022-12-27">
+    <meta name="description" content="">
+    <link rel="shortcut icon">
+
+    <script src="https://kit.fontawesome.com/8591377d67.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://kit.fontawesome.com/8591377d67.css" crossorigin="anonymous">
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="css/main/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="css/main/icomoon.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="css/main/bootstrap.css">
+    <!-- Flexslider  -->
+    <link rel="stylesheet" href="css/main/flexslider.css">
+    <!-- Flaticons  -->
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="css/main/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/main/owl.theme.default.min.css">
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="css/main/style.css">
+
+    <link rel="stylesheet" href="css/header.css">
+
+    <link rel="stylesheet" href="css/font.css">
+
+    <link rel="stylesheet" href="css/selection.css">
+
+    <!-- script
+   ================================================== -->
+    <script src="js/modernizr.js"></script>
+
+    <!-- Modernizr JS -->
+    <script src="js/modernizr-2.6.2.min.js"></script>
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="css/ReportList.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" />
+
+
+
+
+    <title>리폿 리스트</title>
+
+    <!--체크박스 css-->
+    <style>
+        .wrapper {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            margin: 50px auto;
+        }
+
+        #switch {
+            position: absolute;
+            /* hidden */
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+        .switch_label {
+            position: relative;
+            cursor: pointer;
+            display: inline-block;
+            width: 58px;
+            height: 28px;
+            background: #fff;
+            border: 2px solid #daa;
+            border-radius: 20px;
+            transition: 0.2s;
+        }
+
+        .switch_label:hover {
+            background: #efefef;
+        }
+
+        .onf_btn {
+            position: absolute;
+            top: 4px;
+            left: 3px;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 20px;
+            background: #daa;
+            transition: 0.2s;
+        }
+
+        /* checking style */
+        #switch:checked + .switch_label {
+            background: #c44;
+            border: 2px solid #c44;
+        }
+
+        #switch:checked + .switch_label:hover {
+            background: #e55;
+        }
+
+        /* move */
+        #switch:checked + .switch_label .onf_btn {
+            left: 34px;
+            background: #fff;
+            box-shadow: 1px 2px 3px #00000020;
+        }
+    </style>
+
+
+
+    <!--모달 css-->
+    <style>
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0); /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 94%; /* Could be more or less, depending on screen size */
+            height: 105%;
+            text-align: center;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+
+    <style>
+        .fishUl {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .fishLi {
+            float: left;
+            margin-left: 200px;
+        }
+
+        .fishDiv {
+            min-width: 500px;
+            max-width: 800px;
+            border: 1px solid black;
+            text-align: center;
+            height: 750px;
+        }
+
+        .fishDiv2 {
+            border: 1px solid black;
+            width: 90%;
+            height: 300px;
+            margin: auto;
+            overflow: scroll;
+            text-align: center;
+        }
+
+        .fishDiv3{
+            min-width: 500px;
+            border: 1px solid black;
+            text-align: center;
+            height: 850px;
+        }
+
+        .fishTable {
+            margin: auto;
+        }
+        .fishStrong{
+            font-size: 25px;
+        }
+        /*권한 조회시 권한 이름이 나오는 a태그 버튼*/
+        .selectAutBtn{
+
+        }
+
+        /*권한생성폼에서 생성하기 a태그 버튼*/
+        .newAutBtn{
+
+        }
+        /*권한 삭제 a태그 버튼*/
+        .deleteAutBtn{
+
+        }
+
+    </style>
+
+    <style>
+        table {
+            border: 1px #a39485 solid;
+            font-size: .9em;
+            box-shadow: 0 2px 5px rgba(0,0,0,.25);
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        th {
+            text-align: left;
+        }
+
+        thead {
+            font-weight: bold;
+            color: #fff;
+            background: #73685d;
+        }
+
+        td, th {
+            padding: 1em .5em;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        td {
+            border-bottom: 1px solid rgba(0,0,0,.1);
+            background: #fff;
+        }
+
+        a {
+            color: #73685d;
+        }
+
+        @media all and (max-width: 768px) {
+
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            th {
+                text-align: right;
+            }
+
+            table {
+                position: relative;
+                padding-bottom: 0;
+                border: none;
+                box-shadow: 0 0 10px rgba(0,0,0,.2);
+            }
+
+            thead {
+                float: left;
+                white-space: nowrap;
+            }
+
+            tbody {
+                overflow-x: auto;
+                overflow-y: hidden;
+                position: relative;
+                white-space: nowrap;
+            }
+
+            tr {
+                display: inline-block;
+                vertical-align: top;
+            }
+
+            th {
+                border-bottom: 1px solid #a39485;
+            }
+
+            td {
+                border-bottom: 1px solid #e5e5e5;
+                width: 244px;
+            }
+
+
+        }
+    </style>
+
+    <style th:replace="mouse.html :: style"></style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <style>
+        h1, h2, h3, h4, h5, h6, span, p, a, label, input, textarea, button {
+            font-family: 'Gowun Dodum', sans-serif !important;
+            font-size: large !important;
+            letter-spacing: 0rem; !important;
+        }
+    </style>
+
+    <link rel="stylesheet" href="css/modal.css">
+
+</head>
+
+<body>
+
+<div id="colorlib-page" style="height: 937px;">
+    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+
+    <header th:replace="sider.html :: header"></header>
+
+    <div id="colorlib-main" class="animate-box" data-animate-effect="fadeInLeft" style="width: 85%; height: 100%;">
+
+        <h3 class="colorlib-heading" style="margin-top: 30px; margin-left: 60px">신고 목록</h3>
+<ul class="fishUl">
+    <li class="fishLi">
+        <div class="fishDiv">
+
+            <h1>신고 리스트</h1>
+
+            <!--체크 버튼-->
+            <h3>클릭시 처리전만 조회</h3>
+            <input type="checkbox" id="switch" onchange="check();">
+            <label for="switch" class="switch_label">
+                <span class="onf_btn"></span>
+            </label>
+            <br/>
+
+            <!--한페이지에 가져올 갯수-->
+            <label class="select">
+            <select onchange="changeLimit(this.value)" required="required">
+                <option disabled="disabled" selected="selected" value="5">회원 목록 개수</option>
+                <option value="5">5개씩</option>
+                <option value="10">10개씩</option>
+                <option value="20">20개씩</option>
+            </select>
+                <svg>
+                    <use xlink:href="#select-arrow-down"></use>
+                </svg>
+            </label>
+            <!-- SVG Sprites-->
+            <svg class="sprites">
+                <symbol id="select-arrow-down" viewbox="0 0 10 6">
+                    <polyline points="1 1 5 5 9 1"></polyline>
+                </symbol>
+            </svg>
+            <br/>
+
+            <!--리스트-->
+            <div class="fishDiv2">
+            <table id="RepList" class="fishTable">
+
+            </table>
+            </div>
+
+            <br/>
+            <div className="row">
+                <div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
+                    <ul class="pagination" id="pageNum">
+
+                    </ul>
+                </div>
+            </div>
+
+            <div id="modalList"></div>
+        </div>
+    </li>
+    <li class="fishLi">
+        <div class="fishDiv">
+            <h1>유저 검색</h1>
+            <div>
+                <div id="searchArea">
+                    <strong>검색</strong>
+                    <!--분류에 따라서 가져오기-->
+                    <br/>
+                    <label class="select">
+                    <select onchange="changeDevide(this.value)" required="required">
+                        <option value="all">전체</option>
+                        <option value="인증">인증</option>
+                        <option value="미인증">미인증</option>
+                        <option value="블랙">블랙</option>
+                        <option value="휴면">휴면</option>
+                        <option value="1차경고">1차경고</option>
+                        <option value="2차경고">2차경고</option>
+                    </select>
+                        <svg>
+                            <use xlink:href="#select-arrow-down"></use>
+                        </svg>
+                    </label>
+                    <!-- SVG Sprites-->
+                    <svg class="sprites">
+                        <symbol id="select-arrow-down" viewbox="0 0 10 6">
+                            <polyline points="1 1 5 5 9 1"></polyline>
+                        </symbol>
+                    </svg>
+                    <label class="select">
+                    <select onchange="changeCategory(this.value)">
+                        <option value="MEMID">Id조회</option>
+                        <option value="MEMNAME">닉네임조회</option>
+                    </select>
+                        <svg>
+                            <use xlink:href="#select-arrow-down"></use>
+                        </svg>
+                    </label>
+                    <!-- SVG Sprites-->
+                    <svg class="sprites">
+                        <symbol id="select-arrow-down" viewbox="0 0 10 6">
+                            <polyline points="1 1 5 5 9 1"></polyline>
+                        </symbol>
+                    </svg>
+                    <!--한페이지에 가져올 갯수-->
+                    <label class="select">
+                    <select onchange="changeMemLimit(this.value)">
+                        <option value="5">회원 목록 개수</option>
+                        <option value="5">5개씩</option>
+                        <option value="10">10개씩</option>
+                        <option value="20">20개씩</option>
+                    </select>
+                        <svg>
+                            <use xlink:href="#select-arrow-down"></use>
+                        </svg>
+                    </label>
+                    <!-- SVG Sprites-->
+                    <svg class="sprites">
+                        <symbol id="select-arrow-down" viewbox="0 0 10 6">
+                            <polyline points="1 1 5 5 9 1"></polyline>
+                        </symbol>
+                    </svg>
+                    </label>
+
+                    <br/>
+                    <input type="text" onkeyup="changSearch(this.value)" placeholder="검색"/>
+                    <h4>검색결과</h4>
+                    <div class="fishDiv2">
+                        <table id="MemList" class="fishTable">
+
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
+                            <ul class="pagination" id="memPageNum">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>
+
+    </div>
+</div>
+</body>
+<!-- jQuery -->
+<script src="js/jquery.min.js"></script>
+<!-- jQuery Easing -->
+<script src="js/jquery.easing.1.3.js"></script>
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Waypoints -->
+<script src="js/jquery.waypoints.min.js"></script>
+<!-- Flexslider -->
+<script src="js/jquery.flexslider-min.js"></script>
+<!-- Sticky Kit -->
+<script src="js/sticky-kit.min.js"></script>
+<!-- Owl carousel -->
+<script src="js/owl.carousel.min.js"></script>
+<!-- Counters -->
+<script src="js/jquery.countTo.js"></script>
+
+
+<!-- MAIN JS -->
+<script src="js/main.js"></script>
+
+
+<script src="js/modal.js"></script>
+
+<!--<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="-->
+<!--        crossorigin="anonymous"></script>-->
+<script>
+    // 신고목록 조회
+    let page = 1;
+    let limit = 5;
+    let all = true;
+
+    // 회원목록 조회
+    let mempage = 1;
+    let memlimit = 5;
+    let search = "";            // 검색
+    let devide = "all";         // 회원 상태로 분류
+    let category = "MEMID";     // 아이디, 닉네임
+
+    // 모달
+    let modals;
+    let btns;
+    let spanes;
+    let funcs;
+
+
+
+    // 처음 페이지 로딩시 한번은 값을 가져올것
+    getList();
+    getMemList();
+
+    // 게시글 목록 불러오는 함수
+    function getList() {
+        $.ajax({
+            type: "POST",
+            url: "ReportList",
+            data: {
+                "page": page,
+                "limit": limit,
+                "all": all
+            },
+            async: false,
+            dataType: "json",
+            success: function (result) {
+                //console.log(result);
+                //console.log(result[1]);
+                inner(result[0], result[1]);
+            },
+            error: function () {
+                alert("통신실패")
+            }
+
+        });
+    }
+
+    // 회원목록 불러오는 함수
+    function getMemList() {
+        $.ajax({
+            type: "POST",
+            url: "MemberList",
+            data: {
+                "page": mempage,
+                "limit": memlimit,
+                "search": search,
+                "devide": devide,
+                "category" : category
+            },
+            async: false,
+            dataType: "json",
+            success: function (result) {
+                //console.log(result);
+                //console.log(result[1]);
+                memInner(result[0], result[1]);
+            },
+            error: function () {
+                alert("통신실패")
+            }
+
+        });
+    }
+
+
+    // 회원 목록 inner HTML 함수
+    function memInner(paging, result) {
+        // 변경점
+        let output = "";
+        output += "<tr><th>아이디</th><th>닉네임</th><th>회원상태</th><th>경고</th></tr>";
+
+
+        // 항목 보여주기
+        for (let i in result) {
+            output += "<tr>";
+            output += "<td>" + result[i].memId + "</td>";
+            output += "<td>" + result[i].memName + "</td>";
+            output += "<td>" + result[i].memState + "</td>";
+            output += "<td>" + "<button class='btn btn-light-green' style=\"background-color: #000000; color: #FFFFFF !important;\" onclick='warning("+result[i].memCode+")'>경고</button>" + "</td>";
+            output += "</tr>";
+        }
+
+        // html에 넣기
+        $('#MemList').html(output);
+
+        //하단에 페이지 처리
+        output = "";
+        //console.log(paging.page);
+
+        if (mempage <= 1) {
+            output += "<li><a>&laquo;</a></li>"
+        } else {
+            output += "<li><a href= 'javascript:void(0);' onclick=\"changeMemPage(" + (mempage - 1) + ");\">&laquo;</a></li>";
+        }
+
+        for (let i = paging.startpage; i <= paging.endpage; i++) {
+            if (i == mempage) {
+                output += "<li class=\"active\"><a href='javascript:void(0);' onclick=\"changeMemPage(" + i + ");\">" + i + "</a></li>";
+            } else {
+                output += "<li><a href= 'javascript:void(0);' onclick=\"changeMemPage(" + i + ");\">" + i + "</a></li>";
+            }
+        }
+        if (mempage < paging.maxpage) {
+            output += "<li><a href= 'javascript:void(0);' onclick=\"changeMemPage(" + (mempage + 1) + ");\">&raquo;</a></li>";
+        } else {
+            output += "<li><a>&raquo;</a></li>";
+        }
+
+        $('#memPageNum').html(output);
+
+    }
+
+
+    // 신고 리스트 inner HTML 함수
+    function inner(paging, result) {
+        // 변경점
+        let output = "";
+        let modalOutput ="";
+        output += "    <tr><th>제목</th><th>처리상태</th></tr>";
+
+        // 항목 보여주기
+        for (let i in result) {
+            output += "<tr>";
+            output += "<td ><a href='#' class=\"bbtns\">" + result[i].repTitle + "</a></td>";
+            output += "<td>" + result[i].repState + "</td>";
+            output += "</td>";
+
+            // 내용이 없으면 없음 출력
+            if(result[i].repContent == null){
+                result[i].repContent = "없음";
+            }
+            modalOutput +="<div class=\"modal\">";
+            modalOutput +="<div class=\"modal-content\">";
+            modalOutput +="<span class=\"close\">&times;</span>";
+            modalOutput +="<h2> 제목 : "+result[i].repTitle+"</h2>";
+            modalOutput +="<h2> 상태 : "+result[i].repState+"</h2>";
+            modalOutput +="<p><strong>내용 : </strong>"+result[i].repContent+"</p>";
+            modalOutput +="<img width='600px;' src=\"fish/img/reportImg/"+result[i].repFileName+"\" >  <br/>";
+            modalOutput +="<a class='afinish' href= 'javascript:void(0);' onclick=\"finishReport("+result[i].repCode+");\">처리알림</a>";
+            modalOutput +="</div>";
+            modalOutput +="</div>";
+        }
+
+        // html에 넣기
+        $('#RepList').html(output);
+        $('#modalList').html(modalOutput);
+
+        //하단에 페이지 처리
+        output = "";
+        //console.log(paging.page);
+
+        if(page<=1){
+            output+="<li><a>&laquo;</a></li>"
+        }else{
+            output += "<li><a href= 'javascript:void(0);' onclick=\"changePage("+(page-1)+");\">&laquo;</a></li>";
+        }
+
+        for (let i = paging.startpage; i <= paging.endpage; i++) {
+            if (i == page) {
+                output += "<li class=\"active\"><a href='javascript:void(0);' onclick=\"changePage("+i+");\">"+i+"</a></li>";
+            } else {
+                output += "<li><a href= 'javascript:void(0);' onclick=\"changePage("+i+");\">"+i+"</a></li>";
+            }
+        }
+        if(page<paging.maxpage){
+            output += "<li><a href= 'javascript:void(0);' onclick=\"changePage("+(page+1)+");\">&raquo;</a></li>";
+        }else{
+            output += "<li><a>&raquo;</a></li>";
+        }
+
+        $('#pageNum').html(output);
+
+        // 모달 창 js
+        // Modal을 가져옵니다.
+        modals = document.getElementsByClassName("modal");
+        // Modal을 띄우는 클래스 이름을 가져옵니다.
+        btns = document.getElementsByClassName("bbtns");
+        // Modal을 닫는 close 클래스를 가져옵니다.
+        spanes = document.getElementsByClassName("close");
+        funcs = [];
+
+        // 원하는 Modal 수만큼 Modal 함수를 호출해서 funcs 함수에 정의합니다.
+        for(let i = 0; i < btns.length; i++) {
+            funcs[i] = Modal(i);
+        }
+
+        // 원하는 Modal 수만큼 funcs 함수를 호출합니다.
+        for(let j = 0; j < btns.length; j++) {
+            funcs[j]();
+        }
+    }
+
+
+    // 회원목록 페이지 변경
+    function changeMemPage(input) {
+        mempage = input;
+        getMemList();
+    }
+
+    // 회원목록 페이징 리미트 변경
+    function changeMemLimit(input) {
+        memlimit = input;
+        mempage = 1;
+        getMemList();
+    }
+
+    // 페이지 변경
+    function changePage(input) {
+        page = input;
+        getList();
+    }
+
+    // 페이징 리미트 변경
+    function changeLimit(input){
+        limit =  input;
+        getList();
+    }
+
+
+    // 회원목록 인증,미인증 등 상태별로 불러오기
+    function changeDevide(name) {
+        devide = name;
+        mempage = 1;
+        getMemList();
+    }
+
+    // 회원목록 검색
+    function changSearch(input) {
+        search = input;
+        mempage = 1;
+        getMemList();
+    }
+
+    // 회원목록 카테고리 변경
+    function changeCategory(name) {
+        category = name;
+        mempage = 1;
+        getMemList();
+    }
+
+    // 경고
+    function warning(memCode) {
+        mempage = 1;
+        warningStack(memCode);
+    }
+
+
+    // 처리 전, 전체 체크 변경
+    function check() {
+        let checked = $('#switch').is(':checked');
+        if (checked) {
+            console.log("체크함")
+            all = false;
+            page = 1;
+            getList();
+        } else {
+            console.log("체크안함")
+            all = true;
+            page = 1;
+            getList();
+        }
+    }
+
+    // 모달 js
+    // Modal을 띄우고 닫는 클릭 이벤트를 정의한 함수
+    function Modal(num) {
+        return function() {
+            // 해당 클래스의 내용을 클릭하면 Modal을 띄웁니다.
+            btns[num].onclick =  function() {
+                modals[num].style.display = "block";
+                console.log(num);
+            };
+
+            // <span> 태그(X 버튼)를 클릭하면 Modal이 닫습니다.
+            spanes[num].onclick = function() {
+                modals[num].style.display = "none";
+            };
+
+        };
+    }
+
+
+
+    // Modal 영역 밖을 클릭하면 Modal을 닫습니다.
+    window.onclick = function(event) {
+        if (event.target.className == "modal") {
+            event.target.style.display = "none";
+        }
+    };
+
+    // 처리상태 변경
+    function finishReport(repCode) {
+        console.log(repCode);
+        $.ajax({
+            type: "POST",
+            url: "ReportState",
+            data: {
+                "repCode": repCode,
+            },
+            async: false,
+            dataType: "text",
+            success: function (result) {
+                alert(result);
+                console.log(result);
+                getList();
+            },
+            error: function () {
+                alert("통신실패")
+            }
+
+        });
+    }
+
+    // 회원 경고
+    function warningStack(memCode) {
+        //console.log(memCode);
+        $.ajax({
+            type: "POST",
+            url: "MemberWarning",
+            data: {
+                "memCode": memCode,
+            },
+            async: false,
+            dataType: "text",
+            success: function (result) {
+                alert(result);
+                console.log(result);
+                getMemList();
+            },
+            error: function () {
+                alert("통신실패")
+            }
+
+        });
+    }
+
+</script>
+</html>

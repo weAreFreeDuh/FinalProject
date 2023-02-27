@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.artisans.atelier.dao.StatisticsDAO">
+    <!--전반적인 통계 데이터-->
+    <select id="STADATA" parameterType="String" resultType="statistics">
+    ${sql}
+</select>
+
+    <!--인티져 맵퍼-->
+    <select id="InteList" parameterType="String" resultType="int">
+        ${sql}
+    </select>
+
+    <select id="MOEWSTADATA" parameterType="String" resultType="statistics">
+        ${sql}
+    </select>
+
+
+    <!--테스트 맵퍼-->
+    <select id="test1" resultType="String">
+    SELECT MEMDATE FROM MEMBER
+</select>
+
+
+</mapper>

@@ -1,0 +1,203 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Balay Template</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+
+		<script src="https://kit.fontawesome.com/8591377d67.js" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://kit.fontawesome.com/8591377d67.css" crossorigin="anonymous">
+
+  <!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+		<link rel="shortcut icon" href="favicon.ico">
+
+		<link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+
+		<!-- Animate.css -->
+		<link rel="stylesheet" href="css/main/animate.css">
+		<!-- Icomoon Icon Fonts-->
+		<link rel="stylesheet" href="css/main/icomoon.css">
+		<!-- Bootstrap  -->
+		<link rel="stylesheet" href="css/main/bootstrap.css">
+		<!-- Flexslider  -->
+		<link rel="stylesheet" href="css/main/flexslider.css">
+		<!-- Flaticons  -->
+		<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+		<!-- Owl Carousel -->
+		<link rel="stylesheet" href="css/main/owl.carousel.min.css">
+		<link rel="stylesheet" href="css/main/owl.theme.default.min.css">
+		<!-- Theme style  -->
+		<link rel="stylesheet" href="css/main/style.css">
+
+		<link rel="stylesheet" href="css/header.css">
+
+		<link rel="stylesheet" href="css/category.css">
+
+		<!-- script
+        ================================================== -->
+		<script src="js/modernizr.js"></script>
+
+		<!-- Modernizr JS -->
+		<script src="js/modernizr-2.6.2.min.js"></script>
+		<!-- FOR IE9 below -->
+		<!--[if lt IE 9]>
+		<script src="js/respond.min.js"></script>
+		<![endif]-->
+
+		<script>
+			function asd(){
+				console.log("asd")
+			}
+		</script>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<style>
+			@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+		</style>
+		<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+		<style>
+			h1, h2, h3, h4, h5, h6, span, p, a, label, input, textarea, button {
+				font-family: 'Gowun Dodum', sans-serif !important;
+				font-size: large !important;
+				letter-spacing: 0rem; !important;
+			}
+		</style>
+
+		<link rel="stylesheet" href="css/modal.css">
+
+	</head>
+	<style th:replace="mouse.html :: style"></style>
+	<body>
+	<div id="colorlib-page">
+		<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+
+			<header th:replace="sider.html :: header"></header>
+
+
+		<div id="colorlib-main">
+
+			<div class="colorlib-blog">
+				<div class="colorlib-narrow-content">
+					<div class="row">
+						<div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
+							<h2 class="colorlib-heading">Read Blog</h2>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
+							<div class="container">
+								<div id="get-in-touch" class="colorlib-bg-color" style="background-color: #FFFFFF">
+									<p><a href="WOR1" style="border: 2px solid #FFC300" class="btn btn-primary btn-learn">workspace 생성</a></p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						 <div th:each="list : ${WorkSpaceList}">
+						<div class="col-md-4 col-sm-6 animate-box" data-animate-effect="fadeInLeft" style="width: 400px; height: 750px; margin-left: 75px">
+							<div class="blog-entry" style="width: 400px;height: 750px">
+								<a th:href="@{WOR4(workCode=${list.workCode}, category=${list.category})}" class="blog-img"><img th:src="@{junho/workSpaceImg/{workImgName}(workImgName=${list.workImgName})}" style="width: 300px; height: 300px;" width="300px" height="280px" class="img-responsive" alt="HTML5 Bootstrap Template by colorlib.com"></a>
+								<div class="desc">
+									<span><small>[[${list.memName}]] </small> | <small>[[${list.memGrade}]]</small> | <small> <i class="icon-bubble3"></i></small></span>
+									<span>[[${list.workTitle}]]</span><span style="display: flex" th:text="${list.workTag}" class="reTag"></span>
+									<small> 💓 :[[${list.likeNum}]]</small> |<small> 💬 :[[${list.comentNum}]]</small> |<small> 👤 : [[${list.HitNum}]]</small> |<small> 📒 : [[${list.BoardNum}]]</small> |
+									<h3><a th:href="@{WOR4(workCode=${list.workCode})}">[[${list.workTitle}]]</a></h3>
+								</div>
+							</div>
+						</div>
+						 </div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
+							<ul class="pagination">
+								<!--페이지처리 DDAN -->
+								<!-- [이전] 페이지에 대한 처리 -->
+								<li th:if="${paging.page <= 1}"><a>&laquo;</a></li>
+								<li th:if="${paging.page > 1}">
+									<a th:href="@{WOR3(page=${paging.page -1} , limit=${paging.limit})}">&laquo;</a>
+								</li>
+								&nbsp;
+								<!-- [페이지 번호] 페이지에 대한 처리 -->
+								<li th:each="i : ${#numbers.sequence(paging.startpage, paging.endpage)}">
+									<a th:href="@{WOR3(page=${i} , limit=${paging.limit})}"><span th:if="${paging.page == i}">
+                                                    [[${i}]]
+                                                </span>
+									<span th:unless="${paging.page == i}">
+                                                    [[${i}]]
+                                                </span></a>
+								</li>
+								<!-- [다음] 페이지에 대한 처리 -->
+								&nbsp;
+								<li th:if="${paging.page >= paging.maxpage}"><a>&raquo;</a></li>
+								<li th:if="${paging.page < paging.maxpage}">
+									<a th:href="@{WOR3(page=${paging.page +1}, limit=${paging.limit})}">&raquo;</a>
+								</li>
+
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+			</div>
+		</div>
+
+	<!-- jQuery -->
+	<script src="js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="js/jquery.waypoints.min.js"></script>
+	<!-- Flexslider -->
+	<script src="js/jquery.flexslider-min.js"></script>
+	<!-- Sticky Kit -->
+	<script src="js/sticky-kit.min.js"></script>
+	<!-- Owl carousel -->
+	<script src="js/owl.carousel.min.js"></script>
+	<!-- Counters -->
+	<script src="js/jquery.countTo.js"></script>
+	
+	
+	<!-- MAIN JS -->
+	<script src="js/main.js"></script>
+
+	<script src="js/modal.js"></script>
+	<script>
+		let retag = $('.reTag');
+
+		for (let i = 0; i <   retag.length; i++) {
+			let tagArr = $(retag[i]).text().split(",")
+			let input = "";
+
+			for ( j in tagArr){
+				//console.log(tagArr[j]);
+				input += "<a href='UnifiedSearch?q="+tagArr[j].replace('#','%23')+"'>"+tagArr[j]+"</a>"+"<br/>";
+			}
+			$(retag[i]).html(input);
+		}
+
+	</script>
+
+	</div>
+	</body>
+</html>
+

@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <!-- Nucleo Icons -->
+
+    <!-- Animate.css -->
+
+    <script src="https://kit.fontawesome.com/8591377d67.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://kit.fontawesome.com/8591377d67.css" crossorigin="anonymous">
+
+    <link href="css/profile/nucleo-icons.css" rel="stylesheet"/>
+    <link href="css/profile/nucleo-svg.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="css/main/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="css/main/icomoon.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="css/main/bootstrap.css">
+    <!-- Flexslider  -->
+    <link rel="stylesheet" href="css/main/flexslider.css">
+    <!-- Flaticons  -->
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="css/main/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/main/owl.theme.default.min.css">
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="css/main/style.css">
+
+    <link rel="stylesheet" href="css/header.css">
+
+    <link href="css/category.css" rel="stylesheet"/>
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <!-- CSS Files -->
+
+    <link id="pagestyle" href="css/profile/material-kit.css?v=3.0.4" rel="stylesheet"/>
+
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700"/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+
+
+    <!--모달 css-->
+    <style>
+        .fishModal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0); /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content/Box */
+        .fishModal-content {
+            background-color: black;
+            margin: 5% auto; /* 15% from the top and centered */
+            border: 1px solid black;
+            width: 65%; /* Could be more or less, depending on screen size */
+            text-align: center;
+            position: relative;
+        }
+
+        /* The Close Button */
+        .fishClose {
+            color: white;
+            float: right;
+            font-size: 32px;
+            font-weight: bold;
+            text-align: right;
+            margin-right: 15px;
+            margin-top: 15px;
+            position: absolute;
+            z-index: 1;
+            right: 0px;
+        }
+
+        .fishClose:hover,
+        .fishClose:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+    <style>
+        .followDiv {
+            overflow: scroll;
+            height: 700px;
+        }
+    </style>
+
+
+</head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+    h1, h2, h3, h4, h5, h6, span, p, a, label, input, textarea, button {
+        font-family: 'Gowun Dodum', sans-serif !important;
+        font-size: large !important;
+        letter-spacing: 0rem; !important;
+    }
+</style>
+<style th:replace="mouse.html :: style"></style>
+
+<link rel="stylesheet" href="css/modal.css">
+<body class="blog-author bg-gray-200">
+<div id="colorlib-page">
+    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+
+    <header th:replace="sider.html :: header" style="font-family: 'Gowun Dodum', sans-serif; !important;"></header>
+
+
+    <div id="colorlib-main">
+        <header>
+            <div class="page-header min-height-400 bbtns" loading="lazy"
+                 th:style="'background-image:url('+ @{/fish/img/profileBackground/{img1}(img1=${profile.memBackGround})} +');'">
+                <!--<img style="" th:src="" class="bbtns"/>-->
+                <span class="mask bg-gradient-dark opacity-8"></span>
+            </div>
+            <th:block th:if="${session.login ne null && session.login.memCode eq profile.memCode}">
+                <label for="proBackImgUp"><img src="fish/img/profileSetting/profileModify.png" width="20px"
+                                               style="position: absolute; background-color: white; top: 425px; right: 70px; z-index: 3 !important;"/></label>
+                <form action="proUpdate" method="post" name="profileBackImgSummit" enctype="multipart/form-data">
+                    <input type="file" id="proBackImgUp" name="memProfile" onchange="proBackImgUpLoad()"
+                           style="display: none; "/>
+                    <input type="hidden" name="memCode" th:value="${profile.memCode}"/>
+                    <input type="hidden" name="memBackGround" th:value="${profile.memBackGround}"/>
+                    <input type="hidden" name="checkType" value="profileBackImg"/>
+                </form>
+            </th:block>
+
+            <div class="fishModal">
+                <div class="fishModal-content">
+                    <img th:src="@{/fish/img/profileBackground/{img1}(img1=${profile.memBackGround})}" width="100%"
+                         style="margin: 0% auto;"/>
+                    <span class="fishClose">X</span>
+                </div>
+            </div>
+            <div class="fishModal">
+                <div class="fishModal-content">
+                    <img th:src="@{/fish/img/memProfileImg/{img1}(img1=${profile.memProfileName})}" width="100%"
+                         style="margin: 0% auto;"/>
+                    <span class="fishClose">X</span>
+                </div>
+            </div>
+            <div class="fishModal">
+                <div class="fishModal-content" style="background: white; width: 30%; min-height: 80%;">
+                    <span class="fishClose" style="top: -10px;">X</span>
+                    <div style="font-size: 25px; color: black; margin-top: 30px;">
+                        <strong>팔로워</strong>
+                        <div id="follower" class="followDiv">
+                            <table style="text-align: center; margin: auto;">
+                                <tbody id="innerFollower">
+
+                                </tbody>
+                                <tfoot>
+                                <tr></tr>
+                                </tfoot>
+                            </table>
+                            <div id="endFollwer"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="fishModal">
+                <div class="fishModal-content" style="background: white; width: 30%; min-height: 80%;">
+                    <span class="fishClose" style="top: -10px;">X</span>
+                    <div style="font-size: 25px; color: black; margin-top: 30px;">
+                        <strong>팔로잉</strong>
+                        <div id="following" class="followDiv">
+                            <table style="text-align: center; margin: auto;">
+                                <tbody id="innerFollowing">
+
+                                </tbody>
+                                <tfoot>
+                                <tr></tr>
+                                </tfoot>
+                            </table>
+                            <div id="endFollwing"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- -------- END HEADER 4 w/ search book a ticket form ------- -->
+        <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6 mb-4">
+            <!-- START Testimonials w/ user image & text & info -->
+            <section class="py-sm-7 py-5 position-relative">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 mx-auto">
+                            <div class="mt-n8 mt-md-n9 text-center">
+                                <span style="width: 150px !important; height:150px !important; position: relative;">
+
+                                    <img th:src="@{/fish/img/memProfileImg/{img1}(img1=${profile.memProfileName})}"
+                                         class="avatar avatar-xxl shadow-xl position-relative z-index-2 bbtns"
+                                         alt="bruce" loading="lazy" width="200px" height="200px"
+                                         style="position: absolute;"
+                                         id="memProfileImg">
+                                     <th:block
+                                             th:if="${session.login ne null && session.login.memCode eq profile.memCode}">
+                                    <label for="proImgUp"><img src="fish/img/profileSetting/profileModify.png"
+                                                               width="20px"
+                                                               style="position: absolute; background-color: white; top: 65px; right: 20px; z-index: 2 !important;"/></label>
+                                    <form action="proUpdate" method="post" name="profileImgSummit"
+                                          enctype="multipart/form-data">
+                                            <input type="file" id="proImgUp" name="memProfile" onchange="proImgUpLoad()"
+                                                   style="display: none; "/>
+                                            <input type="hidden" name="memCode" th:value="${profile.memCode}"/>
+                                            <input type="hidden" name="memProfileName"
+                                                   th:value="${profile.memProfileName}"/>
+                                            <input type="hidden" name="checkType" value="profileImg"/>
+                                    </form>
+                                     </th:block>
+                                </span>
+                            </div>
+                            <div class="row py-5">
+                                <div class="col-lg-7 col-md-7 z-index-2 position-relative px-md-2 px-sm-5 mx-auto">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h2 class="mb-0" style="font-size: x-large !important;">
+                                            [[${profile.memName}]]
+                                            &nbsp;&nbsp;&nbsp;
+                                            <strong style="font-size: 18px;">
+                                                <th:block th:if="${profile.memGrade eq '실버'}">
+                                                    🥈
+                                                </th:block>
+                                                <th:block th:if="${profile.memGrade eq '골드'}">
+                                                    🥇
+                                                </th:block>
+                                                <th:block th:if="${profile.memGrade eq '플레티넘'}">
+                                                    🏅
+                                                </th:block>
+                                                <th:block th:if="${profile.memGrade eq '다이아'}">
+                                                    🎖️
+                                                </th:block>
+                                                [[${profile.memGrade}]]
+                                                <th:block th:if="${profile.memPayGrade eq 'VIP'}">
+                                                    <strong style="width: 50px; height: 25px; background-color: black; color: yellow;">VIP</strong>
+                                                </th:block>
+                                            </strong>
+
+                                        </h2>
+
+                                        <div id="iWantFollow" class="d-block">
+                                            <th:block th:if="${session.login ne null && session.login.memCode eq profile.memCode}">
+                                                <a th:href="@{PRO009(user=${session.login.memCode})}"><img src="fish/img/profileSetting/settingModify.png"/></a>
+                                            </th:block>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-auto">
+                                            <a href='javascript:void(0);'>
+                                                <span class="h6">[[${profile.boardPosts}]]</span>
+                                                <span>Posts</span>
+                                            </a>
+                                        </div>
+                                        <div class="col-auto">
+                                            <a class="bbtns" href='javascript:void(0);'>
+                                                <span class="h6">[[${profile.follower}]]</span>
+                                                <span>Followers</span>
+                                            </a>
+                                        </div>
+                                        <a class="bbtns" href='javascript:void(0);'>
+                                            <div class="col-auto">
+                                                <span class="h6">[[${profile.follow}]]</span>
+                                                <span>Following</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div id="introArea">
+                                        <ul style="list-style: none;">
+                                            <li style="float: left;">
+                                                <p class="text-lg mb-0">
+                                                    [[${profile.memIntro}]]
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <th:block th:if="${session.login ne null && session.login.memCode eq profile.memCode}">
+                                                <label onclick="changeIntro()"><img
+                                                        src="fish/img/profileSetting/profileModify.png"
+                                                        width="20px"/></label>
+                                                </th:block>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- END Testimonials w/ user image & text & info -->
+            <!-- START Blogs w/ 4 cards w/ image & text & link -->
+            <div>
+                <div class="colorlib-blog" data-animate-effect="fadeInLeft">
+                    <div class="colorlib-narrow-content">
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box"
+                                 data-animate-effect="fadeInLeft">
+                                <div class="container">
+                                    <div class="category-links" style="text-align: left">
+                                        <a href='javascript:void(0);' onclick="workspace()">워크스페이스</a>
+                                        <a href='javascript:void(0);' onclick="board()">게시글</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row1" id="workspaceBoard">
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--   Core JS Files   -->
+                <script src="js/core/popper.min.js" type="text/javascript"></script>
+                <script src="js/core/bootstrap.min.js" type="text/javascript"></script>
+                <script src="js/plugins/perfect-scrollbar.min.js"></script>
+                <!--  Plugin for Parallax, full documentation here: https://github.com/wagerfield/parallax  -->
+                <script src="js/plugins/parallax.min.js"></script>
+                <!-- Control Center for Material UI Kit: parallax effects, scripts for the example pages etc -->
+                <!--  Google Maps Plugin    -->
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script>
+                <script src="js/material-kit.min.js?v=3.0.4" type="text/javascript"></script>
+
+                <!-- jQuery -->
+                <script src="js/jquery.min.js"></script>
+                <!-- jQuery Easing -->
+                <script src="js/jquery.easing.1.3.js"></script>
+                <!-- Bootstrap -->
+                <script src="js/bootstrap.min.js"></script>
+                <!-- Waypoints -->
+                <script src="js/jquery.waypoints.min.js"></script>
+                <!-- Flexslider -->
+                <script src="js/jquery.flexslider-min.js"></script>
+                <!-- Sticky Kit -->
+                <script src="js/sticky-kit.min.js"></script>
+                <!-- Owl carousel -->
+                <script src="js/owl.carousel.min.js"></script>
+                <!-- Counters -->
+                <script src="js/jquery.countTo.js"></script>
+
+
+                <!-- MAIN JS -->
+                <script src="js/main.js"></script>
+
+                <script src="js/modal.js"></script>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="endWorkspaceBoard"></div>
+</body>
+<script>
+    // FOLLOW 파트
+    //console.log("[[${profile.memCode}]]");
+
+    // 회원코드
+    let memCode = "[[${profile.memCode}]]";
+
+    // 페이징
+    let ferpage = 1;        // 팔로워 페이징
+    let ferendPage = 0;     // 팔로잉 페이징
+
+    let canGetFollower = false;  // follower 스크롤 가져오기 가능
+    let canGetFollowing = false; // follwing 스크롤 가져오기 가능
+
+    // 팔로워 조회
+    function getFollower() {
+        //console.log("팔로워 조회 실시");
+        $.ajax({
+            type: "POST",
+            url: "ProfileFollower",
+            data: {
+                "memCode": memCode,
+                "page": ferpage
+            },
+            async: false,
+            dataType: "json",
+            success: function (result) {
+                console.log(result[0]);
+                console.log(result[1]);
+
+                ferpage = result[0].page;
+                ferendPage = result[0].endpage;
+
+                innerFollower(result[1]);
+            },
+            error: function () {
+                alert("통신실패");
+            }
+
+        });
+    }
+
+    // 팔로워 넣기
+    function innerFollower(result) {
+        let output = "";
+        for (let i in result) {
+
+            output += "<tr><td><img src=\"/fish/img/memProfileImg/" + result[i].memProfileName + "\" style='width: 50px !important; height: 50px !important;'  class=\"avatar avatar-xxl shadow-xl position-relative z-index-2\" alt=\"bruce\" loading=\"lazy\"/></td><td> | </td><td><a href='PRO001?user=" + result[i].memCode + "'>" + result[i].memName + "</a></td></tr>";
+            //console.log("회원코드"+result[i].memCode);
+        }
+        $('#innerFollower').append(output);
+        canGetFollower = true;
+    }
+
+    // 팔로잉 조회
+    function getFollowing() {
+        console.log("팔로잉 조회 실시");
+        $.ajax({
+            type: "POST",
+            url: "ProfileFollowing",
+            data: {
+                "memCode": memCode,
+                "page": ferpage
+            },
+            async: false,
+            dataType: "json",
+            success: function (result) {
+                console.log(result[0]);
+                console.log(result[1]);
+
+                ferpage = result[0].page;
+                ferendPage = result[0].endpage;
+
+                innerFollowing(result[1]);
+            },
+            error: function () {
+                alert("통신실패");
+            }
+        });
+    }
+
+    // 팔로잉 넣기
+    function innerFollowing(result) {
+        let output = "";
+        for (let i in result) {
+
+            output += "<tr><td><img src=\"/fish/img/memProfileImg/" + result[i].memProfileName + "\" style='width: 50px !important; height: 50px !important;'  class=\"avatar avatar-xxl shadow-xl position-relative z-index-2\" alt=\"bruce\" loading=\"lazy\"/></td><td> | </td><td><a href='PRO001?user=" + result[i].memCode + "'>" + result[i].memName + "</a></td></tr>";
+            //console.log("회원코드"+result[i].memCode);
+        }
+        $('#innerFollowing').append(output);
+        canGetFollower = true;
+    }
+
+    // 팔로우하기 canGetFollow
+
+    // 팔로워 스크롤
+    const follwerScrPop = $('#follower');
+    follwerScrPop.scroll(function () {
+        const $this = $(this);
+        //console.log($this.scrollTop());
+        let fo = document.querySelector('#endFollwer').getBoundingClientRect().top;
+        //console.log(fo);
+        if ($this.scrollTop() > fo && canGetFollower && ((ferpage - 1) <= ferendPage)) {
+            //console.log("더 가져오기");
+            getFollower();
+        }
+    })
+    // 팔로잉 스크롤
+    const follwingScrPop = $('#following');
+    follwingScrPop.scroll(function () {
+        const $this = $(this);
+        //console.log($this.scrollTop());
+        let fo = document.querySelector('#endFollwing').getBoundingClientRect().top;
+        //console.log(fo);
+        if ($this.scrollTop() > fo && canGetFollowing && ((ferpage - 1) <= ferendPage)) {
+            //console.log("더 가져오기");
+            getFollowing();
+        }
+    })
+
+
+</script>
+<script th:if="${session.login ne null && session.login.memCode ne profile.memCode}">
+    let myMemCode = "[[${session.login.memCode}]]";
+    $.ajax({
+        type: "POST",
+        url: "followOrNot",
+        data: {
+            "youCode": memCode,
+            "myCode": myMemCode
+        },
+        async: false,
+        dataType: "json",
+        success: function (result) {
+            console.log(result);
+            let output="<form action='follow' method='post'><button type=\"submit\"class=\"btn btn-sm btn-outline-info text-nowrap mb-0\">";
+            if(result==0){  // fou: follow or unfollow true값일때 follow
+                output+="Follow</button><input type='hidden' name='FOU' value='true'/>";
+            }else {
+                output+="UnFollow</button><input type='hidden' name='FOU' value='false'/>";
+            }
+            output+="<input type='hidden' name='youCode' value='"+memCode+"'/><input type='hidden' name='myCode' value='"+myMemCode+"'/></form>";
+            innerFollow(output);
+        },
+        error: function () {
+            alert("통신실패");
+        }
+    });
+    function innerFollow(output){
+        $("#iWantFollow").html(output);
+    }
+</script>
+<script>
+    // 프로필 사진,소개 수정
+
+    // 프로필 업로드
+    function proImgUpLoad() {
+        profileImgSummit.submit();
+    }
+
+    // 배경이미지 업로드
+    function proBackImgUpLoad() {
+        profileBackImgSummit.submit();
+    }
+
+    // 소개글 수정폼
+    function changeIntro() {
+        let output = "<form action=\"proUpdate\" method=\"post\"><textarea name='memIntro' style='height: 77px; width: 100%; color: black;'>" + '[[${profile.memIntro}]]' + "</textarea>";
+        output += "<input type=\"hidden\" name=\"memCode\" value=\"" + memCode + "\"/><div style='float: right;'><input type=\"hidden\" name=\"checkType\" value=\"intro\"/><input type='button' onclick='changeIntroCancle()' value='취소'/><input type='submit' value='수정'/></div></form>";
+
+        $("#introArea").html(output);
+    }
+
+    //  소개글 수정 취소
+    function changeIntroCancle() {
+        let output = "    <ul style=\"list-style: none;\">\n" +
+            "        <li style=\"float: left;\">\n" +
+            "            <p class=\"text-lg mb-0\">\n" +
+            "                [[${profile.memIntro}]]\n" +
+            "            </p>\n" +
+            "        </li>\n" +
+            "        <li>\n" +
+            "            <label onClick=\"changeIntro()\"><img src=\"fish/img/profileSetting/profileModify.png\" width=\"20px\"/></label>\n" +
+            "        </li>\n" +
+            "    </ul>";
+        $("#introArea").html(output);
+    }
+
+</script>
+<script>
+    // 페이징
+    let page = 1;
+    let endPage = 0;
+
+    // 워크스페이스 조회 VS 게시글 조회
+    let WOB = true; // true: 워크스페이스 조회     false: 게시글 조회
+
+    // 스크롤 조회를 할 수 있는가?
+    let scrollSelect = false;   // true일때 스크롤 조회
+
+
+    // 처음 페이지 실행시 워크스페이스 불러오기
+    getWorkSpace();
+
+
+    // 워크스페이스를 보고싶을때,
+    function workspace() {
+        page = 1;
+        WOB = true;
+
+        // 워크스페이스 및 게시글 띄운것들 초기화
+        $('#workspaceBoard').html("");
+
+        // 워크스페이스를 가져오기
+        getWorkSpace();
+    }
+
+    // 워크스페이스 조회
+    function getWorkSpace() {
+        $.ajax({
+            type: "POST",
+            url: "ProfileWorkSpace",
+            data: {
+                "memCode": memCode,
+                "page": page
+            },
+            async: false,
+            dataType: "json",
+            success: function (result) {
+                //console.log(result[0]);
+                //console.log(result[1]);
+
+                page = result[0].page;
+                endPage = result[0].endpage;
+
+                //console.log("바뀐 page:"+page);
+                //console.log("현재페이지"+(page-1));
+                //console.log("바뀐 endPage:"+endPage);
+                innerWorkSpace(result[1]);
+            },
+            error: function () {
+                alert("통신실패");
+            }
+
+        });
+    }
+
+    // 워크스페이스 정보 넣기
+    function innerWorkSpace(result) {
+        let output = "";
+
+        for (let i in result) {
+            output += "<div class=\"col-md-4 col-sm-6 animate-box\" data-animate-effect=\"fadeInLeft\">";
+            output += "<div class=\"blog-entry\">";
+            output += "<a href=\"WOR4?workCode=" + result[i].workCode + "\" class=\"blog-img\"><img src=\"junho/workSpaceImg/" + result[i].workImgName + "\" class=\"img-responsive\" style='width: 500px !important; height: 300px !important;' alt=\"HTML5 Bootstrap Template by colorlib.com\"></a>";
+            output += "<div class=\"desc\">";
+            output += "<span><small>" + result[i].workTitle + "</small></span>";
+            output += "</div></div></div>";
+        }
+        $('#workspaceBoard').append(output);
+        //console.log("append 적용");
+        scrollSelect = true;
+    }
+
+    // 게시물 불러오기
+    function getBoard() {
+        $.ajax({
+            type: "POST",
+            url: "ProfileBoard",
+            data: {
+                "memCode": memCode,
+                "page": page
+            },
+            async: false,
+            dataType: "json",
+            success: function (result) {
+                console.log(result[0]);
+                console.log(result[1]);
+
+                page = result[0].page;
+                endPage = result[0].endpage;
+
+                //console.log("바뀐 page:"+page);
+                //console.log("현재페이지"+(page-1));
+                //console.log("바뀐 endPage:"+endPage);
+                innerBoard(result[1]);
+            },
+            error: function () {
+                alert("통신실패");
+            }
+
+        });
+    }
+
+    // 게시물 넣기
+    function innerBoard(result) {
+        let output = "";
+
+        for (let i in result) {
+            output +=
+                "<div class=\"col-md-3 animate-box\" data-animate-effect=\"fadeInLeft\">" +
+                "<div class=\"project\" style=\"background-image: url(PSW/bestimg/" + result[i].boaBestImg + ");\">" +
+                "<div class=\"desc\">" +
+                "<a href='DRA004?boaCode=" + result[i].boaCode + "'>" +
+                "<div class=\"con\">" +
+
+                "<h3>" + result[i].boaTitle + "</h3>" +
+                "<span" + result[i].boaTag + "</span>" +
+                "<p class=\"icon\">" +
+                "<span><i class=\"icon-eye\"></i> " + result[i].boaHit + "</span>" +
+                "<span><i class=\"icon-heart\"></i>" + result[i].likeNum + "</span>" +
+                "<span><i class=\"icon-bubble3\"></i>" + result[i].comentNum + "</span>" +
+                "</p>" +
+
+                "</div>" +
+                "</a>" +
+                "</div>" +
+                "</div>" +
+                "</div>";
+        }
+        $('#workspaceBoard').append(output);
+        //console.log("append 적용");
+        scrollSelect = true;
+    }
+
+    // 게시물을 보고 싶을때,
+    function board() {
+        page = 1;
+        WOB = false;
+
+        // 워크스페이스 및 게시글 띄운것들 초기화
+        $('#workspaceBoard').html("");
+
+        // 게시글 가져오기
+        getBoard();
+    }
+
+
+</script>
+<script>
+    // 스크롤 조회
+    window.addEventListener('scroll', function () {
+        if (scrollSelect && ((page - 1) <= endPage)) {
+            //console.log("중간실행 성공");
+            let posY = this.window.pageYOffset;
+            let wb = this.document.querySelector('#endWorkspaceBoard').getBoundingClientRect().bottom;
+
+            if (posY > wb) {
+                //console.log("수정후 내려감");
+                if (WOB) {    // 워크스페이스 조회
+                    scrollSelect = false;
+                    getWorkSpace();
+                } else {  // 게시물 조회
+                    scrollSelect = false;
+                    getBoard();
+                }
+
+            }
+        }
+
+
+    });
+</script>
+<script>
+    // 모달 js
+    // Modal을 가져옵니다.
+    let modals = document.getElementsByClassName("fishModal");
+    // Modal을 띄우는 클래스 이름을 가져옵니다.
+    let btns = document.getElementsByClassName("bbtns");
+    // Modal을 닫는 close 클래스를 가져옵니다.
+    let spanes = document.getElementsByClassName("fishClose");
+    let funcs = [];
+
+    // Modal을 띄우고 닫는 클릭 이벤트를 정의한 함수
+    function fishModal(num) {
+        return function () {
+            // 해당 클래스의 내용을 클릭하면 Modal을 띄웁니다.
+            btns[num].onclick = function () {
+                modals[num].style.display = "block";
+                //console.log(num);
+                document.body.style = `overflow: hidden`;
+                ferpage = 1;
+                ferendPage = 0;
+                if (num == 2) {
+                    $('#innerFollower').html("");
+                    getFollower();
+                } else if (num == 3) {
+                    $('#innerFollowing').html("");
+                    getFollowing();
+                }
+            };
+
+            // <span> 태그(X 버튼)를 클릭하면 Modal이 닫습니다.
+            spanes[num].onclick = function () {
+                modals[num].style.display = "none";
+                document.body.style = `overflow: auto`;
+            };
+        };
+    }
+
+    // 원하는 Modal 수만큼 Modal 함수를 호출해서 funcs 함수에 정의합니다.
+    for (let i = 0; i < btns.length; i++) {
+        funcs[i] = fishModal(i);
+    }
+
+    // 원하는 Modal 수만큼 funcs 함수를 호출합니다.
+    for (let j = 0; j < btns.length; j++) {
+        funcs[j]();
+    }
+
+    // Modal 영역 밖을 클릭하면 Modal을 닫습니다.
+    window.onclick = function (event) {
+        if (event.target.className == "fishModal") {
+            event.target.style.display = "none";
+            document.body.style = `overflow: auto`;
+        }
+    };
+</script>
+</html>

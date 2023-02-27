@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="FISH">
+    <meta name="date" content="2022-12-27">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon">
+
+    <title>회원목록</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="css/main/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="css/main/icomoon.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="css/main/bootstrap.css">
+    <!-- Flexslider  -->
+    <link rel="stylesheet" href="css/main/flexslider.css">
+    <!-- Flaticons  -->
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="css/main/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/main/owl.theme.default.min.css">
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="css/main/style.css">
+
+    <link rel="stylesheet" href="css/header.css">
+
+    <link rel="stylesheet" href="css/font.css">
+
+
+
+    <!-- script
+    ================================================== -->
+    <script src="js/modernizr.js"></script>
+
+    <!-- Modernizr JS -->
+    <script src="js/modernizr-2.6.2.min.js"></script>
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="css/ReportList.css">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200&display=swap" rel="stylesheet" />
+
+
+    <!--모달 css-->
+    <style>
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: hidden; /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0); /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%; /* Could be more or less, depending on screen size */
+            text-align: center;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+
+    <style>
+        .fishDiv {
+            width: 90%;
+            border: 1px solid black;
+            text-align: center;
+            height: auto;
+            padding: 10px;
+            margin-left: 4%;
+        }
+
+        .fishDiv2 {
+            border: 1px solid black;
+            width: 80%;
+            height: 200px;
+            margin: auto;
+            overflow: scroll;
+            text-align: center;
+        }
+
+        .fishTable {
+            margin: auto;
+        }
+
+        th{
+            text-align: center; !important;
+        }
+
+    </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <style>
+        h1, h2, h3, h4, h5, h6, span, p, a, label, input, textarea, button {
+            font-family: 'Gowun Dodum', sans-serif !important;
+            font-size: large !important;
+            letter-spacing: 0rem; !important;
+        }
+    </style>
+
+    <script src="https://kit.fontawesome.com/8591377d67.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://kit.fontawesome.com/8591377d67.css" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/modal.css">
+
+
+</head>
+<style th:replace="mouse.html :: style"></style>
+<body>
+
+<div id="colorlib-page">
+    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+
+    <header th:replace="sider.html :: header"></header>
+
+    <div id="colorlib-main" class="animate-box" data-animate-effect="fadeInLeft">
+
+<section class="notice">
+    <div class="page-title">
+        <div class="container">
+<h1 style="text-align: center;">회원 목록</h1>
+    </div>
+    </div>
+
+<div class="fishDiv">
+    <!--한페이지에 가져올 갯수-->
+    <select onchange="changeLimit(this.value)">
+        <option value="5">회원 목록 개수</option>
+        <option value="5">5개씩</option>
+        <option value="10">10개씩</option>
+        <option value="20">20개씩</option>
+    </select>
+
+    <!--분류에 따라서 가져오기-->
+    <select onchange="changeDevide(this.value)">
+        <option value="all">전체</option>
+        <option value="인증">인증</option>
+        <option value="미인증">미인증</option>
+        <option value="블랙">블랙</option>
+        <option value="휴면">휴면</option>
+        <option value="1차경고">1차경고</option>
+        <option value="2차경고">2차경고</option>
+    </select>
+
+
+    <!--닉네임 or Id-->
+    <select onchange="chageCategory(this.value)">
+        <option value="MEMID">아이디</option>
+        <option value="MEMNAME">닉네임</option>
+    </select>
+
+
+    <br/>
+
+    <!--검색-->
+    <div id="board-search">
+    <div class="container">
+    <div class="search-window">
+        <div class="search-wrap">
+    <input type="text" id="searchName" onkeyup="chageSearch(this.value)" placeholder="검색"/>
+    </div>
+    </div>
+    </div>
+    </div>
+
+<!--    <div class="fishDiv2">-->
+        <div class="container" data-animate-effect="fadeInLeft" style="margin-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    width: 1450px;">
+        <table id="MemList" class="board-table">
+
+        </table>
+
+    </div>
+    <!--페이지-->
+    <div className="row">
+        <div class="col-md-12 animate-box" data-animate-effect="fadeInLeft" style="opacity: inherit; margin-top: 50px; margin-bottom: 50px;">
+            <ul class="pagination" id="pageNum">
+
+            </ul>
+        </div>
+    </div>
+
+</div>
+</section>
+</div>
+</div>
+<!--모달창-->
+<div id="modalList"></div>
+
+<!-- jQuery -->
+<script src="js/jquery.min.js"></script>
+<!-- jQuery Easing -->
+<script src="js/jquery.easing.1.3.js"></script>
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Waypoints -->
+<script src="js/jquery.waypoints.min.js"></script>
+<!-- Flexslider -->
+<script src="js/jquery.flexslider-min.js"></script>
+<!-- Sticky Kit -->
+<script src="js/sticky-kit.min.js"></script>
+<!-- Owl carousel -->
+<script src="js/owl.carousel.min.js"></script>
+<!-- Counters -->
+<script src="js/jquery.countTo.js"></script>
+
+
+<!-- MAIN JS -->
+<script src="js/main.js"></script>
+</body>
+
+<script src="js/modal.js"></script>
+
+
+<script>
+    // 조회 및 페이징
+    let page = 1;
+    let limit = 5;
+    let search = "";            // 검색
+    let devide = "all";         // 회원 상태로 분류
+    let category = "MEMID";     // 아이디, 닉네임
+
+    // 모달
+    let modals;
+    let btns;
+    let spanes;
+    let funcs;
+
+    // 처음 페이지 로딩시 한번은 값을 가져올것
+    getList();
+
+    // 게시글 목록 불러오는 함수
+    function getList() {
+        $.ajax({
+            type: "POST",
+            url: "MemberList",
+            data: {
+                "page": page,
+                "limit": limit,
+                "search": search,
+                "devide": devide,
+                "category": category
+            },
+            async: false,
+            dataType: "json",
+            success: function (result) {
+                console.log(result);
+                console.log(result[1]);
+                inner(result[0], result[1]);
+            },
+            error: function () {
+                alert("통신실패")
+            }
+
+        });
+    }
+
+    // inner HTML 함수
+    function inner(paging, result) {
+        // 변경점
+        let output = "";
+        let modalOutput = "";
+
+        output += "<tr><th style='text-align: center;'>아이디</th><th style='text-align: center;'>닉네임</th><th style='text-align: center'>회원상태</th><th style='text-align: center'>경고</th><th style='text-align: center'>유저->직원</th></tr>";
+
+
+
+        // 항목 보여주기
+        for (let i in result) {
+            output += "<tr>";
+            output += "<td>" + result[i].memId + "</td>";
+            output += "<td><a href='#' class=\"bbtns\">" + result[i].memName + "</a></td>";
+            output += "<td>" + result[i].memState + "</td>";
+            output += "<td>" + "<button onclick='warning(" + result[i].memCode + ")' class='fill'>경고</button>" + "</td>";
+            output += "<td>" + "<button class='fill' onclick='check(" + result[i].memCode + ")'>변경</button>" + "</td>";
+            output += "</tr>";
+
+            // 수정좀
+            modalOutput += "<div class=\"modal animate-box\" data-animate-effect=\"fadeInLeft\">";
+            modalOutput += "<div class=\"modal-content\" style=\"\n" +
+                "    margin-left: 600px;\">";
+            modalOutput += "<span class=\"close\">&times;</span>";
+            modalOutput += "<br/><div class=\"image_inner_container\" style=\"\n" +
+                "    width: 110px; height: 110px; margin-left: 410px;\">\n" +
+
+                "                                <img class=\"profile\" src=\"fish/img/memProfileImg/" + result[i].memProfileName + "\" ></div>  <br/>";
+            modalOutput += "<table style=\"width: 111%;\">";
+            modalOutput += "<tr>";
+            modalOutput += "<td><b> 아이디</b> </td><td> " + result[i].memId + "</td>";
+            modalOutput += "</tr>";
+            modalOutput += "<tr>";
+            modalOutput += "<td><b> 회원상태</b> </td><td> " + result[i].memState + "</td>";
+            modalOutput += "</tr>";
+            modalOutput += "<tr>";
+            modalOutput += "<td> <b>회원생일</b> </td><td> " + result[i].memBirth + "</td>";
+            modalOutput += "</tr>";
+            modalOutput += "<tr>";
+            modalOutput += "<td> <b>회원등급 </b></td><td> " + result[i].memGrade + "</td>";
+            modalOutput += "</tr>";
+            modalOutput += "<tr>";
+            modalOutput += "<td> <b>회원멤버쉽</b> </td><td> " + result[i].memPayGrade + "</td>";
+            modalOutput += "</tr>";
+            modalOutput += "<tr>";
+            modalOutput += "<td> <b>회원연락처</b> </td><td> " + result[i].memPhone + "</td>";
+            modalOutput += "</tr>";
+            modalOutput += "<tr>";
+            modalOutput += "<td> <b>회원주소 </b></td><td> " + result[i].memAddr + "</td></tr></table>";
+            modalOutput += "</div>";
+            modalOutput += "</div>";
+        }
+
+        // html에 넣기
+        $('#MemList').html(output);
+        $('#modalList').html(modalOutput);
+
+        //하단에 페이지 처리
+        output = "";
+        //console.log(paging.page);
+
+        if (page <= 1) {
+            output += "<li><a>&laquo;</a></li>"
+        } else {
+            output += "<li><a href= 'javascript:void(0);' onclick=\"changePage(" + (page - 1) + ");\">&laquo;</a></li>";
+        }
+
+        for (let i = paging.startpage; i <= paging.endpage; i++) {
+            if (i == page) {
+                output += "<li class=\"active\"><a style=\"z-index= : 1;\" href='javascript:void(0);' onclick=\"changePage(" + i + ");\">" + i + "</a></li>";
+            } else {
+                output += "<li><a href= 'javascript:void(0);' onclick=\"changePage(" + i + ");\">" + i + "</a></li>";
+            }
+        }
+        if (page < paging.maxpage) {
+            output += "<li><a href= 'javascript:void(0);' onclick=\"changePage(" + (page + 1) + ");\">&raquo;</a></li>";
+        } else {
+            output += "<li><a>&raquo;</a></li>";
+        }
+
+        $('#pageNum').html(output);
+
+        // 모달 창 js
+        // Modal을 가져옵니다.
+        modals = document.getElementsByClassName("modal");
+        // Modal을 띄우는 클래스 이름을 가져옵니다.
+        btns = document.getElementsByClassName("bbtns");
+        // Modal을 닫는 close 클래스를 가져옵니다.
+        spanes = document.getElementsByClassName("close");
+        funcs = [];
+
+        // 원하는 Modal 수만큼 Modal 함수를 호출해서 funcs 함수에 정의합니다.
+        for (let i = 0; i < btns.length; i++) {
+            funcs[i] = Modal(i);
+        }
+
+        // 원하는 Modal 수만큼 funcs 함수를 호출합니다.
+        for (let j = 0; j < btns.length; j++) {
+            funcs[j]();
+        }
+    }
+
+    // 페이지 변경
+    function changePage(i) {
+        page = i;
+        getList();
+    }
+
+    // 페이징 리미트 변경
+    function changeLimit(i) {
+        limit = i;
+        page = 1;
+        getList();
+    }
+
+    // 직원으로 변경
+    function check(i) {
+        console.log("체크함")
+        // 직원으로 변경함수 넣기
+        //console.log(i);
+        page = 1;
+        working(i);
+    }
+
+    // 인증,미인증 등 상태별로 불러오기
+    function changeDevide(name) {
+        devide = name;
+        page = 1;
+        getList();
+    }
+
+    // 검색
+    function chageSearch(input) {
+        search = input;
+        page = 1;
+        getList();
+    }
+
+    // 카테고리 변경
+    function chageCategory(name) {
+        category = name;
+        page = 1;
+        getList();
+    }
+
+    // 경고
+    function warning(memCode) {
+        page = 1;
+        warningStack(memCode);
+    }
+
+    // 모달 js
+    // Modal을 띄우고 닫는 클릭 이벤트를 정의한 함수
+    function Modal(num) {
+        return function () {
+            // 해당 클래스의 내용을 클릭하면 Modal을 띄웁니다.
+            btns[num].onclick = function () {
+                modals[num].style.display = "block";
+                console.log(num);
+            };
+
+            // <span> 태그(X 버튼)를 클릭하면 Modal이 닫습니다.
+            spanes[num].onclick = function () {
+                modals[num].style.display = "none";
+            };
+
+        };
+    }
+
+
+    // Modal 영역 밖을 클릭하면 Modal을 닫습니다.
+    window.onclick = function (event) {
+        if (event.target.className == "modal") {
+            event.target.style.display = "none";
+        }
+    };
+
+    // 직원으로 변경
+    function working(memCode) {
+        //console.log(memCode);
+        $.ajax({
+            type: "POST",
+            url: "MemberState",
+            data: {
+                "memCode": memCode,
+            },
+            async: false,
+            dataType: "text",
+            success: function (result) {
+
+                getList();
+            },
+            error: function () {
+                alert("통신실패")
+            }
+
+        });
+    }
+
+    // 경고, 회원상태 변경
+    function warningStack(memCode) {
+        //console.log(memCode);
+        $.ajax({
+            type: "POST",
+            url: "MemberWarning",
+            data: {
+                "memCode": memCode,
+            },
+            async: false,
+            dataType: "text",
+            success: function (result) {
+                alert(result);
+                console.log(result);
+                getList();
+            },
+            error: function () {
+                alert("통신실패")
+            }
+
+        });
+    }
+
+</script>
+</html>

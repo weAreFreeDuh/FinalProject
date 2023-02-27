@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="siwon">
+    <meta name="date" content="2023.01.27">
+    <meta name="description" content="게시물 리스트">
+    <title></title>
+
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="css/main/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="css/main/icomoon.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="css/main/bootstrap.css">
+    <!-- Flexslider  -->
+    <link rel="stylesheet" href="css/main/flexslider.css">
+    <!-- Flaticons  -->
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="css/main/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/main/owl.theme.default.min.css">
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="css/main/style.css">
+
+    <link rel="stylesheet" href="css/header.css">
+
+    <link rel="stylesheet" href="css/category.css">
+    <link rel="stylesheet" href="css/selection.css">
+
+    <!-- script
+        ================================================== -->
+    <script src="js/modernizr.js"></script>
+
+    <!-- Modernizr JS -->
+    <script src="js/modernizr-2.6.2.min.js"></script>
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <style>
+        h1, h2, h3, h4, h5, h6, span, p, a, label, input, textarea, button {
+            font-family: 'Gowun Dodum', sans-serif !important;
+            font-size: large !important;
+            letter-spacing: 0rem; !important;
+        }
+    </style>
+
+    <script src="https://kit.fontawesome.com/8591377d67.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://kit.fontawesome.com/8591377d67.css" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/modal.css">
+
+</head>
+<style th:replace="mouse.html :: style"></style>
+
+<body>
+
+<div id="colorlib-page">
+    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+
+    <header th:replace="sider.html :: header"></header>
+
+    <div id="colorlib-main">
+
+        <div class="colorlib-blog">
+            <div class="colorlib-narrow-content">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
+                        <h2 class="colorlib-heading">Read Blog</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
+                        <div class="container">
+                            <div id="get-in-touch" class="colorlib-bg-color" style="background-color: #FFFFFF">
+                                <p><a href="Dra_Write" style="border: 2px solid #FFC300" class="btn btn-primary btn-learn">게시글 생성</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" id="category" th:value="${paging.category}">
+                <div class="row row-bottom-padded-md">
+                    <div th:each="blist: ${blist}">
+                        <div class="col-md-4 animate-box" data-animate-effect="fadeInLeft">
+                            <a th:attr="onclick=|checkLiterature('${blist.boaCode}','${blist.category}')|" ><div class="project">
+                                <img th:href="@{DRA004(boaCode = ${blist.boaCode})}"
+                                     th:src="@{PSW/bestimg/{img1}(img1=${blist.boaBestImg})}"
+                                     style="width: 100%;height: 100%">
+                                <div class="desc">
+                                    <div class="con">
+                                        <h3 style="color: #FFFFFF" th:text="${blist.boaTitle}"></h3>
+                                        <span th:text="${blist.memName}"></span>
+                                        <span th:text="${blist.category}"></span>
+                                        <p class="icon">
+                                            <span><i class="icon-eye">[[${blist.boaHit}]]</i></span>
+                                            <span><i class="icon-heart">[[${blist.likeNum}]]</i></span>
+                                            <span><i class="icon-reply2">[[${blist.comentNum}]]</i></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div></a>
+                        </div>
+                    </div>
+                </div>
+
+                <label class="select">
+                <select id="order" onchange="orderby(this.value)">
+                    <option disabled="disabled" selected="selected">정렬</option>
+                    <option value="workCode">최신순</option>
+                    <option value="likeNum">좋아요 순</option>
+                    <option value="HitNum">조회수 순</option>
+                </select>
+                    <svg>
+                        <use xlink:href="#select-arrow-down"></use>
+                    </svg>
+                </label>
+
+                <input type="hidden" id="cateCode" th:value="${paging.cateCode}">
+
+                <div class="row">
+                    <div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
+                        <ul class="pagination">
+                            <li th:if="${paging.page <= 1}"><a>&laquo;</a></li>
+                <li th:if="${paging.page > 1}">
+                    <a th:href="@{DRA008(page=${paging.page -1} , limit=${paging.limit},category=${paging.category},cateCode=${paging.cateCode},orderby=${paging.orderby})}">&laquo;</a>
+                </li>
+                &nbsp;
+                <!-- [페이지 번호] 페이지에 대한 처리 -->
+                <li th:each="i : ${#numbers.sequence(paging.startpage, paging.endpage)}" style="background-color: #FFC300">
+                    <a th:href="@{DRA008(page=${i} , limit=${paging.limit} ,category=${paging.category},cateCode=${paging.cateCode},orderby=${paging.orderby})}">
+                        <span th:if="${paging.page == i}">
+                                                    [[${i}]]
+                                                </span>
+                    <span th:unless="${paging.page == i}">
+                                                  [[${i}]]
+                                                </span></a>
+                </li>
+                <!-- [다음] 페이지에 대한 처리 -->
+                &nbsp;
+                <li th:if="${paging.page >= paging.maxpage}"><a>&raquo;</a></li>
+                <li th:if="${paging.page < paging.maxpage}">
+                    <a th:href="@{DRA008(page=${paging.page +1}, limit=${paging.limit},category=${paging.category},cateCode=${paging.cateCode},orderby=${paging.orderby})}">&raquo;</a>
+                </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<block th:if="${session.login ne null}">
+    <input type="hidden" id="loginId" th:value="${session.login.memCode}">
+</block>
+</body>
+
+<!-- jQuery -->
+<script src="js/jquery.min.js"></script>
+<!-- jQuery Easing -->
+<!--<script src="js/jquery.easing.1.3.js"></script>-->
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Waypoints -->
+<script src="js/jquery.waypoints.min.js"></script>
+<!-- Flexslider -->
+<script src="js/jquery.flexslider-min.js"></script>
+<!-- Sticky Kit -->
+<script src="js/sticky-kit.min.js"></script>
+<!-- Owl carousel -->
+<script src="js/owl.carousel.min.js"></script>
+<!-- Counters -->
+<script src="js/jquery.countTo.js"></script>
+
+<!-- MAIN JS -->
+<script src="js/main.js"></script>
+
+<!--DDAN 서브카테고리 가져오기-->
+<!--<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="-->
+<!--        crossorigin="anonymous"></script>-->
+
+<script>
+    /*서브 카테고리 가져와 열기*/
+    let category = $('#category').val();
+    let cateCode = $('#cateCode').val();
+    $.ajax({
+        type: 'post',
+        url: 'category',
+        data: {
+            "cate": category
+        },
+        dataType: "json",
+        success:
+            function (subCategoryList) {
+                console.log("연결");
+                /*선택 리스트 출력*/
+                musicSubCategory(subCategoryList);
+            },
+        error: function () {
+            alert('category 연결 실패')
+        }
+    })
+
+    // function musicSubCategory(List) {
+    //     let output = ""
+    //     output += "  <a href=\"DRA008?category=" + category + "\" >전체</a>"
+    //     for (let i in List) {
+    //
+    //         output += "<a href=\"DRA008?cateCode=" + List[i].cateCode + "&category=" + category + "\">" + List[i].subCategory + "</a>"
+    //     }
+    //
+    //     $("#DDANsubCategory").html(output);
+    // }
+
+    function orderby(order) {
+        location.href = "DRA008?cateCode=" + cateCode + "&category=" + category + "&orderby=" + order;
+    }
+
+    // 문학 게시글 페이
+
+    let memCode = $('#loginId').val();
+
+    function checkLiterature(boaCode, category) {
+        console.log(boaCode);
+        console.log(category);
+        console.log(memCode);
+
+        if (category == "문학") {
+            $.ajax({
+                type: 'post',
+                url: 'ajaxPayAndCheck',
+                data: {
+                    "boaCode": boaCode,
+                    "memCode": memCode
+                },
+                dataType: "text",
+                success:
+                    function (result) {
+                        if (result != null) {
+                            // result 0이면 꽁자, 가격이 나오면 이면 이미 결제해야함
+                            // 사용할 수 있는 아이디
+                            console.log("result!=null")
+                            console.log("가격은?" + result);
+                            if (result == 0) {
+                                checkLoginNow();
+                            } else if (result == 1) {
+                                location.href = "DRA004?boaCode=" + boaCode;
+                            } else {
+                                checkIdAndPay(result);
+                            }
+                        } else {
+                            // 사용할 수 없는 아이디
+                            console.log("result==null")
+                        }
+                    },
+                error: function () {
+                    alert('ajaxPayAndCheck 실패');
+                }
+            })
+        } else {
+            location.href = "DRA004?boaCode=" + boaCode;
+        }
+
+        function asd() {
+            console.log("이게 되나 시발???" + boaCode);
+        }
+
+        function checkIdAndPay(price) {
+            if (!confirm("이 게시글의 가격은 " + price + "입니다 읽으시겠습니까?.")) {
+                /*비동의*/
+                alert("취소(아니오)를 누르셨습니다.");
+            } else {
+                /*동의*/
+                checkLoginNow();
+            }
+        }
+
+        function checkLoginNow() {
+            console.log("checkLoginNow")
+
+            console.log(memCode);
+            if (memCode == null) {
+                console.log('아이디 없음');
+                if (!confirm("결제 진행을 위해 로그인 하셔야 합니다 로그인하시겠습니까?")) {
+                    /*비동의*/
+                    alert("취소되었습니다.");
+                } else {
+                    /*동의*/
+                    location.href = 'join'
+                }
+            } else {/*결제 진행*/
+                console.log('아이디 있음');
+                /*결제 진행  ajax*/
+                $.ajax({
+                    type: 'post',
+                    url: 'ajaxLitPay',
+                    data: {
+                        "boaCode": boaCode,
+                        "memCode": memCode
+                    },
+                    dataType: "text",
+                    success:
+                        function (result) {
+                            if (result == 1) {
+                                /*적절히 성공할시 */
+                                console.log('결제성공');
+                                location.href = "DRA004?boaCode=" + boaCode;
+                            } else {
+                                /*돈이 없거나 */
+                                /*등등*/
+                                alert('포인트가 부족합니다');
+                                location.href = 'Pay_PayMembership';
+                                console.log('결제실패')
+                            }
+                        },
+                    error: function () {
+                        alert('ajaxLitPay 실패');
+                    }
+                })
+            }
+        }
+
+    }
+
+</script>
+
+</html>
+
